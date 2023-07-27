@@ -1,0 +1,109 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@700;800&display=swap");
+
+.card {
+  font-family: "Nunito", sans-serif !important; /* Aplica la fuente personalizada */
+  margin: 100px 0px 0px -120px;
+  width: 1400px; /* Establece el ancho de la tarjeta */
+  height: 720px; /* Establece la altura de la tarjeta */
+  border-radius: 10px;
+  border-width: 2px;
+  border-color: #2a2f4f;
+  box-shadow: 5px 5px 5px #2a2f4f !important;
+}
+
+.elemento-card {
+  margin: 15px;
+}
+
+.inputClave {
+  width: 200px;
+  background-color: #bdb2d1; /* Color de fondo */
+  color: #2a2f4f;
+}
+
+.contenedorSelects {
+  margin: 0px 15px 0px 15px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  place-items: center;
+  background-color: #bdb2d1; /* Color de fondo */
+  border-radius: 10px;
+}
+
+select {
+  background-color: #aaa0bc; /* Color de fondo */
+  color: #2a2f4f;
+}
+
+.contenedorInputs {
+  margin: 50px 30px 0px 30px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-column-gap: 200px;
+  border-radius: 10px;
+  border-width: 2px;
+  border-color: #2a2f4f;
+}
+
+.contenedorInputs .elemento-card {
+  margin-left: -2px;
+}
+
+.contenedorInputs .elemento-card input {
+  float: right;
+  width: 350px;
+  border-color: #aaa0bc;
+  background-color: #fde2f3;
+  border-radius: 5px;
+  border-width: 2px;
+  height: 30px;
+  padding: 10px;
+}
+
+.contenedorInputs .elemento-card label {
+  float: left;
+}
+
+/*botones actualizar y cancelar*/
+.boton-actualizar {
+  width: 200px;
+  float: left;
+  color: white !important;
+  margin-right: 10px;
+  border-top-left-radius: 20px !important;
+  border-bottom-left-radius: 20px !important;
+  border-top-right-radius: 20px !important;
+  border-bottom-right-radius: 20px !important;
+  background-color: #e5beec !important;
+  border: none !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
+}
+
+.boton-actualizar:hover {
+  background-image: linear-gradient(to top, #9ea1d4, #c4c6e5);
+  /* Resto de estilos adicionales para el estado hover... */
+}
+
+.boton-cancelar {
+  width: 100px;
+  float: right;
+  color: white !important;
+  border-top-left-radius: 20px !important;
+  border-bottom-left-radius: 20px !important;
+  border-top-right-radius: 20px !important;
+  border-bottom-right-radius: 20px !important;
+  background-color: #917fb3 !important;
+  border: none !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
+}
+
+.boton-cancelar:hover {
+  background-image: linear-gradient(to top, #fd8a8a, #eeb0b0);
+  /* Resto de estilos adicionales para el estado hover... */
+}
+
+.grupoBotones {
+  display: flex;
+  grid-column-gap: 200px;
+  margin: 50px 70px 0px 70px !important;
+}

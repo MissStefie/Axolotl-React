@@ -1,0 +1,178 @@
+@import "./colores.css";
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@700;800&display=swap");
+
+.nav-container {
+  font-family: "Nunito", sans-serif !important; /* Aplica la fuente personalizada */
+  margin-left: -277px; /* Elimina el margen izquierdo negativo */
+  display: flex; /* Aplica un layout de flexbox */
+  justify-content: space-between;
+}
+
+.nav_menu_bg {
+  background-color: var(--lila_oscuro);
+  position: fixed;
+  width: 100%;
+  top: 0;
+  height: 70px;
+  border-bottom-left-radius: 80px;
+  display: flex;
+  align-items: center;
+}
+
+.titulo {
+  color: var(--rosa_claro) !important; /* Color inicial de las letras */
+  font-family: "Nunito", sans-serif !important; /* Aplica la fuente personalizada */
+  transition: color 0.3s; /* Agrega una transición suave de 0.3 segundos para el cambio de color */
+}
+
+.iconoCajitas {
+  margin-left: 10px;
+  font-size: 30px;
+}
+
+.consulta-container {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin: auto; /* Agrega el margin: auto para centrar horizontalmente */
+}
+
+.consulta-container h1 {
+  margin-left: 10px !important; /* Ajusta el margen izquierdo según tus necesidades */
+}
+
+.nav-pills {
+  flex-grow: 1; /* Hace que el elemento ocupe el espacio restante */
+  display: flex; /* Aplica un layout de flexbox */
+  justify-content: center; /* Alinea los elementos al final del contenedor */
+  align-items: center;
+}
+
+.nav-pills > li {
+  flex-grow: 1; /* Distribuye el espacio disponible entre los elementos */
+  text-align: center; /* Alinea el texto al centro */
+}
+
+.dropdown_menu {
+  display: flex;
+  align-items: center;
+  margin: -5px 0px 0px -100px;
+  height: 100%;
+}
+
+.dropdown_button {
+  background-color: var(--lila_oscuro) !important;
+  color: var(--violeta) !important;
+  border: none;
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.dropdown_button:hover {
+  color: var(--blanco) !important;
+  background-image: linear-gradient(
+    to right,
+    var(--lila_oscuro),
+    var(--violeta)
+  );
+}
+
+.ver_informes_boton {
+  margin-top: -5px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  background-color: var(
+    --lila_oscuro
+  ) !important; /* Color de fondo del botón */
+  color: var(--violeta) !important; /* Color del texto del botón */
+  padding: 10px 20px; /* Espaciado interno del botón */
+  border: none; /* Quita el borde del botón */
+  border-radius: 5px; /* Agrega bordes redondeados al botón */
+  text-decoration: none; /* Quita la decoración de texto del botón */
+  transition: background-color 0.3s; /* Agrega una transición suave de 0.3 segundos al color de fondo */
+}
+
+.ver_informes_boton:hover {
+  color: var(--blanco) !important;
+  background-image: linear-gradient(
+    to right,
+    var(--lila_oscuro),
+    var(--violeta)
+  );
+}
+
+.dropdown_button,
+.ver_informes_boton {
+  border-top-left-radius: 0; /* Borde redondeado superior izquierdo */
+  border-bottom-left-radius: 0; /* Borde redondeado inferior izquierdo */
+}
+
+.dropdown_items_fondo {
+  width: 100%;
+  text-align: center;
+  background-color: var(--violeta);
+}
+
+.dropdown_items_fondo:hover {
+  background-color: var(--rosa_claro);
+}
+
+.iconoVerInforme {
+  margin-left: 10px;
+}
+
+.ver_informes_boton:hover .iconoVerInforme {
+  color: var(
+    --blanco
+  ) !important; /* Cambia el color a azul cuando se activa el hover */
+}
+
+.iconoAdmUsuario {
+  margin-left: 10px;
+}
+
+.dropdown_button:hover .iconoAdmUsuario {
+  color: var(
+    --blanco
+  ) !important; /* Cambia el color a azul cuando se activa el hover */
+}
+
+.salir-container {
+  display: flex;
+  align-items: center; /* Centra verticalmente los elementos */
+}
+
+.iconoSalir {
+  font-size: 30px;
+  transition: color 0.3s; /* Agrega una transición suave de 0.3 segundos para el cambio de color */
+  margin-right: -1100px !important;
+}
+
+.iconoSalir:hover {
+  color: var(--rosa_claro) !important; /* Cambia el color al pasar el mouse sobre el icono */
+}
+
+.menu {
+  color: var(--violeta) !important; /* Color inicial de las letras */
+  font-family: "Nunito", sans-serif !important; /* Aplica la fuente personalizada */
+  transition: color 0.3s; /* Agrega una transición suave de 0.3 segundos para el cambio de color */
+  text-decoration: none;
+}
+
+.menu:hover {
+  color: var(--rosa_claro) !important;
+}
+
+.logo-image {
+  margin: 0px 10px 0px 10px;
+  width: 75px; /* Ajusta el tamaño deseado */
+  height: 75px; /* Ajusta el tamaño deseado */
+  border-radius: 50%; /* Aplica forma redonda */
+}
+
+.logo-container {
+  display: flex;
+  align-items: center; /* Centra verticalmente los elementos */
+}

@@ -1,0 +1,73 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@700;800&display=swap");
+
+
+.nav_editar_bg {
+  margin-left: -301px;
+  background-color: #2a2f4f;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  height: 70px;
+  border-bottom-left-radius: 80px;
+}
+
+.titulo {
+  color: #e5beec !important; /* Color inicial de las letras */
+  font-family: "Nunito", sans-serif !important; /* Aplica la fuente personalizada */
+  transition: color 0.3s; /* Agrega una transición suave de 0.3 segundos para el cambio de color */
+}
+
+.iconoCajitas {
+  margin-left: 10px;
+  font-size: 30px;
+}
+
+.consulta-container {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin: auto; /* Agrega el margin: auto para centrar horizontalmente */
+}
+
+.consulta-container h1 {
+  margin-left: 10px !important; /* Ajusta el margen izquierdo según tus necesidades */
+}
+
+.salir-container {
+  display: flex;
+  align-items: center; /* Centra verticalmente los elementos */
+  margin-left: 80px;
+}
+
+.iconoSalirCP {
+  font-size: 30px;
+  margin-right: -15px;
+  transition: color 0.3s; /* Agrega una transición suave de 0.3 segundos para el cambio de color */
+}
+
+.iconoSalirCP:hover {
+  color: #efd8f3 !important; /* Cambia el color al pasar el mouse sobre el icono */
+}
+
+.menu {
+  color: #e5beec !important; /* Color inicial de las letras */
+  font-family: "Nunito", sans-serif !important; /* Aplica la fuente personalizada */
+  transition: color 0.3s; /* Agrega una transición suave de 0.3 segundos para el cambio de color */
+  text-decoration: none;
+}
+
+.menu:hover {
+  color: #efd8f3 !important;
+}
+
+.logo-image {
+  margin: 0px 10px 0px 10px;
+  width: 75px; /* Ajusta el tamaño deseado */
+  height: 75px; /* Ajusta el tamaño deseado */
+  border-radius: 50%; /* Aplica forma redonda */
+}
+
+.logo-container {
+  display: flex;
+  align-items: center; /* Centra verticalmente los elementos */
+}

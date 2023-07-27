@@ -1,0 +1,179 @@
+@import "./colores.css";
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@700;800&display=swap");
+
+.contenidoCargarStockTam {
+  font-family: "Nunito", sans-serif !important;
+  flex-direction: center;
+  margin-top: 150px;
+  margin-right: 500px !important;
+}
+
+.agregarColorTam {
+  margin-bottom: 20px;
+  color: white;
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  background-color: #e5beec;
+  border: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
+}
+
+.agregarColorTam:hover {
+  background-image: linear-gradient(to top, var(--lila_azulado), var(--lila_azulado_claro));
+}
+
+.cargarStockTamElegirColorSelect1 {
+  background-color: var(--blanco);
+}
+
+.cargarStockTamLabel {
+  margin-right: 10px;
+}
+.cargarStockTamInput {
+  color: var(--lila_claro);
+  text-align: center;
+}
+
+.divAgregarColores {
+  background-color: var(--blanco);
+  border: 2px solid var(--lila_oscuro);
+  border-radius: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 200px;
+}
+
+.divAgregarColores > div {
+  margin: 20px 0px 20px 0px;
+}
+
+.tablaCargarStockTam {
+  align-items: center;
+  height: 100%;
+  text-align: center;
+  margin: 0 auto;
+  width: 500px;
+}
+
+.theadCargarStockTam th {
+  background-color: var(--lila_oscuro);
+  color: var(--blanco);
+}
+
+.theadCargarStockTam th:last-child {
+  border-top-right-radius: 10px; /* Borde redondeado superior derecho */
+}
+
+.tablaCargarStockTam tbody tr:nth-child(even) {
+  background-color: var(--lila_claro);
+}
+
+.tablaCargarStockTam tbody tr:nth-child(odd) {
+  background-color: var(--violeta);
+}
+
+.tablaCargarStockTam tbody tr:hover {
+  background-color: var(--rosita);
+}
+
+.tablaCargarStockTamContainer {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  max-height: 400px; /* Altura máxima del contenedor */
+  overflow: auto;
+}
+
+/* Estilos para la barra de desplazamiento */
+.tablaCargarStockTamContainer::-webkit-scrollbar {
+  width: 8px; /* Ancho de la barra de desplazamiento */
+}
+
+.tablaCargarStockTamContainer::-webkit-scrollbar-thumb {
+  background-color: var(
+    --violeta
+  ); /* Color del pulgar de la barra de desplazamiento */
+  border-radius: 4px; /* Borde redondeado del pulgar */
+}
+
+.tablaCargarStockTamContainer::-webkit-scrollbar-track {
+  background-color: var(
+    --blanco
+  ); /* Color de fondo de la barra de desplazamiento */
+}
+
+.cargarStockTamAtrasDiv {
+  float: left !important;
+}
+
+.cargarStockTamBotones::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.cargarStockTamAtrasDiv {
+  float: left;
+}
+
+.cargarStockTamConCan {
+  float: right !important;
+  clear: right;
+}
+
+.cargarStockTamCon {
+  margin-right: 10px;
+  text-decoration: none;
+  border: none;
+  padding-right: 5px;
+  padding-left: 5px;
+  color: var(--blanco);
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  background-color: var(--violeta);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.cargarStockTamCon:hover {
+  background-image: linear-gradient(to top, var(--lila_azulado), var(--lila_azulado_claro));
+}
+
+.cargarStockTamCan {
+  text-decoration: none;
+  border: none;
+  padding-right: 5px;
+  padding-left: 5px;
+  color: var(--blanco);
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  background-color: var(--violeta);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.cargarStockTamCan:hover {
+  background-image: linear-gradient(to top, var(--lila_azulado), var(--lila_azulado_claro));
+}
+
+.cargarStockTamAtras {
+  text-decoration: none;
+  border: none;
+  padding-right: 5px;
+  padding-left: 5px;
+  color: var(--blanco);
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  background-color: var(--violeta);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.cargarStockTamAtras:hover {
+  background-image: linear-gradient(to top, var(--lila_azulado), var(--lila_azulado_claro));
+}

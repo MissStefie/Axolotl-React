@@ -1,0 +1,27 @@
+@import "./colores.css";
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@700;800&display=swap");
+
+body {
+  font-family: "Nunito", sans-serif !important; /* Aplica la fuente personalizada */
+}
+
+.contenidoBottomNav {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 70px;
+  background-color: var(--lila_oscuro);
+}
+
+.bottomContenido {
+  color: var(--lila_claro);
+  margin-left: 150px;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.iconoCR {
+  margin-left: 5px;
+}

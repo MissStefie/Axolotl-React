@@ -1,0 +1,34 @@
+@import "./colores.css";
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@700;800&display=swap");
+body {
+  background-image: url("../img/glowing_store_desktop.png");
+  background-size: cover !important;
+  background-repeat: no-repeat !important;
+  height: 100%;
+}
+
+.menu_principal_contenido {
+  font-family: "Nunito", sans-serif !important;
+  margin-top: 350px;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+
+.link_menu_principal {
+  background-color: var(--lila_oscuro);
+  color: var(--violeta);
+  width: 300px;
+  font-size: 30px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 1, 0.5) !important;
+}
+
+.link_menu_principal:hover {
+  background-color: var(--rosa_claro);
+}
+
+.link_menu_principal:hover .iconoMenuPrincipal {
+  color: var(--lila_oscuro) !important;
+}
