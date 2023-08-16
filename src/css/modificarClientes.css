@@ -1,0 +1,186 @@
+@import "./colores.css";
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@700;800&display=swap");
+
+.formModificarCliente {
+  width: 400px !important;
+}
+
+.containerModificarCliente {
+  font-family: "Nunito", sans-serif !important;
+  margin-top: 200px;
+  background-color: var(--blanco);
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 900px;
+  height: 600px;
+  flex-direction: column;
+  border-radius: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.containerModificarCliente > * {
+  margin-bottom: 10px;
+}
+
+.titleIconModificarCliente {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Agrega esta línea para centrar horizontalmente los elementos */
+  text-align: center;
+}
+
+.tituloModificarCliente {
+  color: var(--lila_oscuro) !important;
+}
+
+.iconoModificarCliente {
+  margin-top: 40px;
+  font-size: 100px;
+}
+
+.containerModificarCliente > * {
+  margin-bottom: 20px;
+}
+
+.divCamposModificarCliente {
+  display: flex;
+  justify-content: space-between;
+  text-align: left;
+}
+
+.divCamposModificarCliente label {
+  text-align: left;
+  padding-left: 10px;
+  margin-bottom: 10px;
+  color: var(--lila_oscuro);
+}
+
+.divCamposModificarCliente input {
+  margin-bottom: 10px; /* Espacio entre cada fila */
+}
+
+.inputModificarCliente {
+  color: var(--lila_claro);
+  width: 200px;
+}
+
+.inputModificarCliente::placeholder {
+  color: var(--violeta); /* Cambia el color a tu preferencia */
+}
+
+.labelModificarCliente {
+  margin-top: 10px;
+  margin-right: 20px;
+}
+
+.aceptarBtnModificarCliente {
+  text-decoration: none;
+  text-align: center;
+  width: 200px;
+  float: left;
+  color: var(--blanco) !important;
+  margin-right: 10px;
+  border-top-left-radius: 20px !important;
+  border-bottom-left-radius: 20px !important;
+  border-top-right-radius: 20px !important;
+  border-bottom-right-radius: 20px !important;
+  background-color: var(--violeta) !important;
+  border: none !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
+}
+
+.aceptarBtnModificarCliente:hover {
+  background-image: linear-gradient(
+    to top,
+    var(--lila_azulado),
+    var(--lila_azulado_claro)
+  );
+}
+
+.aceptarBtnEliminarCliente {
+  text-decoration: none;
+  text-align: center;
+  width: 200px;
+  float: left;
+  color: var(--blanco) !important;
+  margin-right: 10px;
+  border-top-left-radius: 20px !important;
+  border-bottom-left-radius: 20px !important;
+  border-top-right-radius: 20px !important;
+  border-bottom-right-radius: 20px !important;
+  background-color: var(--violeta) !important;
+  border: none !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
+}
+
+.aceptarBtnEliminarCliente:hover {
+  background-image: linear-gradient(
+    to top,
+    var(--lila_azulado),
+    var(--lila_azulado_claro)
+  );
+}
+
+.btnBuscarCliente {
+  text-decoration: none;
+  text-align: center;
+  width: 200px;
+  color: var(--blanco) !important;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  border-top-left-radius: 20px !important;
+  border-bottom-left-radius: 20px !important;
+  border-top-right-radius: 20px !important;
+  border-bottom-right-radius: 20px !important;
+  background-color: var(--violeta) !important;
+  border: none !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
+}
+
+.btnBuscarCliente:hover {
+  background-image: linear-gradient(
+    to top,
+    var(--lila_azulado),
+    var(--lila_azulado_claro)
+  );
+}
+
+.cancelarBtnModificarCliente {
+  text-decoration: none;
+  text-align: center;
+  width: 100px;
+  float: right;
+  color: var(--blanco) !important;
+  border-top-left-radius: 20px !important;
+  border-bottom-left-radius: 20px !important;
+  border-top-right-radius: 20px !important;
+  border-bottom-right-radius: 20px !important;
+  background-color: var(--lila_claro) !important;
+  border: none !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
+}
+
+.cancelarBtnModificarCliente:hover {
+  background-image: linear-gradient(to top, var(--rojo), var(--salmon));
+}
+
+.divBtnModificarCliente {
+  width: 700px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-left: 220px;
+}
+
+.divBtnModEliModificarCliente {
+  display: flex;
+}
+
+.mensajeNoEncontradoModificarCliente {
+  color: red;
+  justify-content: center;
+  margin-left: 100px;
+  margin-bottom: 10px;
+}

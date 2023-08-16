@@ -1,10 +1,11 @@
 import "./App.css";
 import ListarProducto from "./components/ListarProducto";
-import CargarStock1 from "./components/CargarStock1";
-import CargarStockTam from './components/CargarStockTam'
 import EditarProducto from "./components/EditarProducto";
 import Login from "./components/Login";
 import MenuPrincipal from "./components/MenuPrincipal";
+import CrearProducto from './components/CrearProducto';
+import RegistrarCliente from './components/RegistrarCliente';
+import ModificarCliente from './components/ModificarCliente'
 
 import { Route, BrowserRouter as Router, Link } from "react-router-dom";
 
@@ -21,9 +22,10 @@ function App() {
         <Route exact path="/menu_principal" component={MenuPrincipal}></Route>
         <Route exact path="/consultar" component={ListarProducto}></Route>
         {/*aca antes era solo / pero se cambio temporalmente*/}
-        <Route path="/crear" component={CargarStock1}></Route>
-        <Route path="/cargar_stock_tam" component={CargarStockTam}></Route>
+        <Route path="/crear" component={CrearProducto}></Route>
         <Route path="/editar/:id" component={EditarProducto}></Route>
+        <Route path="/registrar_cliente" component={RegistrarCliente}></Route>
+        <Route path="/modificar_cliente" component={ModificarCliente}></Route>
       </div>
     </Router>
   );

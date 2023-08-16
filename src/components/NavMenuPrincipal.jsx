@@ -32,7 +32,7 @@ export default class NavMenuPrincipal extends Component {
       <div className="nav-container">
         <ul className="nav nav-pills nav_menu_bg nav-tabs">
           <li className="logo-container">
-            <Link className="menu" title="Regresa al menu">
+            <Link to="#" className="menu" title="Regresa al menu">
               <img
                 src={GSLOGO}
                 alt="Glowing Store Logo"
@@ -51,8 +51,8 @@ export default class NavMenuPrincipal extends Component {
             </Dropdown.Toggle>
             {mostrarDropdown && (
               <Dropdown.Menu className="dropdown_items_fondo">
-                <Dropdown.Item href="#action1">Registrar cliente</Dropdown.Item>
-                <Dropdown.Item href="#action2">Modificar cliente</Dropdown.Item>
+                <Dropdown.Item href="/registrar_cliente">Registrar cliente</Dropdown.Item>
+                <Dropdown.Item href="/modificar_cliente">Modificar cliente</Dropdown.Item>
               </Dropdown.Menu>
             )}
           </Dropdown>

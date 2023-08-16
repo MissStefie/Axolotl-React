@@ -11,6 +11,25 @@
   overflow-y: auto;
 }
 
+/* Estilos para la barra de desplazamiento */
+.scrollTablaConsultar::-webkit-scrollbar {
+  width: 8px !important; /* Ancho de la barra de desplazamiento */
+  height: 8px !important;
+}
+
+.scrollTablaConsultar::-webkit-scrollbar-thumb {
+  background-color: var(
+    --violeta
+  ); /* Color del pulgar de la barra de desplazamiento */
+  border-radius: 4px; /* Borde redondeado del pulgar */
+}
+
+.scrollTablaConsultar::-webkit-scrollbar-track {
+  background-color: var(
+    --blanco
+  ); /* Color de fondo de la barra de desplazamiento */
+}
+
 .ocultar_columna {
   display: none !important;
 }

@@ -1,0 +1,9 @@
+@import "./colores.css";
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@700;800&display=swap");
+
+.contenidoCargarStockTamDetalles {
+  font-family: "Nunito", sans-serif !important;
+  flex-direction: center;
+  margin-top: 150px;
+  margin-right: 500px !important;
+}

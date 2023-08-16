@@ -1,0 +1,75 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@700;800&display=swap");
+
+.nav-container-modificarCliente {
+  margin-left: -301px; /* Elimina el margen izquierdo negativo */
+}
+
+.nav-bg-modificarCliente {
+  background-color: #2a2f4f;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  height: 70px;
+  border-bottom-left-radius: 80px;
+}
+
+.titulo-modificarClienteNav {
+  color: #e5beec !important; /* Color inicial de las letras */
+  font-family: "Nunito", sans-serif !important; /* Aplica la fuente personalizada */
+  transition: color 0.3s; /* Agrega una transición suave de 0.3 segundos para el cambio de color */
+}
+
+.icono-modificarCliente {
+  margin-left: 10px;
+  font-size: 30px;
+}
+
+.consulta-container-modificarCliente {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin: auto; /* Agrega el margin: auto para centrar horizontalmente */
+}
+
+.consulta-container-modificarCliente h1 {
+  margin-left: 10px !important; /* Ajusta el margen izquierdo según tus necesidades */
+}
+
+.salir-container-modificarCliente {
+  display: flex;
+  align-items: center; /* Centra verticalmente los elementos */
+  margin-left: 80px;
+}
+
+.iconoSalir-modificarCliente {
+  font-size: 30px;
+  margin-right: 10px;
+  transition: color 0.3s; /* Agrega una transición suave de 0.3 segundos para el cambio de color */
+}
+
+.iconoSalir-modificarCliente:hover {
+  color: #efd8f3 !important; /* Cambia el color al pasar el mouse sobre el icono */
+}
+
+.menu-modificarCliente {
+  color: #e5beec !important; /* Color inicial de las letras */
+  font-family: "Nunito", sans-serif !important; /* Aplica la fuente personalizada */
+  transition: color 0.3s; /* Agrega una transición suave de 0.3 segundos para el cambio de color */
+  text-decoration: none;
+}
+
+.menu-modificarCliente:hover {
+  color: #efd8f3 !important;
+}
+
+.logo-image-modificarCliente {
+  margin: 0px 10px 0px 10px;
+  width: 75px; /* Ajusta el tamaño deseado */
+  height: 75px; /* Ajusta el tamaño deseado */
+  border-radius: 50%; /* Aplica forma redonda */
+}
+
+.logo-container-modificarCliente {
+  display: flex;
+  align-items: center; /* Centra verticalmente los elementos */
+}

@@ -1,0 +1,123 @@
+@import "./colores.css";
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@700;800&display=swap");
+
+.icono-CrearClienteGrande {
+  margin-top: 40px;
+  font-size: 100px;
+  color: var(--lila_oscuro) !important;
+}
+
+.titleIconRegistrarCliente {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Agrega esta línea para centrar horizontalmente los elementos */
+  text-align: center;
+}
+
+.titulo-crearCliente {
+  color: var(--lila_oscuro) !important;
+}
+
+.containerRegistrarCliente {
+  font-family: "Nunito", sans-serif !important;
+  margin-top: 250px;
+  background-color: var(--blanco);
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 500px !important;
+  height: 550px;
+  flex-direction: column;
+  border-radius: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.containerRegistrarCliente > * {
+  margin-bottom: 20px;
+}
+
+.divCamposRegistrarCliente {
+  display: flex;
+  justify-content: space-between;
+  text-align: left;
+}
+
+.divCamposRegistrarCliente label {
+  text-align: left;
+  padding-left: 10px;
+  margin-bottom: 10px;
+  color: var(--lila_oscuro);
+}
+
+.divCamposRegistrarCliente input {
+  margin-bottom: 10px; /* Espacio entre cada fila */
+}
+
+.inputRegistrarCliente {
+  color: var(--lila_claro);
+  width: 200px;
+}
+
+.inputRegistrarCliente::placeholder {
+  color: var(--violeta); /* Cambia el color a tu preferencia */
+}
+
+.labelRegistrarCliente {
+  margin-top: 10px;
+  margin-right: 20px;
+}
+
+.divBtnRegistrarCliente {
+  margin-top: 30px;
+}
+
+.aceptarBtnRegistrarCliente {
+  text-decoration: none;
+  text-align: center;
+  width: 200px;
+  float: left;
+  color: var(--blanco) !important;
+  margin-right: 10px;
+  border-top-left-radius: 20px !important;
+  border-bottom-left-radius: 20px !important;
+  border-top-right-radius: 20px !important;
+  border-bottom-right-radius: 20px !important;
+  background-color: var(--violeta) !important;
+  border: none !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
+}
+
+.aceptarBtnRegistrarCliente:hover {
+  background-image: linear-gradient(
+    to top,
+    var(--lila_azulado),
+    var(--lila_azulado_claro)
+  );
+}
+
+.cancelarBtnRegistrarCliente {
+  text-decoration: none;
+  text-align: center;
+  width: 100px;
+  float: right;
+  color: var(--blanco) !important;
+  border-top-left-radius: 20px !important;
+  border-bottom-left-radius: 20px !important;
+  border-top-right-radius: 20px !important;
+  border-bottom-right-radius: 20px !important;
+  background-color: var(--lila_claro) !important;
+  border: none !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
+}
+
+.cancelarBtnRegistrarCliente:hover {
+  background-image: linear-gradient(to top, var(--rojo), var(--salmon));
+}
+
+.rucIncompleto {
+  color: red;
+  justify-content: center;
+  margin-left: 30px;
+  margin-bottom: 10px;
+}

@@ -382,7 +382,7 @@ class CrearProducto extends React.Component {
                     ))}
                   </Select>
                 </div>
-
+                      
                 <div className="elemento-cardCrear">
                   <Select
                     value={selectedValueTalles || "Talle:"}
@@ -508,24 +508,6 @@ class CrearProducto extends React.Component {
                     aria-describedby="helpId"
                   />
                 </div>
-
-                {/*<div className="form-group elemento-cardCrear">
-                  <label htmlFor="">Precio con descuento:</label>
-                  <input
-                    type="text"
-                    name="preciodct"
-                    onChange={this.cambioValor}
-                    value={preciodct}
-                    id="preciodct"
-                    className={
-                      (this.verificarError("error_preciodct")
-                        ? "is-invalid"
-                        : "") + " form-control"
-                    }
-                    placeholder="Ingrese el precio con descuento"
-                    aria-describedby="helpId"
-                  />
-                  </div>*/}
               </div>
 
               <div
@@ -536,7 +518,7 @@ class CrearProducto extends React.Component {
                 <button type="submit" className="btn boton-guardarCrear">
                   Agregar Producto
                 </button>
-                <Link to={"/consultar"} className="btn boton-cancelarCrear">
+                <Link to={"/menu_principal"} className="btn boton-cancelarCrear">
                   Cancelar
                 </Link>
               </div>

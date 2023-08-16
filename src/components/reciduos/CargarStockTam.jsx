@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import NavCargarProducto from "./NavCargarProducto";
 import ApiCol from "../services/colores";
 import ApiTam from "../services/tamanos";
+import ApiPP from "../services/provisorioProductos";
 import "../css/cargarStockTam.css";
 
 export default class CargarStockTam extends Component {
@@ -89,6 +90,33 @@ export default class CargarStockTam extends Component {
         cantidad: 0, // Reiniciamos el valor de cantidad a 0
       }));
     }
+  };
+
+  handleContinuarClick = () => {
+    // Obtener los datos de la tabla CargarStockTam que quieres guardar en BD
+    const datosTablaCargarStockTam = this.state.coloresAgregados;
+
+    // Realizar una solicitud HTTP para enviar los datos al servidor
+    fetch(ApiPP + "?insertar=1", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(datosTablaCargarStockTam),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        // Aquí puedes manejar la respuesta del servidor si es necesario
+        console.log("Datos guardados en la BD:", data);
+      })
+      .catch((error) => {
+        console.error("Error al enviar los datos al servidor:", error);
+        // Mostrar el contenido completo de la respuesta
+        error.response.text().then((text) => console.log(text));
+      });
+
+    // Navegar a la siguiente pestaña
+    this.props.history.push("/cargar_stock_tam_detalles");
   };
 
   render() {
@@ -177,7 +205,11 @@ export default class CargarStockTam extends Component {
               </Link>
             </div>
             <div className="cargarStockTamConCan">
-              <Link to="#" className="cargarStockTamCon">
+              <Link
+                to="/cargar_stock_tam_detalles"
+                className="cargarStockTamCon"
+                onClick={this.handleContinuarClick}
+              >
                 Continuar
               </Link>
               <Link to="/menu_principal" className="cargarStockTamCan">
