@@ -16,7 +16,7 @@ export default class RegistrarCliente extends Component {
       ruc: "",
       direccion: "",
       errores: [],
-      rucExiste: "",
+      rucExiste: 0,
     };
   }
 
@@ -25,8 +25,8 @@ export default class RegistrarCliente extends Component {
   }
 
   enviarDatosCliente = (e) => {
-    console.log("Dentro de funcion enviardatos...");
     e.preventDefault();
+    console.log("Dentro de funcion enviardatos...");
     const { nombre, apellido, ruc, direccion } = this.state;
 
     var errores = [];
@@ -46,14 +46,16 @@ export default class RegistrarCliente extends Component {
       rucExiste: 0,
     };
 
+    console.log(datosEnviar)
+
     fetch(ApiRC + "?insertar=1", {
       method: "POST",
       body: JSON.stringify(datosEnviar),
     })
       .then((respuesta) => respuesta.json())
       .then((datosRespuesta) => {
-        console.log(datosRespuesta);
-        if (datosRespuesta.rucExiste === 0) {
+        console.log(datosRespuesta.data);
+        if (datosRespuesta.data.rucExiste === 0) {
           this.props.history.push("/menu_principal");
         } else {
           console.log("El RUC ya existe en la base de datos");
@@ -165,7 +167,7 @@ export default class RegistrarCliente extends Component {
                 </div>
               )}
               {this.verificarError("ruc_existe") && (
-                <div className="invalid-feedback">
+                <div className="rucNoExiste">
                   El RUC ya existe en la base de datos.
                 </div>
               )}
@@ -193,7 +195,7 @@ export default class RegistrarCliente extends Component {
               <div className="divBtnRegistrarCliente">
                 <div>
                   <button
-                    type="button"
+                    type="submit"
                     onClick={this.enviarDatosCliente}
                     className="aceptarBtnRegistrarCliente"
                   >
