@@ -32,6 +32,7 @@ export default class RegistrarCliente extends Component {
     var errores = [];
     if (!nombre) errores.push("error_nombre");
     if (!apellido) errores.push("error_apellido");
+    if (!direccion) errores.push("error_direccion");
     if (!ruc) errores.push("error_ruc");
     if (ruc.length !== 7) errores.push("error_ruc_length"); // Nueva validación
 
@@ -113,9 +114,6 @@ export default class RegistrarCliente extends Component {
                     " form-control inputRegistrarCliente"
                   }
                 ></input>
-                <div className="invalid-feedback">
-                  Por favor, ingrese el nombre del cliente.
-                </div>
               </div>
               <div className="divCamposRegistrarCliente">
                 <label htmlFor="apellido" className="labelRegistrarCliente">
@@ -134,9 +132,6 @@ export default class RegistrarCliente extends Component {
                       : "") + " form-control inputRegistrarCliente"
                   }
                 ></input>
-                <div className="invalid-feedback">
-                  Por favor, ingrese el apellido del cliente.
-                </div>
               </div>
               <div className="divCamposRegistrarCliente">
                 <label htmlFor="ruc" className="labelRegistrarCliente">
@@ -157,9 +152,6 @@ export default class RegistrarCliente extends Component {
                     " form-control inputRegistrarCliente"
                   }
                 />
-                <div className="invalid-feedback">
-                  Por favor, ingrese el RUC del cliente.
-                </div>
               </div>
               {this.verificarError("error_ruc_length") && ( // Nuevo div de mensaje de error
                 <div className="rucIncompleto">
@@ -188,9 +180,6 @@ export default class RegistrarCliente extends Component {
                       : "") + " form-control inputRegistrarCliente"
                   }
                 ></input>
-                <div className="invalid-feedback">
-                  Por favor, ingrese la dirección del cliente.
-                </div>
               </div>
               <div className="divBtnRegistrarCliente">
                 <div>

@@ -214,9 +214,6 @@ export default class ModificarCliente extends Component {
                     " form-control inputModificarCliente"
                   }
                 ></input>
-                <div className="invalid-feedback">
-                  Por favor, ingrese el RUC del cliente.
-                </div>
               </div>
               {this.verificarError("error_ruc_length") && ( // Nuevo div de mensaje de error
                 <div className="rucIncompleto">
@@ -255,9 +252,6 @@ export default class ModificarCliente extends Component {
                         : "") + " form-control inputModificarCliente"
                     }
                   ></input>
-                  <div className="invalid-feedback">
-                    Por favor, ingrese el nombre del cliente.
-                  </div>
                 </div>
                 <div className="divCamposModificarCliente">
                   <label htmlFor="apellido" className="labelModificarCliente">
@@ -276,9 +270,6 @@ export default class ModificarCliente extends Component {
                         : "") + " form-control inputModificarCliente"
                     }
                   ></input>
-                  <div className="invalid-feedback">
-                    Por favor, ingrese el apellido del cliente.
-                  </div>
                 </div>
                 <div className="divCamposModificarCliente">
                   <label htmlFor="direccion" className="labelModificarCliente">
@@ -297,9 +288,6 @@ export default class ModificarCliente extends Component {
                         : "") + " form-control inputModificarCliente"
                     }
                   ></input>
-                  <div className="invalid-feedback">
-                    Por favor, ingrese la dirección del cliente.
-                  </div>
                 </div>
               </div>
             </form>

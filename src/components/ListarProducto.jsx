@@ -6,7 +6,7 @@ import { Dropdown, Form } from "react-bootstrap";
 import { Container } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faBoxOpen,
+  /*faBoxOpen, icono del boton para cargar producto que se comento ya que esa funcion se encuentra en el menu principal*/
   faEraser,
   faPenToSquare,
 } from "@fortawesome/free-solid-svg-icons";
@@ -268,7 +268,7 @@ class ListarProducto extends React.Component {
                     </div>
                   </Dropdown.Menu>
                 </Dropdown>
-                <Link
+                {/*<Link
                   to="/crear"
                   className="boton-registrar btn itemBotonesRegistrar"
                   title="Lleva a la ventana para registrar producto nuevo"
@@ -278,7 +278,7 @@ class ListarProducto extends React.Component {
                     icon={faBoxOpen}
                     style={{ color: "#e5beec" }}
                   />
-                </Link>
+                </Link>*/}
               </div>
             </div>
           </div>
