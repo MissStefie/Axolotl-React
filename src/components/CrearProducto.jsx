@@ -2,7 +2,7 @@ import React from "react";
 import NavAgregar from "./NavAgregar";
 import { Link } from "react-router-dom";
 import { Container } from "@mui/material";
-import { Select, MenuItem,  } from "@mui/material";
+import { Select, MenuItem } from "@mui/material";
 import Api from "../services/api";
 import "../css/agregarProducto.css";
 
@@ -60,38 +60,70 @@ class CrearProducto extends React.Component {
   }
 
   componentDidMount() {
-    // Realiza una solicitud a la API para obtener los datos
+    // Realiza una solicitud a la API para obtener los datos de prendas superiores
     fetch(ApiPS)
       .then((response) => response.json())
-      .then((data) => this.setState({ selectDataSuperiores: data }))
+      .then((data) => {
+        const filteredData = data.filter(
+          (select) => select.descripcion !== "NULL"
+        );
+        this.setState({ selectDataSuperiores: filteredData });
+      })
       .catch((error) => console.log(error));
 
     // Realiza una solicitud a la API para obtener los datos de prendas inferiores
     fetch(ApiIn)
       .then((response) => response.json())
-      .then((data) => this.setState({ selectDataInferiores: data }))
+      .then((data) => {
+        const filteredData = data.filter(
+          (select) => select.descripcion !== "NULL"
+        );
+        this.setState({ selectDataInferiores: filteredData });
+      })
       .catch((error) => console.log(error));
 
+    // Realiza una solicitud a la API para obtener los datos de accesorios
     fetch(ApiAcc)
       .then((response) => response.json())
-      .then((data) => this.setState({ selectDataAccesorios: data }))
+      .then((data) => {
+        const filteredData = data.filter(
+          (select) => select.descripcion !== "NULL"
+        );
+        this.setState({ selectDataAccesorios: filteredData });
+      })
       .catch((error) => console.log(error));
 
-    // Realiza una solicitud a la API para obtener los datos de prendas inferiores
+    // Realiza una solicitud a la API para obtener los datos de colores
     fetch(ApiCol)
       .then((response) => response.json())
-      .then((data) => this.setState({ selectDataColores: data }))
+      .then((data) => {
+        const filteredData = data.filter(
+          (select) => select.descripcion !== "NULL"
+        );
+        this.setState({ selectDataColores: filteredData });
+      })
       .catch((error) => console.log(error));
 
+    // Realiza una solicitud a la API para obtener los datos de tamaños
     fetch(ApiTam)
       .then((response) => response.json())
-      .then((data) => this.setState({ selectDataTamanos: data }))
+      .then((data) => {
+        const filteredData = data.filter(
+          (select) => select.descripcion !== "NULL"
+        );
+        this.setState({ selectDataTamanos: filteredData });
+      })
       .catch((error) => console.log(error));
 
-    // Realiza una solicitud a la API para obtener los datos de prendas inferiores
+    // Realiza una solicitud a la API para obtener los datos de talles
     fetch(ApiTal)
       .then((response) => response.json())
-      .then((data) => this.setState({ selectDataTalles: data }))
+      .then((data) => {
+        const filteredData = data.filter(
+          (select) => select.descripcion !== "NULL"
+        );
+        this.setState({ selectDataTalles: filteredData });
+      })
       .catch((error) => console.log(error));
   }
 
@@ -208,6 +240,13 @@ class CrearProducto extends React.Component {
       selectedIdTalles,
     } = this.state;
 
+    const selectedIdSuperioresToSend = selectedIdSuperiores || 1;
+    const selectedIdInferioresToSend = selectedIdInferiores || 1;
+    const selectedIdAccesoriosToSend = selectedIdAccesorios || 1;
+    const selectedIdColoresToSend = selectedIdColores || 1;
+    const selectedIdTamanosToSend = selectedIdTamanos || 1;
+    const selectedIdTallesToSend = selectedIdTalles || 1;
+
     var errores = [];
     if (!codigo) errores.push("error_codigo");
     if (!nombre) errores.push("error_nombre");
@@ -222,12 +261,12 @@ class CrearProducto extends React.Component {
 
     var datosEnviar = {
       codigo: codigo,
-      psuperiorid: selectedIdSuperiores,
-      pinferiorid: selectedIdInferiores,
-      accesorioid: selectedIdAccesorios,
-      colorid: selectedIdColores,
-      tamanoid: selectedIdTamanos,
-      talleid: selectedIdTalles,
+      psuperiorid: selectedIdSuperioresToSend,
+      pinferiorid: selectedIdInferioresToSend,
+      accesorioid: selectedIdAccesoriosToSend,
+      colorid: selectedIdColoresToSend,
+      tamanoid: selectedIdTamanosToSend,
+      talleid: selectedIdTallesToSend,
       nombre: nombre,
       descripcion: descripcion,
       preciocpa: preciocpa,
@@ -382,7 +421,7 @@ class CrearProducto extends React.Component {
                     ))}
                   </Select>
                 </div>
-                      
+
                 <div className="elemento-cardCrear">
                   <Select
                     value={selectedValueTalles || "Talle:"}
@@ -518,7 +557,10 @@ class CrearProducto extends React.Component {
                 <button type="submit" className="btn boton-guardarCrear">
                   Agregar Producto
                 </button>
-                <Link to={"/menu_principal"} className="btn boton-cancelarCrear">
+                <Link
+                  to={"/menu_principal"}
+                  className="btn boton-cancelarCrear"
+                >
                   Cancelar
                 </Link>
               </div>
