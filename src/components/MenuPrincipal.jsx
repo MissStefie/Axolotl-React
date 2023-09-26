@@ -17,7 +17,7 @@ export default class MenuPrincipal extends Component {
       <Container>
         <NavMenuPrincipal></NavMenuPrincipal>
         <Container className="menu_principal_contenido">
-          <Link to="/1" className="btn link_menu_principal">
+          <Link to="/realizar_venta" className="btn link_menu_principal">
             Realizar Venta{" "}
             <FontAwesomeIcon
               icon={faCartShopping}

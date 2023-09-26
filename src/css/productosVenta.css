@@ -1,0 +1,252 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@700;800&display=swap");
+
+.contenidoListarProducto {
+  margin-top: 50px;
+  margin-left: -220px;
+  width: 1600px !important;
+}
+
+.scrollTablaConsultar {
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+/* Estilos para la barra de desplazamiento */
+.scrollTablaConsultar::-webkit-scrollbar {
+  width: 8px !important; /* Ancho de la barra de desplazamiento */
+  height: 8px !important;
+}
+
+.scrollTablaConsultar::-webkit-scrollbar-thumb {
+  background-color: var(
+    --violeta
+  ); /* Color del pulgar de la barra de desplazamiento */
+  border-radius: 4px; /* Borde redondeado del pulgar */
+}
+
+.scrollTablaConsultar::-webkit-scrollbar-track {
+  background-color: var(
+    --blanco
+  ); /* Color de fondo de la barra de desplazamiento */
+}
+
+.ocultar_columna {
+  display: none !important;
+}
+
+table {
+  text-align: center;
+  font-family: "Nunito", sans-serif !important; /* Aplica la fuente personalizada */
+  width: 1600px;
+}
+
+.card-header {
+  margin-top: 150px;
+  display: grid !important;
+  grid-template-columns: repeat(2, 10fr);
+  grid-gap: 1200px;
+}
+
+.filtroListarProductos {
+  margin-left: -220px;
+}
+
+.boton-registrar {
+  margin-left: -110px;
+  margin-right: -175px;
+}
+
+/*cabecera de la tabla*/
+.tabla thead th:last-child {
+  border-top-right-radius: 20px !important;
+}
+
+.tabla-header {
+  background-color: #2a2f4f !important; /* Color de fondo de la cabecera */
+  color: #fde2f3 !important; /* Color del texto de la cabecera */
+  font-weight: bold !important; /* Establece el texto en negrita */
+  vertical-align: middle !important; /* Centrar verticalmente */
+}
+
+/*contenido de la tabla*/
+
+.tabla-container {
+  color: #2a2f4f !important;
+}
+
+.tabla-container tr:nth-child(even) {
+  background-color: #bdb2d1 !important; /* Color de fondo para las columnas pares */
+}
+
+.tabla-container tr:nth-child(odd) {
+  background-color: #c8bfd9 !important; /* Color de fondo para las columnas impares */
+}
+
+.tabla-container tr:hover {
+  background-color: #eacbef !important; /* Color de fondo al pasar el mouse */
+}
+
+/*boton registrar*/
+.boton-registrar {
+  border-top-left-radius: 20px !important;
+  border-bottom-left-radius: 20px !important;
+  border-top-right-radius: 20px !important;
+  border-bottom-right-radius: 20px !important;
+  background-color: #2a2f4f !important;
+  border: none !important;
+  font-family: "Nunito", sans-serif !important; /* Aplica la fuente personalizada */
+  transition: background-color 0.3s !important;
+  font-size: 20px !important;
+  color: #fde2f3 !important;
+}
+
+.boton-registrar:hover {
+  background-color: #917fb3 !important;
+}
+
+/*botones eliminar y editar*/
+.boton-editar {
+  color: white !important;
+  margin-right: 10px;
+  border-top-left-radius: 20px !important;
+  border-bottom-left-radius: 20px !important;
+  border-top-right-radius: 20px !important;
+  border-bottom-right-radius: 20px !important;
+  background-color: #e5beec !important;
+  border: none !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
+}
+
+.boton-editar:hover {
+  background-image: linear-gradient(to top, #9ea1d4, #c4c6e5);
+  /* Resto de estilos adicionales para el estado hover... */
+}
+
+.boton-editar .editarListarProducto {
+  color: var(--blanco) !important;
+}
+
+.boton-borrar .borrarListarProducto {
+  color: var(--blanco) !important;
+}
+
+.boton-borrar {
+  color: white !important;
+  border-top-left-radius: 20px !important;
+  border-bottom-left-radius: 20px !important;
+  border-top-right-radius: 20px !important;
+  border-bottom-right-radius: 20px !important;
+  background-color: #e5beec !important;
+  border: none !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
+}
+
+.boton-borrar:hover {
+  background-image: linear-gradient(to top, #fd8a8a, #eeb0b0);
+  /* Resto de estilos adicionales para el estado hover... */
+}
+
+/*alert personalizado*/
+.my-swal-title {
+  color: #2a2f4f; /* Cambiar el color del título */
+}
+
+.my-swal-content {
+  color: #2a2f4f;
+}
+
+.swal2-html-container {
+  color: #2a2f4f;
+}
+
+.popup-class {
+  border-radius: 15px;
+  background-color: #fde2f3;
+  color: #2a2f4f;
+  font-family: "Nunito", sans-serif !important; /* Aplica la fuente personalizada */
+}
+
+.swal-confirm {
+  background-color: #e5beec !important; /* Color de fondo del botón de confirmar */
+  color: #fff; /* Color del texto del botón de confirmar */
+  border: none; /* Borde del botón de confirmar */
+  border-radius: 5px; /* Bordes redondeados del botón de confirmar */
+  padding: 10px 20px; /* Espaciado interno del botón de confirmar */
+}
+
+.swal-confirm:hover {
+  background-image: linear-gradient(to top, #9ea1d4, #c4c6e5) !important;
+  /* Resto de estilos adicionales para el estado hover... */
+}
+
+.swal-cancel {
+  background-color: #917fb3 !important; /* Color de fondo del botón de cancelar */
+  color: #fff; /* Color del texto del botón de cancelar */
+  border: none; /* Borde del botón de cancelar */
+  border-radius: 5px; /* Bordes redondeados del botón de cancelar */
+  padding: 10px 20px; /* Espaciado interno del botón de cancelar */
+}
+
+.swal-cancel:hover {
+  background-image: linear-gradient(to top, #fd8a8a, #eeb0b0) !important;
+  /* Resto de estilos adicionales para el estado hover... */
+}
+/*alert personalizado*/
+
+.dropdown.show .dropdown-menu {
+  display: block;
+}
+
+.toggleListarProducto {
+  color: var(--violeta) !important;
+  background-color: var(--lila_oscuro) !important;
+  border: none !important;
+}
+
+.toggleListarProducto:hover {
+  color: var(--blanco) !important;
+  background-color: var(--lila_claro) !important;
+}
+
+.form_controlListarProducto:focus,
+.form_controlListarProducto:active,
+.form_controlListarProducto:visited {
+  color: var(--lila_oscuro) !important;
+  border: none;
+  outline: none !important;
+  box-shadow: none !important;
+  /* Agrega aquí otros estilos de tu elección */
+}
+
+.form_controlListarProducto::placeholder {
+  color: var(--lila_oscuro) !important; /* Cambia el color a tu elección */
+}
+
+.form_controlListarProducto option {
+  color: var(--lila_oscuro); /* Cambia el color a tu elección */
+}
+
+.dropdownMenuListarProducto .dditemListarProducto {
+  color: var(--lila_oscuro) !important;
+}
+
+.dditemListarProducto:focus,
+.dditemListarProducto:hover {
+  background-color: var(--rosita) !important;
+  /* Agrega aquí otros estilos de tu elección */
+}
+
+/* Estilos para centrar los checkboxes vertical y horizontalmente */
+.form-check {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* Ajusta el tamaño del checkbox para centrarlo horizontalmente */
+.form-check input[type="checkbox"] {
+  margin: 0; /* Elimina el margen predeterminado del checkbox */
+}

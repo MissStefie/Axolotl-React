@@ -5,7 +5,8 @@ import Login from "./components/Login";
 import MenuPrincipal from "./components/MenuPrincipal";
 import CrearProducto from './components/CrearProducto';
 import RegistrarCliente from './components/RegistrarCliente';
-import ModificarCliente from './components/ModificarCliente'
+import ModificarCliente from './components/ModificarCliente';
+import RealizarVenta from './components/RealizarVenta';
 
 import { Route, BrowserRouter as Router, Link } from "react-router-dom";
 
@@ -26,6 +27,7 @@ function App() {
         <Route path="/editar/:id" component={EditarProducto}></Route>
         <Route path="/registrar_cliente" component={RegistrarCliente}></Route>
         <Route path="/modificar_cliente" component={ModificarCliente}></Route>
+        <Route path="/realizar_venta" component={RealizarVenta}></Route>
       </div>
     </Router>
   );
