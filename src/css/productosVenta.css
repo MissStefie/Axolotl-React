@@ -51,11 +51,6 @@ table {
   margin-left: -220px;
 }
 
-.boton-registrar {
-  margin-left: -110px;
-  margin-right: -175px;
-}
-
 /*cabecera de la tabla*/
 .tabla thead th:last-child {
   border-top-right-radius: 20px !important;
@@ -86,69 +81,51 @@ table {
   background-color: #eacbef !important; /* Color de fondo al pasar el mouse */
 }
 
-/*boton registrar*/
-.boton-registrar {
-  border-top-left-radius: 20px !important;
-  border-bottom-left-radius: 20px !important;
-  border-top-right-radius: 20px !important;
-  border-bottom-right-radius: 20px !important;
-  background-color: #2a2f4f !important;
-  border: none !important;
-  font-family: "Nunito", sans-serif !important; /* Aplica la fuente personalizada */
-  transition: background-color 0.3s !important;
-  font-size: 20px !important;
-  color: #fde2f3 !important;
-}
-
-.boton-registrar:hover {
-  background-color: #917fb3 !important;
-}
-
-/*botones eliminar y editar*/
-.boton-editar {
-  color: white !important;
-  margin-right: 10px;
-  border-top-left-radius: 20px !important;
-  border-bottom-left-radius: 20px !important;
-  border-top-right-radius: 20px !important;
-  border-bottom-right-radius: 20px !important;
-  background-color: #e5beec !important;
-  border: none !important;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
-}
-
-.boton-editar:hover {
-  background-image: linear-gradient(to top, #9ea1d4, #c4c6e5);
-  /* Resto de estilos adicionales para el estado hover... */
-}
-
-.boton-editar .editarListarProducto {
-  color: var(--blanco) !important;
-}
-
-.boton-borrar .borrarListarProducto {
-  color: var(--blanco) !important;
-}
-
-.boton-borrar {
+.boton-vender {
+  text-decoration: none; 
   color: white !important;
   border-top-left-radius: 20px !important;
   border-bottom-left-radius: 20px !important;
   border-top-right-radius: 20px !important;
   border-bottom-right-radius: 20px !important;
-  background-color: #e5beec !important;
+  background-color: var(--violeta) !important;
   border: none !important;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
 }
 
-.boton-borrar:hover {
-  background-image: linear-gradient(to top, #fd8a8a, #eeb0b0);
-  /* Resto de estilos adicionales para el estado hover... */
+.boton-vender:hover {
+  background-image: linear-gradient(to top, var(--lila_azulado), var(--lila_azulado_claro));
 }
 
-/*alert personalizado*/
+.boton-cancelar {
+  padding-left: 17px !important;
+  text-decoration: none; 
+  color: white !important;
+  border-top-left-radius: 20px !important;
+  border-bottom-left-radius: 20px !important;
+  border-top-right-radius: 20px !important;
+  border-bottom-right-radius: 20px !important;
+  background-color: var(--violeta) !important;
+  border: none !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
+}
+
+.boton-cancelar:hover {
+  background-image: linear-gradient(to top, var(--rojo), var(--salmon));
+}
+
+.botonesCanVenTabVen {
+  margin-top: 20px;
+  display: flex; /* Para que los botones estén en línea */
+  justify-content: space-between; /* Espacio entre los botones */
+}
+
+.btnBotones {
+  padding: 10px 20px; /* Espacio interno para los botones */
+}
+
 .my-swal-title {
-  color: #2a2f4f; /* Cambiar el color del título */
+  color: #2a2f4f; 
 }
 
 .my-swal-content {

@@ -7,10 +7,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   /*faBoxOpen, icono del boton para cargar producto que se comento ya que esa funcion se encuentra en el menu principal*/
   faCartPlus,
+  faCartShopping,
 } from "@fortawesome/free-solid-svg-icons";
 import "../css/productosVenta.css";
 import "bootstrap/dist/css/bootstrap.css";
 import swal from "sweetalert2";
+import { Link } from "react-router-dom";
 
 class RealizarVenta extends React.Component {
   constructor(props) {
@@ -335,7 +337,13 @@ class RealizarVenta extends React.Component {
                     <th>Precio Venta</th>
                     <th>Cantidad Disponible</th>
                     <th>Descuento</th>
-                    <th>Añadir al carrito<FontAwesomeIcon icon={faCartPlus} style={{color: "#fde2f3",}} /></th>
+                    <th>
+                      Añadir al carrito
+                      <FontAwesomeIcon
+                        icon={faCartPlus}
+                        style={{ color: "#fde2f3" }}
+                      />
+                    </th>
                     <th>Cantidad</th>
                   </tr>
                 </thead>
@@ -432,6 +440,18 @@ class RealizarVenta extends React.Component {
                 </tbody>
               </table>
             </div>
+          </div>
+          <div className="botonesCanVenTabVen">
+            <Link to="/menu_principal" className="btnBotones boton-cancelar">
+              Cancelar
+            </Link>
+            <Link to="/menu_principal" className="btnBotones boton-vender">
+              Confirmar venta
+              <FontAwesomeIcon
+                icon={faCartShopping}
+                style={{ color: "#ffffff" }}
+              />
+            </Link>
           </div>
         </Container>
       );
