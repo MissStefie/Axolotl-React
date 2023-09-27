@@ -1,19 +1,20 @@
 import { Container } from "@mui/material";
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import "../css/navAgregarAlCarrito.css";
+import GSLOGO from "../img/glowing_store_logo.jpg";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCircleXmark,
-  faBoxesStacked
+  faCartPlus,
 } from "@fortawesome/free-solid-svg-icons";
-import "../css/navCargarProducto.css";
-import GSLOGO from "../img/glowing_store_logo.jpg";
 
-export default class NavCargarProducto extends Component {
+export default class NavAgregarAlCarrito extends Component {
   render() {
     return (
-      <Container>
-        <ul className="nav nav-pills nav_editar_bg">
+      <Container className="nav_container">
+        <ul className="nav nav-pills nav_agregarCarrito_bg">
           <div className="logo-container">
             <li>
               <a className="menu" title="Regresa al menu">
@@ -27,25 +28,26 @@ export default class NavCargarProducto extends Component {
             </li>
           </div>
 
-          <div className="consulta-container">
-            <h1 className="titulo">Cargar Producto</h1>
+          <div className="agregarCarrito-container">
+            <h1 className="titulo">Agregar al carrito</h1>
             <FontAwesomeIcon
-              icon={faBoxesStacked}
+              icon={faCartPlus}
               style={{ color: "#e5beec" }}
-              className="iconoCajitas"
+              className="iconoCarrito"
             />
           </div>
           <div className="salir-container">
             <li>
-              <a title="Tambien regresa al menu pero ya estaba en el diseño xdxd">
-                <Link to={"/menu_principal"}>
-                  <FontAwesomeIcon
-                    icon={faCircleXmark}
-                    style={{ color: "#e5beec" }}
-                    className="iconoSalirCP"
-                  />
-                </Link>
-              </a>
+              <Link
+                to={"/menu_principal"}
+                title="Por el momento lleva de vuelta al inicio de sesion..."
+              >
+                <FontAwesomeIcon
+                  icon={faCircleXmark}
+                  style={{ color: "#e5beec" }}
+                  className="iconoSalir"
+                />
+              </Link>
             </li>
           </div>
         </ul>

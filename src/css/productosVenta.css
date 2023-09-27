@@ -82,6 +82,11 @@ table {
 }
 
 .boton-vender {
+  display: flex;
+  margin-top: 50px !important;
+  margin-left: 1217px;
+  margin-right: -230px;
+  padding: 10px;
   text-decoration: none; 
   color: white !important;
   border-top-left-radius: 20px !important;
@@ -95,33 +100,6 @@ table {
 
 .boton-vender:hover {
   background-image: linear-gradient(to top, var(--lila_azulado), var(--lila_azulado_claro));
-}
-
-.boton-cancelar {
-  padding-left: 17px !important;
-  text-decoration: none; 
-  color: white !important;
-  border-top-left-radius: 20px !important;
-  border-bottom-left-radius: 20px !important;
-  border-top-right-radius: 20px !important;
-  border-bottom-right-radius: 20px !important;
-  background-color: var(--violeta) !important;
-  border: none !important;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
-}
-
-.boton-cancelar:hover {
-  background-image: linear-gradient(to top, var(--rojo), var(--salmon));
-}
-
-.botonesCanVenTabVen {
-  margin-top: 20px;
-  display: flex; /* Para que los botones estén en línea */
-  justify-content: space-between; /* Espacio entre los botones */
-}
-
-.btnBotones {
-  padding: 10px 20px; /* Espacio interno para los botones */
 }
 
 .my-swal-title {

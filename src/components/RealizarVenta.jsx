@@ -1,6 +1,6 @@
 import React from "react";
 import Api from "../services/api";
-import NavListar from "./NavListar";
+import NavAgregarAlCarrito from "./NavAgregarAlCarrito";
 import { Dropdown, Form } from "react-bootstrap";
 import { Container } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -217,7 +217,7 @@ class RealizarVenta extends React.Component {
     } else {
       return (
         <Container>
-          <NavListar />
+          <NavAgregarAlCarrito />
           <div className="cardBotonesAgregarFiltrar">
             <div className="botones-container">
               <div className="card-header">
@@ -441,10 +441,7 @@ class RealizarVenta extends React.Component {
               </table>
             </div>
           </div>
-          <div className="botonesCanVenTabVen">
-            <Link to="/menu_principal" className="btnBotones boton-cancelar">
-              Cancelar
-            </Link>
+          <div>
             <Link to="/menu_principal" className="btnBotones boton-vender">
               Confirmar venta
               <FontAwesomeIcon
