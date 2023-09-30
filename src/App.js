@@ -7,6 +7,7 @@ import CrearProducto from './components/CrearProducto';
 import RegistrarCliente from './components/RegistrarCliente';
 import ModificarCliente from './components/ModificarCliente';
 import RealizarVenta from './components/RealizarVenta';
+import ConfirmarVenta from './components/ConfirmarVenta';
 
 import { Route, BrowserRouter as Router, Link } from "react-router-dom";
 
@@ -22,12 +23,12 @@ function App() {
         <Route exact path="/" component={Login}></Route>
         <Route exact path="/menu_principal" component={MenuPrincipal}></Route>
         <Route exact path="/consultar" component={ListarProducto}></Route>
-        {/*aca antes era solo / pero se cambio temporalmente*/}
         <Route path="/crear" component={CrearProducto}></Route>
         <Route path="/editar/:id" component={EditarProducto}></Route>
         <Route path="/registrar_cliente" component={RegistrarCliente}></Route>
         <Route path="/modificar_cliente" component={ModificarCliente}></Route>
         <Route path="/realizar_venta" component={RealizarVenta}></Route>
+        <Route path="/confirmar_venta/:filasSeleccionadas" component={ConfirmarVenta}></Route>
       </div>
     </Router>
   );

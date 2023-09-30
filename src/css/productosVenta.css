@@ -102,52 +102,6 @@ table {
   background-image: linear-gradient(to top, var(--lila_azulado), var(--lila_azulado_claro));
 }
 
-.my-swal-title {
-  color: #2a2f4f; 
-}
-
-.my-swal-content {
-  color: #2a2f4f;
-}
-
-.swal2-html-container {
-  color: #2a2f4f;
-}
-
-.popup-class {
-  border-radius: 15px;
-  background-color: #fde2f3;
-  color: #2a2f4f;
-  font-family: "Nunito", sans-serif !important; /* Aplica la fuente personalizada */
-}
-
-.swal-confirm {
-  background-color: #e5beec !important; /* Color de fondo del botón de confirmar */
-  color: #fff; /* Color del texto del botón de confirmar */
-  border: none; /* Borde del botón de confirmar */
-  border-radius: 5px; /* Bordes redondeados del botón de confirmar */
-  padding: 10px 20px; /* Espaciado interno del botón de confirmar */
-}
-
-.swal-confirm:hover {
-  background-image: linear-gradient(to top, #9ea1d4, #c4c6e5) !important;
-  /* Resto de estilos adicionales para el estado hover... */
-}
-
-.swal-cancel {
-  background-color: #917fb3 !important; /* Color de fondo del botón de cancelar */
-  color: #fff; /* Color del texto del botón de cancelar */
-  border: none; /* Borde del botón de cancelar */
-  border-radius: 5px; /* Bordes redondeados del botón de cancelar */
-  padding: 10px 20px; /* Espaciado interno del botón de cancelar */
-}
-
-.swal-cancel:hover {
-  background-image: linear-gradient(to top, #fd8a8a, #eeb0b0) !important;
-  /* Resto de estilos adicionales para el estado hover... */
-}
-/*alert personalizado*/
-
 .dropdown.show .dropdown-menu {
   display: block;
 }

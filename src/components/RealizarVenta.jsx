@@ -4,15 +4,12 @@ import NavAgregarAlCarrito from "./NavAgregarAlCarrito";
 import { Dropdown, Form } from "react-bootstrap";
 import { Container } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  /*faBoxOpen, icono del boton para cargar producto que se comento ya que esa funcion se encuentra en el menu principal*/
-  faCartPlus,
-  faCartShopping,
-} from "@fortawesome/free-solid-svg-icons";
+import { faCartPlus, faCartShopping } from "@fortawesome/free-solid-svg-icons";
 import "../css/productosVenta.css";
 import "bootstrap/dist/css/bootstrap.css";
-import swal from "sweetalert2";
 import { Link } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify"; // Agrega ToastContainer aquí
+import "react-toastify/dist/ReactToastify.css";
 
 class RealizarVenta extends React.Component {
   constructor(props) {
@@ -28,7 +25,10 @@ class RealizarVenta extends React.Component {
       talleFiltro: "",
       maxValores: {},
       checkboxes: [],
-      inputValues: [],
+      inputValues: {},
+      filasSeleccionadas: [],
+      mostrarAlerta: false,
+      mostrarAlertaCantidad: false,
     };
   }
 
@@ -65,48 +65,18 @@ class RealizarVenta extends React.Component {
 
   componentDidMount() {
     this.cargarDatos();
-    this.setState({
-      inputValues: new Array(this.state.productos.length).fill(""),
-    });
-  }
 
-  mostrarAlerta = (id) => {
-    swal
-      .fire({
-        title: "Borrar",
-        text: "¿Está seguro que desea borrar el registro?",
-        icon: "question",
-        confirmButtonText: "Sí, borrar",
-        cancelButtonText: "Cancelar",
-        showCancelButton: true,
-        customClass: {
-          popup: "popup-class",
-          title: "my-swal-title",
-          text: "my-swal-text",
-          content: "my-swal-content",
-          confirmButton: "swal-confirm",
-          cancelButton: "swal-cancel",
-        },
-      })
-      .then((respuestaAlert) => {
-        if (respuestaAlert.isConfirmed) {
-          this.borrarRegistros(id);
-          swal.fire({
-            text: "El registro se ha borrado exitosamente.",
-            icon: "success",
-            customClass: {
-              popup: "popup-class",
-              title: "my-swal-title",
-              text: "my-swal-text",
-              content: "my-swal-content",
-              icon: "my-swal-icon",
-              confirmButton: "swal-confirm",
-              cancelButton: "swal-cancel",
-            },
-          });
-        }
-      });
-  };
+    // Crear y almacenar las referencias a los inputs
+    const refs = {};
+    const inputValues = {}; // Cambia esto a un objeto vacío
+
+    this.state.productos.forEach((producto) => {
+      refs[producto.id] = React.createRef();
+      inputValues[producto.id] = ""; // Establece el valor inicial en blanco
+    });
+
+    this.setState({ refs, inputValues }); // Establece los valores iniciales en el estado
+  }
 
   handleChangeFiltro = (event) => {
     this.setState({ filtro: event.target.value });
@@ -132,24 +102,132 @@ class RealizarVenta extends React.Component {
     this.setState({ isDropdownOpen: isOpen });
   };
 
-  handleInputChange = (event, maxCantidad, index) => {
+  handleInputChange = (event, maxCantidad, productId) => {
+    // Agrega productId como argumento
     let inputValue = event.target.value;
     const cantidad = parseFloat(inputValue);
 
     if (cantidad > maxCantidad) {
-      // Si se ingresa una cantidad mayor a la disponible, establece la cantidad máxima disponible
-      inputValue = maxCantidad.toString(); // Convierte la cantidad máxima a cadena y establece el valor
+      inputValue = maxCantidad.toString();
     }
 
-    const updatedInputValues = [...this.state.inputValues];
-    updatedInputValues[index] = inputValue; // Actualiza el valor en el estado
-    this.setState({ inputValues: updatedInputValues });
+    this.setState((prevState) => {
+      const updatedInputValues = { ...prevState.inputValues }; // Copia el objeto inputValues
+      updatedInputValues[productId] = inputValue; // Asigna el valor al ID del producto
+
+      const updatedFilasSeleccionadas = [...prevState.filasSeleccionadas];
+      const producto = updatedFilasSeleccionadas.find(
+        (seleccionado) => seleccionado.id === productId
+      );
+
+      if (producto) {
+        producto.cantidad = parseFloat(inputValue);
+      }
+
+      return {
+        inputValues: updatedInputValues,
+        filasSeleccionadas: updatedFilasSeleccionadas,
+      };
+    });
   };
 
-  handleCheckboxChange = (index) => {
-    const updatedCheckboxes = [...this.state.checkboxes];
-    updatedCheckboxes[index] = !updatedCheckboxes[index];
-    this.setState({ checkboxes: updatedCheckboxes });
+  handleCantidadInputChange = (event, index) => {
+    const inputValue = event.target.value;
+    const { maxValores } = this.state;
+
+    if (inputValue <= maxValores[index]) {
+      const updatedInputValues = [...this.state.inputValues];
+      updatedInputValues[index] = inputValue;
+
+      this.setState({ inputValues: updatedInputValues });
+    }
+  };
+
+  clearInputValue = (index) => {
+    this.setState((prevState) => {
+      const updatedInputValues = [...prevState.inputValues];
+      updatedInputValues[index] = ""; // Establece el valor del input en blanco
+      return { inputValues: updatedInputValues };
+    });
+  };
+
+  handleCheckboxChange = (producto) => {
+    const productId = producto.id;
+
+    this.setState((prevState) => {
+      const updatedCheckboxes = { ...prevState.checkboxes };
+      updatedCheckboxes[productId] = !updatedCheckboxes[productId];
+
+      const updatedFilasSeleccionadas = [...prevState.filasSeleccionadas];
+
+      if (updatedCheckboxes[productId]) {
+        // Si la casilla se ha marcado, agrega el producto a filasSeleccionadas si no existe
+        const existingIndex = updatedFilasSeleccionadas.findIndex(
+          (item) => item.id === productId
+        );
+
+        if (existingIndex === -1) {
+          updatedFilasSeleccionadas.push({
+            ...producto,
+            cantidad: parseFloat(prevState.inputValues[productId] || 0),
+          });
+        }
+      } else {
+        // Si la casilla se ha desmarcado, quita el producto de filasSeleccionadas si existe
+        const existingIndex = updatedFilasSeleccionadas.findIndex(
+          (item) => item.id === productId
+        );
+
+        if (existingIndex !== -1) {
+          updatedFilasSeleccionadas.splice(existingIndex, 1);
+        }
+      }
+
+      return {
+        checkboxes: updatedCheckboxes,
+        filasSeleccionadas: updatedFilasSeleccionadas,
+      };
+    });
+  };
+
+  handleConfirmarVenta = () => {
+    const { filasSeleccionadas } = this.state;
+    const filasSeleccionadasStr = filasSeleccionadas.join(",");
+
+    const cantidadVacia = filasSeleccionadas.some(
+      (producto) => !producto.cantidad 
+    );
+
+    if (filasSeleccionadas.length === 0) {
+      // Mostrar una alerta emergente utilizando react-toastify
+      toast.error("Seleccione los productos a vender", {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 2000,
+      });
+    } else if (cantidadVacia) {
+      // Mostrar la alerta de cantidad vacía
+      toast.error(
+        "Ingrese la cantidad para los productos seleccionados",
+        {
+          position: toast.POSITION.TOP_CENTER,
+          autoClose: 2000,
+        }
+      );
+    } else {
+      // Redirigir a la página de confirmación de venta
+      this.props.history.push({
+        pathname: `/confirmar_venta/${filasSeleccionadasStr}`,
+        state: { filasSeleccionadas: this.state.filasSeleccionadas },
+      });
+    }
+  };
+
+  mostrarAlertaCantidad = () => {
+    this.setState({ mostrarAlertaCantidad: true });
+
+    setTimeout(() => {
+      this.setState({ mostrarAlertaCantidad: false });
+    }, 2000); // Oculta la alerta después de 2 segundos
   };
 
   render() {
@@ -162,6 +240,28 @@ class RealizarVenta extends React.Component {
       tamanoFiltro,
       talleFiltro,
     } = this.state;
+
+    const { mostrarAlerta, mostrarAlertaCantidad } = this.state; // Mover la declaración aquí
+
+    if (mostrarAlerta) {
+      // Mostrar la alerta emergente de selección de productos
+      return (
+        <div className="alert alert-danger">
+          Seleccione los productos a vender.
+        </div>
+      );
+    }
+
+    if (mostrarAlertaCantidad) {
+      // Mostrar la alerta emergente de cantidad inválida
+      return (
+        <div className="alert alert-danger">
+          Ingrese una cantidad válida para los productos seleccionados.
+        </div>
+      );
+    }
+
+    console.log("filasSeleccionadas:", this.state.filasSeleccionadas);
 
     const productosFiltrados = productos.filter((producto) => {
       const codigo = producto.codigo.toLowerCase();
@@ -211,6 +311,9 @@ class RealizarVenta extends React.Component {
         );
       }
     });
+
+    const { filasSeleccionadas } = this.state;
+    const filasSeleccionadasStr = filasSeleccionadas.join(",");
 
     if (!datosCargados) {
       return <div>Cargando...</div>;
@@ -409,15 +512,15 @@ class RealizarVenta extends React.Component {
                       <td>{producto.cantidad}</td>
                       <td>{producto.descuento}</td>
                       <td>
-                        <div className="form-check">
-                          <input
-                            className="form-check-input"
-                            type="checkbox"
-                            value=""
-                            id={`checkbox-${producto.id}`}
-                            onChange={() => this.handleCheckboxChange(index)} // Pasa el índice como argumento
-                          />
-                        </div>
+                        <input
+                          className="form-check-input"
+                          type="checkbox"
+                          value=""
+                          id={`checkbox-${producto.id}`}
+                          onChange={() => {
+                            this.handleCheckboxChange(producto); // Llama a handleCheckboxChange cuando se cambia el checkbox
+                          }}
+                        />
                       </td>
                       <td>
                         <input
@@ -425,14 +528,16 @@ class RealizarVenta extends React.Component {
                           min="1"
                           step="1"
                           max={producto.cantidad}
-                          value={
-                            this.state.checkboxes[index]
-                              ? this.state.inputValues[index]
-                              : ""
+                          value={this.state.inputValues[producto.id] || ""} // Usar el ID del producto
+                          onChange={
+                            (e) =>
+                              this.handleInputChange(
+                                e,
+                                producto.cantidad,
+                                producto.id
+                              ) // Pasa el ID del producto
                           }
-                          onChange={(e) =>
-                            this.handleInputChange(e, producto.cantidad, index)
-                          } // Pasar el índice como tercer argumento
+                          disabled={!this.state.checkboxes[producto.id]}
                         />
                       </td>
                     </tr>
@@ -442,13 +547,21 @@ class RealizarVenta extends React.Component {
             </div>
           </div>
           <div>
-            <Link to="/menu_principal" className="btnBotones boton-vender">
+            <button
+              className="btnBotones boton-vender"
+              onClick={this.handleConfirmarVenta}
+            >
               Confirmar venta
               <FontAwesomeIcon
                 icon={faCartShopping}
                 style={{ color: "#ffffff" }}
               />
-            </Link>
+            </button>
+          </div>
+
+          {/* Agrega el contenedor para las alertas emergentes */}
+          <div className="toast-container">
+            <ToastContainer />
           </div>
         </Container>
       );
