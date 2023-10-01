@@ -94,12 +94,26 @@ table {
   display: inline-block; /* Hace que el fondo blanco solo rodee el contenido */
   border-radius: 30px; /* Bordes redondeados para el fondo blanco */
   border-color: 10px solid var(--lila_oscuro) !important;
-  box-shadow: 0px 0px 5px var(--lila_oscuro); 
+  box-shadow: 0px 0px 5px var(--lila_oscuro);
 }
 
-.agrPrdConfirmarVenta{
+.agrPrdConfirmarVenta {
   margin-top: 50px;
   margin-left: -220px;
+  color: var(--lila_oscuro);
+}
+
+.agrPrdConfirmarVentaLink {
+  margin-left: 10px;
+  font-size: 24px;
+  color: var(--lila_oscuro);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.agrPrdConfirmarVentaLink:hover{
+  color: var(--violeta);
+  transition: color 0.3s ease;
 }
 
 /*botones guardar y cancelar*/
@@ -145,4 +159,8 @@ table {
   display: flex;
   grid-column-gap: 200px;
   margin: 50px 70px 0px 70px !important;
+}
+
+.ocultar_columna {
+  display: none !important;
 }
