@@ -7,8 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartPlus, faCartShopping } from "@fortawesome/free-solid-svg-icons";
 import "../css/productosVenta.css";
 import "bootstrap/dist/css/bootstrap.css";
-import { Link } from "react-router-dom";
-import { toast, ToastContainer } from "react-toastify"; // Agrega ToastContainer aquí
+import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 class RealizarVenta extends React.Component {
@@ -195,7 +194,11 @@ class RealizarVenta extends React.Component {
     const filasSeleccionadasStr = filasSeleccionadas.join(",");
 
     const cantidadVacia = filasSeleccionadas.some(
-      (producto) => !producto.cantidad 
+      (producto) => !producto.cantidad
+    );
+
+    const cantidadMenorAUno = filasSeleccionadas.some(
+      (producto) => producto.cantidad < 1
     );
 
     if (filasSeleccionadas.length === 0) {
@@ -206,8 +209,14 @@ class RealizarVenta extends React.Component {
       });
     } else if (cantidadVacia) {
       // Mostrar la alerta de cantidad vacía
+      toast.error("Ingrese la cantidad para los productos seleccionados", {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 2000,
+      });
+    } else if (cantidadMenorAUno) {
+      // Mostrar la alerta de cantidad menor a 1
       toast.error(
-        "Ingrese la cantidad para los productos seleccionados",
+        "Ingrese una cantidad válida para los productos seleccionados",
         {
           position: toast.POSITION.TOP_CENTER,
           autoClose: 2000,
@@ -311,9 +320,6 @@ class RealizarVenta extends React.Component {
         );
       }
     });
-
-    const { filasSeleccionadas } = this.state;
-    const filasSeleccionadasStr = filasSeleccionadas.join(",");
 
     if (!datosCargados) {
       return <div>Cargando...</div>;

@@ -1,0 +1,148 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@700;800&display=swap");
+
+.card-headerConfirmarVenta {
+  margin-top: 150px;
+  display: grid !important;
+  grid-template-columns: repeat(2, 10fr);
+  grid-gap: 1200px;
+}
+
+.contenidoListarConfirmarVenta {
+  margin-top: 50px;
+  margin-left: -220px;
+  width: 1600px !important;
+}
+
+table {
+  text-align: center;
+  font-family: "Nunito", sans-serif !important;
+  width: 1600px;
+}
+
+.tablaConfirmarVenta thead th:last-child {
+  border-top-right-radius: 20px !important;
+}
+
+.tabla-headerConfirmarVenta {
+  background-color: #2a2f4f !important;
+  color: #fde2f3 !important;
+  font-weight: bold !important;
+  vertical-align: middle !important;
+}
+
+.scrollTablaConfirmarVenta {
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.scrollTablaConfirmarVenta::-webkit-scrollbar {
+  width: 8px !important;
+  height: 8px !important;
+}
+
+.scrollTablaConfirmarVenta::-webkit-scrollbar-thumb {
+  background-color: var(--violeta);
+  border-radius: 4px;
+}
+
+.scrollTablaConfirmarVenta::-webkit-scrollbar-track {
+  background-color: var(--blanco);
+}
+
+.tabla-containerConfirmarVenta {
+  color: var(--lila_oscuro) !important;
+}
+
+.tabla-containerConfirmarVenta tr:nth-child(even) {
+  background-color: #bdb2d1 !important;
+}
+
+.tabla-containerConfirmarVenta tr:nth-child(odd) {
+  background-color: #c8bfd9 !important;
+}
+
+.tabla-containerConfirmarVenta tr:hover {
+  background-color: #eacbef !important;
+}
+
+.boton-retirar .borrarListarProducto {
+  color: var(--blanco) !important;
+}
+
+.boton-retirar {
+  color: white !important;
+  border-top-left-radius: 20px !important;
+  border-bottom-left-radius: 20px !important;
+  border-top-right-radius: 20px !important;
+  border-bottom-right-radius: 20px !important;
+  background-color: #e5beec !important;
+  border: none !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
+}
+
+.boton-retirar:hover {
+  background-image: linear-gradient(to top, #fd8a8a, #eeb0b0);
+}
+
+.precioTotalConfirmarVenta {
+  color: var(--lila_oscuro);
+  margin-top: 50px;
+  margin-left: -220px;
+  font-size: 24px; /* Tamaño de fuente más grande */
+  padding: 10px; /* Espacio interior para el fondo blanco */
+  background-color: white; /* Fondo blanco */
+  display: inline-block; /* Hace que el fondo blanco solo rodee el contenido */
+  border-radius: 30px; /* Bordes redondeados para el fondo blanco */
+  border-color: 10px solid var(--lila_oscuro) !important;
+  box-shadow: 0px 0px 5px var(--lila_oscuro); 
+}
+
+.agrPrdConfirmarVenta{
+  margin-top: 50px;
+  margin-left: -220px;
+}
+
+/*botones guardar y cancelar*/
+.boton-guardarConfirmarVenta {
+  width: 200px;
+  float: left;
+  color: white !important;
+  margin-right: 10px;
+  border-top-left-radius: 20px !important;
+  border-bottom-left-radius: 20px !important;
+  border-top-right-radius: 20px !important;
+  border-bottom-right-radius: 20px !important;
+  background-color: #e5beec !important;
+  border: none !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
+}
+
+.boton-guardarConfirmarVenta:hover {
+  background-image: linear-gradient(to top, #9ea1d4, #c4c6e5);
+  /* Resto de estilos adicionales para el estado hover... */
+}
+
+.boton-cancelarConfirmarVenta {
+  width: 100px;
+  float: right;
+  color: white !important;
+  border-top-left-radius: 20px !important;
+  border-bottom-left-radius: 20px !important;
+  border-top-right-radius: 20px !important;
+  border-bottom-right-radius: 20px !important;
+  background-color: #917fb3 !important;
+  border: none !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
+}
+
+.boton-cancelarConfirmarVenta:hover {
+  background-image: linear-gradient(to top, #fd8a8a, #eeb0b0);
+  /* Resto de estilos adicionales para el estado hover... */
+}
+
+.grupoBotonesConfirmarVenta {
+  margin-top: 300px;
+  display: flex;
+  grid-column-gap: 200px;
+  margin: 50px 70px 0px 70px !important;
+}

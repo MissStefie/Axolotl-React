@@ -268,17 +268,6 @@ class ListarProducto extends React.Component {
                     </div>
                   </Dropdown.Menu>
                 </Dropdown>
-                {/*<Link
-                  to="/crear"
-                  className="boton-registrar btn itemBotonesRegistrar"
-                  title="Lleva a la ventana para registrar producto nuevo"
-                >
-                  Agregar nuevo producto{" "}
-                  <FontAwesomeIcon
-                    icon={faBoxOpen}
-                    style={{ color: "#e5beec" }}
-                  />
-                </Link>*/}
               </div>
             </div>
           </div>
