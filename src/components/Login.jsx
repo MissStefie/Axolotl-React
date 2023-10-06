@@ -1,10 +1,12 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 import ImageSlider from "./ImageSlider";
 import "../css/login.css";
 import LoginApi from "../services/login";
 import GSLOGO from "../img/glowing_store_logo.jpg";
 
 export default class Login extends Component {
+
   constructor(props) {
     super(props);
     this.state = {
@@ -40,10 +42,11 @@ export default class Login extends Component {
       .then((datosRespuesta) => {
         console.log(datosRespuesta);
 
-        if (datosRespuesta.success === 1) {
+        if (datosRespuesta.success === 1) {          
+          console.log(datosRespuesta.data);
+          this.props.setLoggedInUser(datosRespuesta.data);
           this.props.history.push("/menu_principal");
         } else {
-          //this.setState({ errorSesion: true });
           if (datosRespuesta.success === 2) {
             this.setState({ errorPassword: true });
           } else {
@@ -171,3 +174,8 @@ export default class Login extends Component {
     );
   }
 }
+
+Login.propTypes = {
+  setLoggedInUser: PropTypes.func.isRequired,
+  history: PropTypes.object.isRequired,
+};

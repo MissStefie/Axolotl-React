@@ -8,11 +8,14 @@ import {
   faBoxOpen,
 } from "@fortawesome/free-solid-svg-icons";
 import NavMenuPrincipal from "./NavMenuPrincipal";
-import BottomNavMenuPrincipal from './BottomNavMenuPrincipal'
+import BottomNavMenuPrincipal from "./BottomNavMenuPrincipal";
 import "../css/menuPrincipal.css";
+//import PropTypes from "prop-types";
 
 export default class MenuPrincipal extends Component {
   render() {
+    //const { user } = this.props;
+    //console.log(user);
     return (
       <Container>
         <NavMenuPrincipal></NavMenuPrincipal>
@@ -47,3 +50,18 @@ export default class MenuPrincipal extends Component {
     );
   }
 }
+
+/*MenuPrincipal.propTypes = {
+  user: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    nombre: PropTypes.string.isRequired,
+    apellido: PropTypes.string.isRequired,
+    correo: PropTypes.string.isRequired,
+    password: PropTypes.string.isRequired,
+    rol: PropTypes.string.isRequired,
+    telefono: PropTypes.string.isRequired,
+    usuario: PropTypes.string.isRequired,
+    // Puedes agregar otros campos aquí si es necesario
+  }),
+};
+*/

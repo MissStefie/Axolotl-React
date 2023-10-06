@@ -361,6 +361,7 @@ class ListarProducto extends React.Component {
                       <td>{producto.cantidad}</td>
                       <td>{producto.descuento}</td>
                       <td>{producto.preciodct}</td>
+
                       <th>
                         <div className="btn-group" role="group" aria-label="">
                           <Link
@@ -399,5 +400,6 @@ class ListarProducto extends React.Component {
     }
   }
 }
+
 
 export default ListarProducto;

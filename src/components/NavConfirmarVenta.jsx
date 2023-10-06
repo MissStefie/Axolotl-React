@@ -17,14 +17,14 @@ export default class NavConfirmarVenta extends Component {
         <ul className="nav nav-pills nav_confirmarVenta_bg">
           <div className="logo-container">
             <li>
-              <a href="#" className="menu" title="Regresa al menu">
+              <Link to="#" className="menu" title="Regresa al menu">
                 <img
                   src={GSLOGO}
                   alt="Glowing Store Logo"
                   className="logo-image"
                 ></img>
                 Glowing Store
-              </a>
+              </Link>
             </li>
           </div>
 
