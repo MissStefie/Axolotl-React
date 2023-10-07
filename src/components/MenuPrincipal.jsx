@@ -22,7 +22,7 @@ export default class MenuPrincipal extends Component {
     }
     return (
       <Container>
-        <NavMenuPrincipal ></NavMenuPrincipal>
+        <NavMenuPrincipal user={user}></NavMenuPrincipal>
         <Container className="menu_principal_contenido">
           <Link to="/realizar_venta" className="btn link_menu_principal">
             Realizar Venta{" "}

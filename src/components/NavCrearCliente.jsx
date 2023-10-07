@@ -15,14 +15,14 @@ export default class NavCrearCliente extends Component {
           <ul className="nav nav-pills nav-bg-crearCliente">
             <div className="logo-container-crearCliente">
               <li>
-                <a className="menu-crearCliente" title="Regresa al menu">
+                <Link to="/" className="menu-crearCliente" title="Regresa al menu">
                   <img
                     src={GSLOGO}
                     alt="Glowing Store Logo"
                     className="logo-image-crearCliente"
-                  ></img>
+                  />
                   Glowing Store
-                </a>
+                </Link>
               </li>
             </div>
 
@@ -32,15 +32,13 @@ export default class NavCrearCliente extends Component {
             </div>
             <div className="salir-container-crearCliente">
               <li>
-                <a title="Tambien regresa al menu pero ya estaba en el diseño xdxd">
-                  <Link to={"/consultar"}>
-                    <FontAwesomeIcon
-                      icon={faCircleXmark}
-                      style={{ color: "#e5beec" }}
-                      className="iconoSalir-crearCliente"
-                    />
-                  </Link>
-                </a>
+                <Link to="/consultar" title="También regresa al menú">
+                  <FontAwesomeIcon
+                    icon={faCircleXmark}
+                    style={{ color: "#e5beec" }}
+                    className="iconoSalir-crearCliente"
+                  />
+                </Link>
               </li>
             </div>
           </ul>

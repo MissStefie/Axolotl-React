@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { Dropdown } from "react-bootstrap";
 import "../css/navMenuPrincipal.css";
 import GSLOGO from "../img/glowing_store_logo.jpg";
@@ -9,6 +9,7 @@ import {
   faFileLines,
   faCircleXmark,
 } from "@fortawesome/free-solid-svg-icons";
+import PropTypes from "prop-types";
 
 export default class NavMenuPrincipal extends Component {
   constructor(props) {
@@ -33,7 +34,12 @@ export default class NavMenuPrincipal extends Component {
   render() {
     const { mostrarDropdown } = this.state;
     const { user } = this.props;
+
     console.log(user);
+
+    if (!user) {
+      return <Redirect to="/" />;
+    }
 
     return (
       <div className="nav-container">
@@ -63,10 +69,17 @@ export default class NavMenuPrincipal extends Component {
             </Dropdown.Toggle>
             {mostrarDropdown && (
               <Dropdown.Menu className="dropdown_items_fondo">
-                <Dropdown.Item href="/registrar_cliente" >
+                <Dropdown.Item
+                  as={Link}
+                  to={{ pathname: "/registrar_cliente", state: { user } }}
+                >
                   Registrar cliente
                 </Dropdown.Item>
-                <Dropdown.Item href="/modificar_cliente" >
+
+                <Dropdown.Item
+                  as={Link}
+                  to={{ pathname: "/modificar_cliente", state: { user } }}
+                >
                   Modificar cliente
                 </Dropdown.Item>
               </Dropdown.Menu>
@@ -95,4 +108,15 @@ export default class NavMenuPrincipal extends Component {
   }
 }
 
-
+NavMenuPrincipal.propTypes = {
+  user: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    nombre: PropTypes.string.isRequired,
+    apellido: PropTypes.string.isRequired,
+    correo: PropTypes.string.isRequired,
+    password: PropTypes.string.isRequired,
+    rol: PropTypes.string.isRequired,
+    telefono: PropTypes.string.isRequired,
+    usuario: PropTypes.string.isRequired,
+  }),
+};
