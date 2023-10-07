@@ -4,7 +4,11 @@ import { Dropdown } from "react-bootstrap";
 import "../css/navMenuPrincipal.css";
 import GSLOGO from "../img/glowing_store_logo.jpg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUsers, faFileLines, faCircleXmark } from "@fortawesome/free-solid-svg-icons";
+import {
+  faUsers,
+  faFileLines,
+  faCircleXmark,
+} from "@fortawesome/free-solid-svg-icons";
 
 export default class NavMenuPrincipal extends Component {
   constructor(props) {
@@ -28,6 +32,9 @@ export default class NavMenuPrincipal extends Component {
 
   render() {
     const { mostrarDropdown } = this.state;
+    const { user } = this.props;
+    console.log(user);
+
     return (
       <div className="nav-container">
         <ul className="nav nav-pills nav_menu_bg nav-tabs">
@@ -47,17 +54,31 @@ export default class NavMenuPrincipal extends Component {
             onMouseLeave={this.cerrarDropdown}
           >
             <Dropdown.Toggle className="dropdown_button">
-              Administrar clientes <FontAwesomeIcon icon={faUsers} style={{color: "#e5beec",}} className="iconoAdmUsuario" />
+              Administrar clientes{" "}
+              <FontAwesomeIcon
+                icon={faUsers}
+                style={{ color: "#e5beec" }}
+                className="iconoAdmUsuario"
+              />
             </Dropdown.Toggle>
             {mostrarDropdown && (
               <Dropdown.Menu className="dropdown_items_fondo">
-                <Dropdown.Item href="/registrar_cliente">Registrar cliente</Dropdown.Item>
-                <Dropdown.Item href="/modificar_cliente">Modificar cliente</Dropdown.Item>
+                <Dropdown.Item href="/registrar_cliente" >
+                  Registrar cliente
+                </Dropdown.Item>
+                <Dropdown.Item href="/modificar_cliente" >
+                  Modificar cliente
+                </Dropdown.Item>
               </Dropdown.Menu>
             )}
           </Dropdown>
           <Link className="btn ver_informes_boton" to={"#action3"}>
-            Ver informes <FontAwesomeIcon icon={faFileLines} style={{color: "#e5beec",}} className="iconoVerInforme"/>
+            Ver informes{" "}
+            <FontAwesomeIcon
+              icon={faFileLines}
+              style={{ color: "#e5beec" }}
+              className="iconoVerInforme"
+            />
           </Link>
           <li className="salir-container">
             <Link to={"/"} title="Salir de sesión.">
@@ -73,3 +94,5 @@ export default class NavMenuPrincipal extends Component {
     );
   }
 }
+
+

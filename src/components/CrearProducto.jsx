@@ -5,6 +5,8 @@ import { Container } from "@mui/material";
 import { Select, MenuItem } from "@mui/material";
 import Api from "../services/api";
 import "../css/agregarProducto.css";
+import PropTypes from "prop-types";
+import { Redirect } from "react-router-dom";
 
 import ApiPS from "../services/prendasSuperior";
 import ApiIn from "../services/prendasInferiores";
@@ -13,7 +15,7 @@ import ApiCol from "../services/colores";
 import ApiTam from "../services/tamanos";
 import ApiTal from "../services/talles";
 
-class CrearProducto extends React.Component {
+export default class CrearProducto extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -291,6 +293,11 @@ class CrearProducto extends React.Component {
   };
 
   render() {
+    const { user } = this.props;
+    console.log(user);
+    if (!user) {
+      return <Redirect to="/" />;
+    }
     const {
       codigo,
       nombre,
@@ -572,4 +579,15 @@ class CrearProducto extends React.Component {
   }
 }
 
-export default CrearProducto;
+CrearProducto.propTypes = {
+  user: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    nombre: PropTypes.string.isRequired,
+    apellido: PropTypes.string.isRequired,
+    correo: PropTypes.string.isRequired,
+    password: PropTypes.string.isRequired,
+    rol: PropTypes.string.isRequired,
+    telefono: PropTypes.string.isRequired,
+    usuario: PropTypes.string.isRequired,
+  }),
+};

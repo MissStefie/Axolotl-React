@@ -6,6 +6,8 @@ import { faUserPlus } from "@fortawesome/free-solid-svg-icons";
 import NavCrearCliente from "./NavCrearCliente";
 import ApiRC from "../services/registrarClientes";
 import "../css/registrarClientes.css";
+import PropTypes from "prop-types";
+import { Redirect } from "react-router-dom";
 
 export default class RegistrarCliente extends Component {
   constructor(props) {
@@ -47,7 +49,7 @@ export default class RegistrarCliente extends Component {
       rucExiste: 0,
     };
 
-    console.log(datosEnviar)
+    console.log(datosEnviar);
 
     fetch(ApiRC + "?insertar=1", {
       method: "POST",
@@ -83,6 +85,11 @@ export default class RegistrarCliente extends Component {
   };
 
   render() {
+    const { user } = this.props;
+    console.log(user);
+    if (!user) {
+      return <Redirect to="/" />;
+    }
     const { nombre, apellido, ruc, direccion } = this.state;
     return (
       <Container>
@@ -207,3 +214,16 @@ export default class RegistrarCliente extends Component {
     );
   }
 }
+
+RegistrarCliente.propTypes = {
+  user: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    nombre: PropTypes.string.isRequired,
+    apellido: PropTypes.string.isRequired,
+    correo: PropTypes.string.isRequired,
+    password: PropTypes.string.isRequired,
+    rol: PropTypes.string.isRequired,
+    telefono: PropTypes.string.isRequired,
+    usuario: PropTypes.string.isRequired,
+  }),
+};

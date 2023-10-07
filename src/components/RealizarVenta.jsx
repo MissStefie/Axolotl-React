@@ -9,8 +9,10 @@ import "../css/productosVenta.css";
 import "bootstrap/dist/css/bootstrap.css";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import PropTypes from "prop-types";
+import { Redirect } from "react-router-dom";
 
-class RealizarVenta extends React.Component {
+export default class RealizarVenta extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -240,6 +242,12 @@ class RealizarVenta extends React.Component {
   };
 
   render() {
+    const { user } = this.props;
+    console.log(user);
+    if (!user) {
+      return <Redirect to="/" />;
+    }
+
     const {
       datosCargados,
       productos,
@@ -575,4 +583,15 @@ class RealizarVenta extends React.Component {
   }
 }
 
-export default RealizarVenta;
+RealizarVenta.propTypes = {
+  user: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    nombre: PropTypes.string.isRequired,
+    apellido: PropTypes.string.isRequired,
+    correo: PropTypes.string.isRequired,
+    password: PropTypes.string.isRequired,
+    rol: PropTypes.string.isRequired,
+    telefono: PropTypes.string.isRequired,
+    usuario: PropTypes.string.isRequired,
+  }),
+};

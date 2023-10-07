@@ -13,8 +13,10 @@ import {
 import "../css/tablaProductos.css";
 import "bootstrap/dist/css/bootstrap.css";
 import swal from "sweetalert2";
+import PropTypes from "prop-types";
+import { Redirect } from "react-router-dom";
 
-class ListarProducto extends React.Component {
+export default class ListarProducto extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -116,6 +118,11 @@ class ListarProducto extends React.Component {
   };
 
   render() {
+    const { user } = this.props;
+    console.log(user);
+    if (!user) {
+      return <Redirect to="/" />;
+    }
     const {
       datosCargados,
       productos,
@@ -401,5 +408,16 @@ class ListarProducto extends React.Component {
   }
 }
 
+ListarProducto.propTypes = {
+  user: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    nombre: PropTypes.string.isRequired,
+    apellido: PropTypes.string.isRequired,
+    correo: PropTypes.string.isRequired,
+    password: PropTypes.string.isRequired,
+    rol: PropTypes.string.isRequired,
+    telefono: PropTypes.string.isRequired,
+    usuario: PropTypes.string.isRequired,
+  }),
+};
 
-export default ListarProducto;

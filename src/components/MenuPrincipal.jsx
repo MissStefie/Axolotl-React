@@ -10,15 +10,19 @@ import {
 import NavMenuPrincipal from "./NavMenuPrincipal";
 import BottomNavMenuPrincipal from "./BottomNavMenuPrincipal";
 import "../css/menuPrincipal.css";
-//import PropTypes from "prop-types";
+import PropTypes from "prop-types";
+import { Redirect } from "react-router-dom";
 
 export default class MenuPrincipal extends Component {
   render() {
-    //const { user } = this.props;
-    //console.log(user);
+    const { user } = this.props;
+    console.log(user);
+    if (!user) {
+      return <Redirect to="/" />;
+    }
     return (
       <Container>
-        <NavMenuPrincipal></NavMenuPrincipal>
+        <NavMenuPrincipal ></NavMenuPrincipal>
         <Container className="menu_principal_contenido">
           <Link to="/realizar_venta" className="btn link_menu_principal">
             Realizar Venta{" "}
@@ -51,7 +55,7 @@ export default class MenuPrincipal extends Component {
   }
 }
 
-/*MenuPrincipal.propTypes = {
+MenuPrincipal.propTypes = {
   user: PropTypes.shape({
     id: PropTypes.string.isRequired,
     nombre: PropTypes.string.isRequired,
@@ -61,7 +65,5 @@ export default class MenuPrincipal extends Component {
     rol: PropTypes.string.isRequired,
     telefono: PropTypes.string.isRequired,
     usuario: PropTypes.string.isRequired,
-    // Puedes agregar otros campos aquí si es necesario
   }),
 };
-*/

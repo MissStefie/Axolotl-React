@@ -7,6 +7,8 @@ import ApiC from "../services/clientes";
 import "../css/modificarClientes.css";
 import swal from "sweetalert2";
 import NavModificarCliente from "./NavModificarCliente";
+import PropTypes from "prop-types";
+import { Redirect } from "react-router-dom";
 
 export default class ModificarCliente extends Component {
   constructor(props) {
@@ -179,6 +181,12 @@ export default class ModificarCliente extends Component {
   };
 
   render() {
+    const { user } = this.props;
+    console.log(user);
+    if (!user) {
+      return <Redirect to="/" />;
+    }
+
     const { nombre, apellido, ruc, direccion, id, clienteEncontrado } =
       this.state;
     return (
@@ -328,3 +336,16 @@ export default class ModificarCliente extends Component {
     );
   }
 }
+
+ModificarCliente.propTypes = {
+  user: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    nombre: PropTypes.string.isRequired,
+    apellido: PropTypes.string.isRequired,
+    correo: PropTypes.string.isRequired,
+    password: PropTypes.string.isRequired,
+    rol: PropTypes.string.isRequired,
+    telefono: PropTypes.string.isRequired,
+    usuario: PropTypes.string.isRequired,
+  }),
+};

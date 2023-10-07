@@ -10,8 +10,10 @@ import ApiTal from "../services/talles";
 import { Link } from "react-router-dom";
 import { Container } from "@mui/material";
 import "../css/editarProducto.css";
+import PropTypes from "prop-types";
+import { Redirect } from "react-router-dom";
 
-class EditarProducto extends React.Component {
+export default class EditarProducto extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -220,6 +222,11 @@ class EditarProducto extends React.Component {
   }
 
   render() {
+    const { user } = this.props;
+    console.log(user);
+    if (!user) {
+      return <Redirect to="/" />;
+    }
     const {
       datosCargados,
       producto,
@@ -468,4 +475,15 @@ class EditarProducto extends React.Component {
   }
 }
 
-export default EditarProducto;
+EditarProducto.propTypes = {
+  user: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    nombre: PropTypes.string.isRequired,
+    apellido: PropTypes.string.isRequired,
+    correo: PropTypes.string.isRequired,
+    password: PropTypes.string.isRequired,
+    rol: PropTypes.string.isRequired,
+    telefono: PropTypes.string.isRequired,
+    usuario: PropTypes.string.isRequired,
+  }),
+};
