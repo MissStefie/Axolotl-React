@@ -31,14 +31,28 @@ export default class ModificarCliente extends Component {
     // Aplicar restricciones solo al campo RUC
     let updatedValue = value;
     if (name === "ruc") {
-      // Filtrar solo los dígitos numéricos y limitar a 7 caracteres
-      updatedValue = value.replace(/\D/g, "").substring(0, 7);
+      // Filtrar solo los dígitos numéricos y limitar a 8 caracteres (7 dígitos + 1 número)
+      updatedValue = value.replace(/\D/g, "").substring(0, 8);
+
+      // Separar en dos partes: los primeros 7 dígitos y el último número
+      if (updatedValue.length > 7) {
+        const firstPart = updatedValue.slice(0, 7);
+        const lastDigit = updatedValue.slice(7);
+
+        // Formar la cadena con el guión
+        updatedValue = firstPart + "-" + lastDigit;
+      }
     }
 
-    this.setState({
-      [name]: updatedValue,
-      erroresMostrados: false,
-    });
+    this.setState(
+      {
+        [name]: updatedValue,
+      },
+      () => {
+        // Imprimir el valor actualizado en la consola
+        console.log(`Valor de ${name}: ${updatedValue}`);
+      }
+    );
   };
 
   verificarError(elemento) {
@@ -49,6 +63,7 @@ export default class ModificarCliente extends Component {
 
   buscarCliente = () => {
     const { ruc } = this.state;
+    console.log(ruc);
 
     if (ruc.trim() === "") {
       this.setState({
@@ -102,7 +117,7 @@ export default class ModificarCliente extends Component {
     if (!apellido) errores.push("error_apellido");
     if (!ruc) errores.push("error_ruc");
     if (!direccion) errores.push("error_direccion");
-    if (ruc.length !== 7) errores.push("error_ruc_length"); // Nueva validación
+    if (ruc.length !== 9) errores.push("error_ruc_length"); // Nueva validación
 
     this.setState({ errores: errores, erroresMostrados: true });
     if (errores.length > 0) return false;
@@ -212,20 +227,20 @@ export default class ModificarCliente extends Component {
                   type="text"
                   value={ruc}
                   id="ruc"
-                  placeholder="Ingrese el ruc"
+                  placeholder="#######-#"
                   onChange={this.handleChange}
                   inputMode="numeric" // Asegura que solo se acepten caracteres numéricos
-                  pattern="[0-9]*"
-                  maxLength="7"
+                  pattern="^\d{7}-\d$" // Patrón para aceptar el formato "0000000-0"
+                  maxLength="9" // Establece el máximo de caracteres a 9 (7 dígitos + 1 guión + 1 dígito)
                   className={
-                    (this.verificarError("error_nombre") ? "is-invalid" : "") +
+                    (this.verificarError("error_ruc") ? "is-invalid" : "") +
                     " form-control inputModificarCliente"
                   }
-                ></input>
+                />
               </div>
               {this.verificarError("error_ruc_length") && ( // Nuevo div de mensaje de error
                 <div className="rucIncompleto">
-                  El RUC debe tener exactamente 7 caracteres.
+                  El RUC debe tener exactamente 9 caracteres.
                 </div>
               )}
               {!clienteEncontrado && (
