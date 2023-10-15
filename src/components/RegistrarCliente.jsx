@@ -20,6 +20,9 @@ export default class RegistrarCliente extends Component {
       errores: [],
       rucExiste: 0,
     };
+    this.filasSeleccionadas = this.props.location.state
+      ? this.props.location.state.filasSeleccionadas
+      : null;
   }
 
   verificarError(elemento) {
@@ -30,6 +33,8 @@ export default class RegistrarCliente extends Component {
     e.preventDefault();
     console.log("Dentro de funcion enviardatos...");
     const { nombre, apellido, ruc, direccion } = this.state;
+    const { filasSeleccionadas } =
+      this.props.location.state || this.filasSeleccionadas;
 
     var errores = [];
     if (!nombre) errores.push("error_nombre");
@@ -50,6 +55,7 @@ export default class RegistrarCliente extends Component {
     };
 
     console.log(datosEnviar);
+    console.log(filasSeleccionadas);
 
     fetch(ApiRC + "?insertar=1", {
       method: "POST",
@@ -59,7 +65,15 @@ export default class RegistrarCliente extends Component {
       .then((datosRespuesta) => {
         console.log(datosRespuesta.data);
         if (datosRespuesta.data.rucExiste === 0) {
-          this.props.history.push("/menu_principal");
+          if (filasSeleccionadas) {
+            this.props.history.push({
+              pathname: `/confirmar_venta/${filasSeleccionadas}`,
+              state: { filasSeleccionadas: filasSeleccionadas },
+            });
+          } else {
+            this.props.history.push("/menu_principal");
+          }
+          //this.props.history.push("/menu_principal");
         } else {
           console.log("El RUC ya existe en la base de datos");
           errores.push("ruc_existe");

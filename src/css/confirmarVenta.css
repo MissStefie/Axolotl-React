@@ -111,7 +111,7 @@ table {
   transition: color 0.3s ease;
 }
 
-.agrPrdConfirmarVentaLink:hover{
+.agrPrdConfirmarVentaLink:hover {
   color: var(--violeta);
   transition: color 0.3s ease;
 }
@@ -163,4 +163,93 @@ table {
 
 .ocultar_columna {
   display: none !important;
+}
+
+.contenedorBtnsIdCliente {
+  position: relative; /* Para posicionar elementos internos */
+}
+
+.seEligeFactura {
+  position: absolute;
+  display: flex; /* Activa el modelo de caja flexible (flexbox) */
+  justify-content: space-between;
+  align-items: center;
+  margin-top: -50px;
+}
+
+.elegitrIDCliente {
+  display: flex; /* Activa el modelo de caja flexible (flexbox) */
+  align-items: center; /* Alinea los elementos verticalmente */
+  justify-content: flex-start;
+  margin-left: -180px;
+  margin-right: 500px;
+}
+
+.btnsCanConFact {
+  display: flex; /* Activa el modelo de caja flexible (flexbox) */
+  align-items: center; /* Alinea los elementos verticalmente */
+  justify-content: flex-end;
+}
+
+.clienteNuevoPreg {
+  width: 200px;
+  margin-left: 10px;
+  font-size: 24px;
+  color: var(--lila_oscuro);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.clienteNuevoPreg:hover {
+  color: var(--violeta);
+  transition: color 0.3s ease;
+}
+
+.boton-guardarEfectuarVenta {
+  width: 160px;
+  float: left;
+  color: white !important;
+  margin-right: 10px;
+  border-top-left-radius: 20px !important;
+  border-bottom-left-radius: 20px !important;
+  border-top-right-radius: 20px !important;
+  border-bottom-right-radius: 20px !important;
+  background-color: #e5beec !important;
+  border: none !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
+}
+
+.boton-guardarEfectuarVenta:hover {
+  background-image: linear-gradient(to top, #9ea1d4, #c4c6e5);
+}
+
+.boton-cancelarEfectuarVenta {
+  width: 150px;
+  float: right;
+  color: white !important;
+  border-top-left-radius: 20px !important;
+  border-bottom-left-radius: 20px !important;
+  border-top-right-radius: 20px !important;
+  border-bottom-right-radius: 20px !important;
+  background-color: #917fb3 !important;
+  border: none !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
+}
+
+.boton-cancelarEfectuarVenta:hover {
+  background-image: linear-gradient(to top, #fd8a8a, #eeb0b0);
+}
+
+.inputLabelConfVnta {
+  font-family: "Nunito", sans-serif !important;
+  width: 260px !important;
+  font-size: 24px !important;
+  color: var(--lila_claro) !important;
+}
+
+.selectConfVta{
+  width: 200px;
+  background-color: var(--blanco);
+  border: none !important;
+  border-radius: 30px !important;
 }

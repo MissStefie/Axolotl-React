@@ -63,7 +63,13 @@ function App() {
       <Route
         exact
         path="/registrar_cliente"
-        render={(props) => <RegistrarCliente {...props} user={user} />}
+        render={(props) => (
+          <RegistrarCliente
+            {...props}
+            user={user}
+            datosEnviar={props.location.state}
+          />
+        )}
       ></Route>
 
       <Route
@@ -84,15 +90,6 @@ function App() {
         render={(props) => <ConfirmarVenta {...props} user={user} />}
       ></Route>
 
-      {/*<Route path="/crear" component={CrearProducto}></Route>
-      <Route path="/editar/:id" component={EditarProducto}></Route>
-      <Route path="/registrar_cliente" component={RegistrarCliente}></Route>
-      <Route path="/modificar_cliente" component={ModificarCliente}></Route>
-      <Route path="/realizar_venta" component={RealizarVenta}></Route>
-      <Route
-        path="/confirmar_venta/:filasSeleccionadas"
-        component={ConfirmarVenta}
-      ></Route>*/}
     </Router>
   );
 }

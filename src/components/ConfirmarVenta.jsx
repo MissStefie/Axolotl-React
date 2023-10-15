@@ -1,20 +1,62 @@
 import React from "react";
-import { Container, Table } from "@mui/material";
+import { Container, Table, Select, MenuItem, InputLabel } from "@mui/material";
 import { Link } from "react-router-dom";
 import "../css/confirmarVenta.css";
 import swal from "sweetalert2";
 import NavConfirmarVenta from "./NavConfirmarVenta";
 import ApiPV from "../services/procesoVenta";
+import ApiC from "../services/clientes";
 import PropTypes from "prop-types";
 import { Redirect } from "react-router-dom";
+
+/*
+-Si es recibo, entonces: 
+Se ingresa los datos del cliente solamente, y ese dato se guarda en la base de datos solo en la tabla de ventas, no en el registro de clientes ya que no se proporciono el ruc.
+
+
+-Si es factura, entonces: 
+Debe de salir la opcion de consultar si el cliente es nuevo o ya existe.
+
+Si cliente no existe:
+Se debe pasar al componente de registrar cliente con los datos de la tabla compra guardados, probablemente se usara un switch para comprobar si es que estamos accediendo a la funcion de crear cliente en medio de una compra o desde el menu principal, tambien en todo momento existira un prop en donde se guardara la tabla de compras.
+Despues de registrar al cliente pasamos a la interfaz para crear una factura donde se cargara la tabla de compra que se paso como prop, y tendremos la opcion de buscar al cliente que recien ingresamos.
+
+Si cliente existe:
+Pasamos directamente al interfaz de la factura donde se cargara la tabla de compra que se paso como prop, y tendremos la opcion de buscar al cliente que recien ingresamos.
+*/
 
 export default class ConfirmarVenta extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       filasSeleccionadas: this.props.location.state.filasSeleccionadas,
+      rucs: [],
+      selectedRuc: "",
+      mostrarSeEligeFactura: false,
+      mostrarBotones: true,
+      fechaActual: "",
     };
   }
+
+  componentDidMount() {
+    const fechaActual = new Date();
+    const año = fechaActual.getFullYear();
+    const mes = fechaActual.getMonth() + 1; // Los meses comienzan desde 0, por lo que sumamos 1
+    const día = fechaActual.getDate();
+    const fechaFormateada = `${año}-${mes}-${día}`;
+    this.setState({ fechaActual: fechaFormateada });
+    console.log(fechaFormateada);
+    this.cargarRucs();
+  }
+
+  cargarRucs = () => {
+    fetch(ApiC + "?consultarRucs=1")
+      .then((response) => response.json())
+      .then((data) => {
+        this.setState({ rucs: data });
+      })
+      .catch((error) => console.log(error));
+  };
 
   eliminarFila = (indice) => {
     const nuevasFilasSeleccionadas = [...this.state.filasSeleccionadas];
@@ -105,7 +147,75 @@ export default class ConfirmarVenta extends React.Component {
               },
             });
           } else {
-            this.procesarVenta();
+            // Preguntar si el usuario quiere recibo o factura
+            swal
+              .fire({
+                title: "Seleccionar tipo",
+                text: "¿Quiere un recibo o una factura?",
+                icon: "question",
+                showCancelButton: true,
+                confirmButtonText: "Recibo",
+                cancelButtonText: "Factura",
+                customClass: {
+                  popup: "popup-class",
+                  title: "my-swal-title",
+                  text: "my-swal-text",
+                  content: "my-swal-content",
+                  confirmButton: "swal-confirm",
+                  cancelButton: "swal-cancel",
+                },
+              })
+              .then((respuestaTipo) => {
+                if (respuestaTipo.isConfirmed) {
+                  // El usuario eligió recibo
+                  this.elegirProceso("recibo");
+                } else {
+                  // El usuario eligió factura
+                  this.elegirProceso("factura");
+                }
+              });
+          }
+        }
+      });
+  };
+
+  mostrarAlertaEfectuarVenta = () => {
+    swal
+      .fire({
+        title: "Confirmar venta",
+        text: "¿Quiere confirmar la venta?",
+        icon: "question",
+        confirmButtonText: "Sí, confirmar",
+        cancelButtonText: "Cancelar",
+        showCancelButton: true,
+        customClass: {
+          popup: "popup-class",
+          title: "my-swal-title",
+          text: "my-swal-text",
+          content: "my-swal-content",
+          confirmButton: "swal-confirm",
+          cancelButton: "swal-cancel",
+        },
+      })
+      .then((respuestaAlert) => {
+        if (respuestaAlert.isConfirmed) {
+          if (this.state.filasSeleccionadas.length === 0) {
+            swal.fire({
+              title: "Error",
+              text: "No se puede realizar la venta sin productos seleccionados.",
+              icon: "error",
+              customClass: {
+                popup: "popup-class",
+                title: "my-swal-title",
+                text: "my-swal-text",
+                content: "my-swal-content",
+                icon: "my-swal-icon",
+                confirmButton: "swal-confirm",
+                cancelButton: "swal-cancel",
+              },
+            });
+          } else {
+            this.procesarVentaFactura();
             swal.fire({
               text: "Confirmado.",
               icon: "success",
@@ -124,12 +234,66 @@ export default class ConfirmarVenta extends React.Component {
       });
   };
 
-  procesarVenta = () => {
+  elegirProceso = (decision) => {
+    if (decision === "factura") {
+      this.setState({ mostrarSeEligeFactura: true });
+      this.setState({ mostrarBotones: false });
+    } else {
+      if (decision === "recibo") {
+        this.procesarVentaRecibo();
+        swal.fire({
+          text: "Confirmado.",
+          icon: "success",
+          customClass: {
+            popup: "popup-class",
+            title: "my-swal-title",
+            text: "my-swal-text",
+            content: "my-swal-content",
+            icon: "my-swal-icon",
+            confirmButton: "swal-confirm",
+            cancelButton: "swal-cancel",
+          },
+        });
+      }
+    }
+  };
+
+  procesarVentaFactura = () => {
     console.log("Dentro de funcion procesar venta...");
+    const { user } = this.props;
 
     const datosEnviar = {
       productos: this.state.filasSeleccionadas,
+      fecha: this.state.fechaActual,
       precioTotal: this.calcularPrecioTotal(),
+      selectedRuc: this.state.selectedRuc,
+      vendedorId: user.id,
+    };
+
+    console.log("Datos a enviar:", datosEnviar);
+
+    fetch(ApiPV + "?procesar=1", {
+      method: "POST",
+      body: JSON.stringify(datosEnviar),
+    })
+      .then((respuesta) => respuesta.json())
+      .then((datosRespuesta) => {
+        console.log("Respuesta de la API:", datosRespuesta);
+        this.props.history.push("/menu_principal");
+      })
+      .catch(console.error);
+  };
+
+  procesarVentaRecibo = () => {
+    console.log("Dentro de funcion procesar venta...");
+    const { user } = this.props;
+
+    const datosEnviar = {
+      productos: this.state.filasSeleccionadas,
+      fecha: this.state.fechaActual,
+      precioTotal: this.calcularPrecioTotal(),
+      selectedRuc: "0000000-0",
+      vendedorId: user.id,
     };
 
     console.log("Datos a enviar:", datosEnviar);
@@ -157,6 +321,56 @@ export default class ConfirmarVenta extends React.Component {
     return (
       <Container>
         <NavConfirmarVenta />
+        <div className="contenedorBtnsIdCliente">
+          {this.state.mostrarSeEligeFactura && (
+            <div className="seEligeFactura">
+              <div className="elegitrIDCliente">
+                <InputLabel className="inputLabelConfVnta">Elige el ruc del cliente</InputLabel>
+                <Select
+                  value={this.state.selectedRuc}
+                  onChange={(event) =>
+                    this.setState({ selectedRuc: event.target.value })
+                  }
+                  className="selectConfVta"
+                >
+                  {this.state.rucs.map((ruc) => (
+                    <MenuItem key={ruc.ruc} value={ruc.ruc}>
+                      {ruc.ruc}
+                    </MenuItem>
+                  ))}
+                </Select>
+                <Link
+                  to={{
+                    pathname: "/registrar_cliente",
+                    state: {
+                      filasSeleccionadas: this.state.filasSeleccionadas,
+                    },
+                  }}
+                  className="clienteNuevoPreg"
+                >
+                  ¿Cliente nuevo?
+                </Link>
+              </div>
+
+              <div className="btnsCanConFact">
+                <button
+                  onClick={this.mostrarAlertaEfectuarVenta}
+                  type="submit"
+                  className="btn boton-guardarEfectuarVenta"
+                >
+                  Confirmar venta
+                </button>
+                <Link
+                  to={"/menu_principal"}
+                  className="btn boton-cancelarEfectuarVenta"
+                >
+                  Cancelar venta
+                </Link>
+              </div>
+            </div>
+          )}
+        </div>
+
         <div className="card-headerConfirmarVenta">
           <div className="contenidoListarConfirmarVenta">
             <div className="scrollTablaConfirmarVenta">
@@ -282,25 +496,27 @@ export default class ConfirmarVenta extends React.Component {
         <div className="precioTotalConfirmarVenta">
           Precio total {precioTotal} Gs.
         </div>
-        <div
-          className="btn-group grupoBotonesConfirmarVenta"
-          role="group"
-          aria-label=""
-        >
-          <button
-            onClick={this.mostrarAlertaConfirmarVenta}
-            type="submit"
-            className="btn boton-guardarConfirmarVenta"
+        {this.state.mostrarBotones && (
+          <div
+            className="btn-group grupoBotonesConfirmarVenta"
+            role="group"
+            aria-label=""
           >
-            Confirmar venta
-          </button>
-          <Link
-            to={"/menu_principal"}
-            className="btn boton-cancelarConfirmarVenta"
-          >
-            Cancelar venta
-          </Link>
-        </div>
+            <button
+              onClick={this.mostrarAlertaConfirmarVenta}
+              type="submit"
+              className="btn boton-guardarConfirmarVenta"
+            >
+              Continuar venta
+            </button>
+            <Link
+              to={"/menu_principal"}
+              className="btn boton-cancelarConfirmarVenta"
+            >
+              Cancelar venta
+            </Link>
+          </div>
+        )}
       </Container>
     );
   }
@@ -318,3 +534,9 @@ ConfirmarVenta.propTypes = {
     usuario: PropTypes.string.isRequired,
   }),
 };
+
+/*
+Lo que vamos a hacer es: que despues de elegir si queremos una opcion, ya sea recibo o factura, si es recibo enviamos el ID 1 de cliete ya que es el por defecto, si es factura vamos a pedirle que busque al cliente, en el peor de los casos debemos hacer que ingrese al cliente si es que el mismo no esta registrado.
+Vamos a crear un select que se va a activar cuando elijamos la opcion de "factura" y vamos a elegir desde ahi el ruc del cliente.
+Abajo un botoncito para agregar cliente nuevo.
+*/
