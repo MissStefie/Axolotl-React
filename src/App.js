@@ -1,5 +1,6 @@
 import "./App.css";
 import ListarProducto from "./components/ListarProducto";
+import Informes from './components/Informes'
 import EditarProducto from "./components/EditarProducto";
 import Login from "./components/Login";
 import MenuPrincipal from "./components/MenuPrincipal";
@@ -50,6 +51,12 @@ function App() {
 
       <Route
         exact
+        path="/informes"
+        render={(props) => <Informes {...props} user={user} />}
+      ></Route>
+
+      <Route
+        exact
         path="/crear"
         render={(props) => <CrearProducto {...props} user={user} />}
       ></Route>
@@ -89,7 +96,6 @@ function App() {
         path="/confirmar_venta/:filasSeleccionadas"
         render={(props) => <ConfirmarVenta {...props} user={user} />}
       ></Route>
-
     </Router>
   );
 }

@@ -1,0 +1,185 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@700;800&display=swap");
+
+.containerInformes {
+  font-family: "Nunito", sans-serif !important;
+}
+
+.contenidoTablaInformes {
+  margin-top: 50px !important;
+  margin-left: -220px;
+  width: 6000px;
+}
+
+table {
+  text-align: center;
+  font-family: "Nunito", sans-serif !important;
+}
+
+.card-header {
+  display: grid !important;
+  grid-template-columns: repeat(2, 10fr);
+  grid-gap: 1200px;
+}
+
+/*barra scroll*/
+.scrollTablaInformes {
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+/* Estilos para la barra de desplazamiento */
+.scrollTablaInformes::-webkit-scrollbar {
+  width: 8px !important;
+  height: 8px !important;
+}
+
+.scrollTablaInformes::-webkit-scrollbar-thumb {
+  background-color: var(--violeta);
+  border-radius: 4px;
+}
+
+.scrollTablaInformes::-webkit-scrollbar-track {
+  background-color: var(--blanco);
+}
+
+/*cabecera de la tablainformes*/
+.tablaInformes thead th:last-child {
+  border-top-right-radius: 20px !important;
+}
+
+.tablaInformes-header {
+  background-color: var(--lila_oscuro) !important;
+  color: var(--rosita) !important;
+  font-weight: bold !important;
+  vertical-align: middle !important;
+}
+
+/*contenido de la tablainformes*/
+.tablaInformes-container {
+  color: var(--lila_oscuro) !important;
+}
+
+.tablaInformes-container tr:nth-child(even) {
+  background-color: #bdb2d1 !important;
+}
+
+.tablaInformes-container tr:nth-child(odd) {
+  background-color: #c8bfd9 !important;
+}
+
+.tablaInformes-container tr:hover {
+  background-color: #eacbef !important;
+}
+
+/*filtro*/
+.dropdown.show .dropdown-menu {
+  display: block;
+}
+
+.toggleInformes {
+  color: var(--violeta) !important;
+  background-color: var(--lila_oscuro) !important;
+  border: none !important;
+}
+
+.toggleInformes:hover {
+  color: var(--blanco) !important;
+  background-color: var(--lila_claro) !important;
+}
+
+.form_controlInformes:focus,
+.form_controlInformes:active,
+.form_controlInformes:visited {
+  color: var(--lila_oscuro) !important;
+  border: none;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.form_controlInformes::placeholder {
+  color: var(--lila_oscuro) !important;
+}
+
+.form_controlInformes option {
+  color: var(--lila_oscuro);
+}
+
+.dropdownMenuInformes .dditemInformes {
+  color: var(--lila_oscuro) !important;
+}
+
+.dditemInformes:focus,
+.dditemInformes:hover {
+  background-color: var(--rosita) !important;
+}
+
+/*DATEPICKER*/
+.react-datepicker__close-icon::after {
+  color: var(--blanco) !important;
+  background-color: var(--violeta) !important;
+}
+
+.react-datepicker__day--selected,
+.react-datepicker__day--in-selecting-range,
+.react-datepicker__day--in-range {
+  background-color: var(--violeta) !important;
+  color: var(--blanco);
+}
+
+.react-datepicker__day--selected:hover,
+.react-datepicker__day--in-selecting-range:hover,
+.react-datepicker__day--in-range:hover {
+  background-color: var(--rosita);
+  color: var(--blanco);
+}
+
+.react-datepicker__month-container {
+  background-color: var(--blanco);
+  border: 1px solid #ccc;
+}
+
+.react-datepicker {
+  font-family: "Nunito", sans-serif !important;
+  color: var(--lila_oscuro) !important;
+}
+
+.react-datepicker__day--today {
+  color: var(--blanco) !important;
+  background-color: var(--rosita) !important;
+  border-color: var(--rosita) !important;
+}
+
+.react-datepicker__day--today:hover {
+  color: var(--blanco) !important;
+  background-color: var(--violeta) !important;
+  border-color: var(--violeta) !important;
+}
+
+.react-datepicker__input-container input {
+  width: 240px;
+  border-radius: 25px;
+  border: 2px solid var(--lila_oscuro);
+  color: var--lila_oscuro;
+  text-align: center;
+}
+
+.react-datepicker__input-container input::placeholder {
+  color: var(--lila_claro);
+  text-align: center;
+}
+
+.filtrosInformes {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+  margin-left: -220px !important;
+}
+
+.filtrosFecha {
+  display: flex;
+  gap: 20px;
+  align-items: center; 
+  margin-top: 150px;
+  margin-left: -230px;
+}

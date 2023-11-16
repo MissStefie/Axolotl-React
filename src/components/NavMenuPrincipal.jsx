@@ -85,7 +85,7 @@ export default class NavMenuPrincipal extends Component {
               </Dropdown.Menu>
             )}
           </Dropdown>
-          <Link className="btn ver_informes_boton" to={"#action3"}>
+          <Link className="btn ver_informes_boton" to={"/informes"}>
             Ver informes{" "}
             <FontAwesomeIcon
               icon={faFileLines}

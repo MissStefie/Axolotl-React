@@ -420,4 +420,3 @@ ListarProducto.propTypes = {
     usuario: PropTypes.string.isRequired,
   }),
 };
-
