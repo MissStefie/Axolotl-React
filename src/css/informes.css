@@ -183,3 +183,24 @@ table {
   margin-top: 150px;
   margin-left: -230px;
 }
+
+.boton-imprimir {
+  color: var(--blanco) !important;
+  margin-right: 10px;
+  border-top-left-radius: 20px !important;
+  border-bottom-left-radius: 20px !important;
+  border-top-right-radius: 20px !important;
+  border-bottom-right-radius: 20px !important;
+  background-color: var(--violeta) !important;
+  border: none !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
+}
+
+.boton-imprimir:hover {
+  background-image: linear-gradient(to top, var(--lila_azulado), var(--lila_azulado_claro));
+  /* Resto de estilos adicionales para el estado hover... */
+}
+
+.boton-imprimir .imprimirRegistro {
+  color: var(--blanco) !important;
+}

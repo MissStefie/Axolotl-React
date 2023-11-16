@@ -6,7 +6,6 @@ import { Dropdown, Form } from "react-bootstrap";
 import { Container } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  /*faBoxOpen, icono del boton para cargar producto que se comento ya que esa funcion se encuentra en el menu principal*/
   faEraser,
   faPenToSquare,
 } from "@fortawesome/free-solid-svg-icons";

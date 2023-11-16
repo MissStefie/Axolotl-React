@@ -2,6 +2,7 @@ import { Container } from "@mui/material";
 import React, { Component } from "react";
 import { Dropdown, Form } from "react-bootstrap";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 import { Redirect } from "react-router-dom";
 import "../css/informes.css";
 import NavInformes from "./NavInformes";
@@ -11,6 +12,8 @@ import ApiV from "../services/vendedores";
 import Api from "../services/api";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFilePdf } from "@fortawesome/free-solid-svg-icons";
 
 export default class Informes extends Component {
   constructor(props) {
@@ -150,6 +153,84 @@ export default class Informes extends Component {
     this.setState({ filtroFechaMax: date ? date : "" });
   };
 
+  handleImprimirRegistros = (registro) => {
+    // Verifica si el registro es válido
+    if (!registro) {
+      console.error("Registro no válido");
+      return;
+    }
+
+    const { ventas } = this.state;
+    const registrosParaImprimir = ventas.filter(
+      (venta) => venta.codventa === registro.codventa
+    );
+
+    const {
+      vendedorNombreMap,
+      vendedorApellidoMap,
+      clienteNombreMap,
+      clienteApellidoMap,
+      productosMap,
+    } = this.state;
+
+    // Crea un documento HTML con los registros
+    const contenidoHTML = `
+      <html>
+        <head>
+          <title>Registros de Venta</title>
+        </head>
+        <body>
+          <h1>Registros de Venta</h1>
+          <table>
+            <thead>
+              <tr>
+                <th>Código de Venta</th>
+                <!-- Agrega las demás columnas según tus datos -->
+              </tr>
+            </thead>
+            <tbody>
+              ${registrosParaImprimir
+                .map(
+                  (registro) => `
+                <tr>
+                  <td>${registro.codventa}</td>
+                  <td>${registro.fecha}</td>
+                  <td>${
+                    vendedorNombreMap[registro.vendedorid] +
+                    " " +
+                    vendedorApellidoMap[registro.vendedorid]
+                  }</td>
+                  <td>${
+                    clienteNombreMap[registro.clienteid] +
+                    " " +
+                    clienteApellidoMap[registro.clienteid]
+                  }</td>
+                  <td>${productosMap[registro.productoid]}</td>
+                  <td>${registro.preciounit}</td>
+                  <td>${registro.cantidad}</td>
+                  <td>${registro.precioxcant}</td>
+                  <td>${registro.totalventa}</td>
+                  <!-- Agrega las demás columnas según tus datos -->
+                </tr>
+              `
+                )
+                .join("")}
+            </tbody>
+          </table>
+        </body>
+      </html>
+    `;
+
+    // Abre una nueva ventana para imprimir el contenido
+    const ventanaImpresion = window.open("", "_blank");
+    ventanaImpresion.document.open();
+    ventanaImpresion.document.write(contenidoHTML);
+    ventanaImpresion.document.close();
+
+    // Imprime el documento
+    ventanaImpresion.print();
+  };
+
   render() {
     const { user } = this.props;
     console.log(user);
@@ -247,8 +328,8 @@ export default class Informes extends Component {
                             Filtrar por nombre de cliente:
                             <Form.Control
                               type="text"
-                              value={filtroCliente} // Asegúrate de usar el valor correcto del estado
-                              onChange={this.handleChangeFiltroCliente} // Llama a la función adecuada
+                              value={filtroCliente}
+                              onChange={this.handleChangeFiltroCliente}
                               placeholder="Nombre del cliente"
                               onClick={(e) => e.stopPropagation()}
                               className="form_controlInformes"
@@ -343,7 +424,19 @@ export default class Informes extends Component {
                       <td>{venta.cantidad}</td>
                       <td>{venta.precioxcant}</td>
                       <td>{venta.totalventa}</td>
-                      <td>Boton imprimir</td>
+                      <td>
+                        <Link
+                          to="#"
+                          className="btn boton-imprimir"
+                          onClick={() => this.handleImprimirRegistros(venta)}
+                        >
+                          <FontAwesomeIcon
+                            icon={faFilePdf}
+                            style={{ color: "#E5BEEC" }}
+                            className="imprimirRegistro"
+                          />
+                        </Link>
+                      </td>
                     </tr>
                   ))}
                 </tbody>
