@@ -26,6 +26,7 @@ export default class Informes extends Component {
       productosMap: {},
       clienteNombreMap: {},
       clienteApellidoMap: {},
+      clienteRucMap: {},
       vendedorNombreMap: {},
       vendedorApellidoMap: {},
       ventas: [],
@@ -79,10 +80,12 @@ export default class Informes extends Component {
         console.log(datosRespuesta);
         const clienteNombreMap = {};
         const clienteApellidoMap = {};
+        const clienteRucMap = {};
 
         datosRespuesta.forEach((cliente) => {
           clienteNombreMap[cliente.id] = cliente.nombre;
           clienteApellidoMap[cliente.id] = cliente.apellido;
+          clienteRucMap[cliente.id] = cliente.ruc;
         });
 
         this.setState({
@@ -90,6 +93,7 @@ export default class Informes extends Component {
           clientes: datosRespuesta,
           clienteNombreMap,
           clienteApellidoMap,
+          clienteRucMap,
         });
       })
       .catch(console.log);
@@ -154,7 +158,6 @@ export default class Informes extends Component {
   };
 
   handleImprimirRegistros = (registro) => {
-    // Verifica si el registro es válido
     if (!registro) {
       console.error("Registro no válido");
       return;
@@ -166,68 +169,315 @@ export default class Informes extends Component {
     );
 
     const {
-      vendedorNombreMap,
-      vendedorApellidoMap,
       clienteNombreMap,
       clienteApellidoMap,
+      clienteRucMap,
       productosMap,
     } = this.state;
 
-    // Crea un documento HTML con los registros
-    const contenidoHTML = `
+    const fecha = registrosParaImprimir[0].fecha;
+    const clienteId = registrosParaImprimir[0].clienteid;
+    const nombreCliente =
+      clienteNombreMap[clienteId] + " " + clienteApellidoMap[clienteId];
+    const rucCliente = clienteRucMap[clienteId];
+    const total = registrosParaImprimir[0].totalventa;
+    const totalINT = parseFloat(total);
+    const ivaPorcentaje = 10;
+    const iva = (total * ivaPorcentaje) / 100;
+    const totalIVA = (totalINT + iva);
+
+    let contenidoHTML;
+    if (rucCliente === "0000000-0") {
+      contenidoHTML = `
+        <html>
+        <head>
+            <link rel="icon" href="http://localhost:3000/static/media/glowing_store_logo.98249adc124717087a5f.jpg" />
+          <title>Recibo</title>
+          <style>
+            @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@700;800&display=swap");
+
+            .bodyEstiloFactura {
+              font-family: "Nunito", sans-serif !important;
+              padding: 20px;
+              box-sizing: border-box; 
+              max-width: 100%; 
+              margin: 0 auto; 
+            }
+
+            .cabeceraFactura{
+              display: flex;
+              justify-content: space-between; 
+            }
+      
+            .datosFactura {
+              display: flex;
+              justify-content: space-between; /* Distribuir el espacio entre datosCliente y datosEmpresa */
+              flex-wrap: wrap; /* Permite que los elementos se envuelvan si no hay suficiente espacio */
+            }
+      
+            .datosCliente,
+            .datosEmpresa {
+              border: 1px solid black;
+              margin-bottom: 10px;
+              padding: 10px;
+              flex: 1; /* Hace que ambos elementos ocupen la misma cantidad de espacio inicialmente */
+            }
+      
+            .datosCliente h2,
+            .datosEmpresa h2 {
+              margin: 0;
+              margin-bottom: 8px;
+              border-bottom: 1px solid black;
+              padding-bottom: 4px;
+              width: 100%;
+            }
+      
+            .datosCliente h2:last-child,
+            .datosEmpresa h2:last-child {
+              border-bottom: none;
+              margin-bottom: -10px;
+            }
+      
+            .datosEmpresa h2 {
+              border-bottom: none; /* Elimina el subrayado */
+              display: flex;
+              align-items: center;
+              justify-content: center;
+            }
+      
+            h2 {
+              margin: 0;
+            }
+      
+            table {
+              width: 100%;
+              border-collapse: collapse;
+              margin-bottom: 10px;
+            }
+      
+            th,
+            td {
+              border: 1px solid black;
+              padding: 8px;
+              text-align: center;
+            }
+
+            .imagenLogo{
+              max-width: 100px; 
+              height: 100px;
+              border-radius: 50%;
+            }
+
+            .contenidoHTML{
+              padding: 20px;
+              border: 1px solid black;
+            }
+
+      </style>
+        </head>
+        <div class = "contenidoHTML">
+          <body class = "bodyEstiloFactura">    
+            <div class = "cabeceraFactura">
+              <img class="imagenLogo" src="http://localhost:3000/static/media/glowing_store_logo.98249adc124717087a5f.jpg">
+            <h1>Recibo</h1>
+            </div>
+            <h2 class>Fecha: ${fecha}</h2>
+            <div class = "datosFactura">
+              <div class="datosEmpresa">
+                <h2 class>GLOWING STORE</h2>
+              </div>
+            </div>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Código de producto</th>
+                    <th>Precio unitario</th>
+                    <th>Cantidad</th>
+                    <th>Precio en línea</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  ${registrosParaImprimir
+                    .map(
+                      (registro) => `
+                    <tr>
+                      <td>${productosMap[registro.productoid]}</td>
+                      <td>${registro.preciounit}</td>
+                      <td>${registro.cantidad}</td>
+                      <td>${registro.precioxcant}</td>
+                    </tr>
+                  `
+                    )
+                    .join("")}
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <td colSpan="3">Total:</td>
+                    <td>${total}</td>
+                  </tr>
+                </tfoot>
+              </table>
+          </body>
+        </div>  
+      </html>
+      `;
+    } else {
+      contenidoHTML = `
       <html>
         <head>
-          <title>Registros de Venta</title>
+          <link rel="icon" href="http://localhost:3000/static/media/glowing_store_logo.98249adc124717087a5f.jpg" />
+          <title>Factura</title>
+          <style>
+            @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@700;800&display=swap");
+
+            .bodyEstiloFactura {
+              font-family: "Nunito", sans-serif !important;
+              padding: 20px;
+              box-sizing: border-box; 
+              max-width: 100%; 
+              margin: 0 auto; 
+            }
+
+            .cabeceraFactura{
+              display: flex;
+              justify-content: space-between; 
+            }
+      
+            .datosFactura {
+              display: flex;
+              justify-content: space-between; /* Distribuir el espacio entre datosCliente y datosEmpresa */
+              flex-wrap: wrap; /* Permite que los elementos se envuelvan si no hay suficiente espacio */
+            }
+      
+            .datosCliente,
+            .datosEmpresa {
+              border: 1px solid black;
+              margin-bottom: 10px;
+              padding: 10px;
+              flex: 1; /* Hace que ambos elementos ocupen la misma cantidad de espacio inicialmente */
+            }
+      
+            .datosCliente h2,
+            .datosEmpresa h2 {
+              margin: 0;
+              margin-bottom: 8px;
+              border-bottom: 1px solid black;
+              padding-bottom: 4px;
+              width: 100%;
+            }
+      
+            .datosCliente h2:last-child,
+            .datosEmpresa h2:last-child {
+              border-bottom: none;
+              margin-bottom: -10px;
+            }
+      
+            .datosEmpresa h2 {
+              border-bottom: none; /* Elimina el subrayado */
+              display: flex;
+              align-items: center;
+              justify-content: center;
+            }
+      
+            h2 {
+              margin: 0;
+            }
+      
+            table {
+              width: 100%;
+              border-collapse: collapse;
+              margin-bottom: 10px;
+            }
+      
+            th,
+            td {
+              border: 1px solid black;
+              padding: 8px;
+              text-align: center;
+            }
+
+            .imagenLogo{
+              max-width: 100px; 
+              height: 100px;
+              border-radius: 50%;
+            }
+
+            .contenidoHTML{
+              padding: 20px;
+              border: 1px solid black;
+            }
+
+      </style>
         </head>
-        <body>
-          <h1>Registros de Venta</h1>
-          <table>
-            <thead>
-              <tr>
-                <th>Código de Venta</th>
-                <!-- Agrega las demás columnas según tus datos -->
-              </tr>
-            </thead>
-            <tbody>
-              ${registrosParaImprimir
-                .map(
-                  (registro) => `
-                <tr>
-                  <td>${registro.codventa}</td>
-                  <td>${registro.fecha}</td>
-                  <td>${
-                    vendedorNombreMap[registro.vendedorid] +
-                    " " +
-                    vendedorApellidoMap[registro.vendedorid]
-                  }</td>
-                  <td>${
-                    clienteNombreMap[registro.clienteid] +
-                    " " +
-                    clienteApellidoMap[registro.clienteid]
-                  }</td>
-                  <td>${productosMap[registro.productoid]}</td>
-                  <td>${registro.preciounit}</td>
-                  <td>${registro.cantidad}</td>
-                  <td>${registro.precioxcant}</td>
-                  <td>${registro.totalventa}</td>
-                  <!-- Agrega las demás columnas según tus datos -->
-                </tr>
-              `
-                )
-                .join("")}
-            </tbody>
-          </table>
-        </body>
+        <div class = "contenidoHTML">
+          <body class = "bodyEstiloFactura">    
+            <div class = "cabeceraFactura">
+              <img class="imagenLogo" src="http://localhost:3000/static/media/glowing_store_logo.98249adc124717087a5f.jpg">
+              <h1>Factura № .........</h1>
+            </div>
+            <h2 class>Fecha: ${fecha}</h2>
+            <div class = "datosFactura">
+              <div class="datosCliente">
+                <h2>Cliente: ${nombreCliente}</h2>
+                <h2>RUC: ${rucCliente}</h2>
+                <h2>Dirección: CDE</h2>
+              </div>
+              <div class="datosEmpresa">
+                
+                <h2 class>GLOWING STORE</h2>
+                <h2>RUC: $$$$$$-$</h2>
+                <h2>CDE, PARAGUAY</h2>
+              </div>
+            </div>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Código de producto</th>
+                    <th>Precio unitario</th>
+                    <th>Cantidad</th>
+                    <th>Precio en línea</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  ${registrosParaImprimir
+                    .map(
+                      (registro) => `
+                    <tr>
+                      <td>${productosMap[registro.productoid]}</td>
+                      <td>${registro.preciounit}</td>
+                      <td>${registro.cantidad}</td>
+                      <td>${registro.precioxcant}</td>
+                    </tr>
+                  `
+                    )
+                    .join("")}
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <td colSpan="3">Total:</td>
+                    <td>${total}</td>
+                  </tr>
+                  <tr>
+                    <td colSpan="3">IVA:</td>
+                    <td>${iva}</td>
+                  </tr>
+                  <tr>
+                    <td colSpan="3">Total con IVA incluido:</td>
+                    <td>${totalIVA}</td>
+                  </tr>
+                </tfoot>
+              </table>
+          </body>
+        </div>  
       </html>
     `;
+    }
 
-    // Abre una nueva ventana para imprimir el contenido
     const ventanaImpresion = window.open("", "_blank");
     ventanaImpresion.document.open();
     ventanaImpresion.document.write(contenidoHTML);
     ventanaImpresion.document.close();
 
-    // Imprime el documento
     ventanaImpresion.print();
   };
 
