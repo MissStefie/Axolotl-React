@@ -14,6 +14,8 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFilePdf } from "@fortawesome/free-solid-svg-icons";
+import { jsPDF } from "jspdf";
+import "jspdf-autotable";
 
 export default class Informes extends Component {
   constructor(props) {
@@ -27,6 +29,7 @@ export default class Informes extends Component {
       clienteNombreMap: {},
       clienteApellidoMap: {},
       clienteRucMap: {},
+      clienteDireccionMap: {},
       vendedorNombreMap: {},
       vendedorApellidoMap: {},
       ventas: [],
@@ -81,11 +84,13 @@ export default class Informes extends Component {
         const clienteNombreMap = {};
         const clienteApellidoMap = {};
         const clienteRucMap = {};
+        const clienteDireccionMap = {};
 
         datosRespuesta.forEach((cliente) => {
           clienteNombreMap[cliente.id] = cliente.nombre;
           clienteApellidoMap[cliente.id] = cliente.apellido;
           clienteRucMap[cliente.id] = cliente.ruc;
+          clienteDireccionMap[cliente.id] = cliente.direccion;
         });
 
         this.setState({
@@ -94,6 +99,7 @@ export default class Informes extends Component {
           clienteNombreMap,
           clienteApellidoMap,
           clienteRucMap,
+          clienteDireccionMap,
         });
       })
       .catch(console.log);
@@ -153,6 +159,7 @@ export default class Informes extends Component {
   handleChangeFiltroFechaMin = (date) => {
     this.setState({ filtroFechaMin: date ? date : "" });
   };
+
   handleChangeFiltroFechaMax = (date) => {
     this.setState({ filtroFechaMax: date ? date : "" });
   };
@@ -172,313 +179,179 @@ export default class Informes extends Component {
       clienteNombreMap,
       clienteApellidoMap,
       clienteRucMap,
+      clienteDireccionMap,
       productosMap,
     } = this.state;
 
+    const pdf = new jsPDF();
     const fecha = registrosParaImprimir[0].fecha;
+    const codventa = registrosParaImprimir[0].codventa;
     const clienteId = registrosParaImprimir[0].clienteid;
     const nombreCliente =
       clienteNombreMap[clienteId] + " " + clienteApellidoMap[clienteId];
     const rucCliente = clienteRucMap[clienteId];
+    const dirCliente = clienteDireccionMap[clienteId];
     const total = registrosParaImprimir[0].totalventa;
     const totalINT = parseFloat(total);
     const ivaPorcentaje = 10;
     const iva = (total * ivaPorcentaje) / 100;
-    const totalIVA = (totalINT + iva);
+    const totalIVA = totalINT + iva;
 
-    let contenidoHTML;
     if (rucCliente === "0000000-0") {
-      contenidoHTML = `
-        <html>
-        <head>
-            <link rel="icon" href="http://localhost:3000/static/media/glowing_store_logo.98249adc124717087a5f.jpg" />
-          <title>Recibo</title>
-          <style>
-            @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@700;800&display=swap");
+      pdf.setFontSize(14);
+      pdf.setFont("helvetica", "bold");
+      pdf.text(`RECIBO DE COMPRA`, 20, 20);
 
-            .bodyEstiloFactura {
-              font-family: "Nunito", sans-serif !important;
-              padding: 20px;
-              box-sizing: border-box; 
-              max-width: 100%; 
-              margin: 0 auto; 
-            }
+      pdf.setFontSize(14);
+      pdf.setFont("helvetica", "bold");
+      pdf.text(`Fecha: ${fecha}`, 20, 30);
 
-            .cabeceraFactura{
-              display: flex;
-              justify-content: space-between; 
-            }
-      
-            .datosFactura {
-              display: flex;
-              justify-content: space-between; /* Distribuir el espacio entre datosCliente y datosEmpresa */
-              flex-wrap: wrap; /* Permite que los elementos se envuelvan si no hay suficiente espacio */
-            }
-      
-            .datosCliente,
-            .datosEmpresa {
-              border: 1px solid black;
-              margin-bottom: 10px;
-              padding: 10px;
-              flex: 1; /* Hace que ambos elementos ocupen la misma cantidad de espacio inicialmente */
-            }
-      
-            .datosCliente h2,
-            .datosEmpresa h2 {
-              margin: 0;
-              margin-bottom: 8px;
-              border-bottom: 1px solid black;
-              padding-bottom: 4px;
-              width: 100%;
-            }
-      
-            .datosCliente h2:last-child,
-            .datosEmpresa h2:last-child {
-              border-bottom: none;
-              margin-bottom: -10px;
-            }
-      
-            .datosEmpresa h2 {
-              border-bottom: none; /* Elimina el subrayado */
-              display: flex;
-              align-items: center;
-              justify-content: center;
-            }
-      
-            h2 {
-              margin: 0;
-            }
-      
-            table {
-              width: 100%;
-              border-collapse: collapse;
-              margin-bottom: 10px;
-            }
-      
-            th,
-            td {
-              border: 1px solid black;
-              padding: 8px;
-              text-align: center;
-            }
+      const headers = ["PRODUCTO", "PRECIO", "CANTIDAD", "PRECIO EN LINEA"];
 
-            .imagenLogo{
-              max-width: 100px; 
-              height: 100px;
-              border-radius: 50%;
-            }
+      const data = registrosParaImprimir.map((venta) => [
+        productosMap[venta.productoid],
+        venta.preciounit,
+        venta.cantidad,
+        venta.precioxcant,
+      ]);
 
-            .contenidoHTML{
-              padding: 20px;
-              border: 1px solid black;
-            }
+      pdf.autoTable({
+        startY: 80,
+        head: [headers],
+        body: data,
+        margin: { top: 10 },
+        theme: "striped",
+        styles: {
+          halign: "center",
+          fillColor: [239, 236, 243],
+          textColor: [0, 0, 0],
+        },
+      });
 
-      </style>
-        </head>
-        <div class = "contenidoHTML">
-          <body class = "bodyEstiloFactura">    
-            <div class = "cabeceraFactura">
-              <img class="imagenLogo" src="http://localhost:3000/static/media/glowing_store_logo.98249adc124717087a5f.jpg">
-            <h1>Recibo</h1>
-            </div>
-            <h2 class>Fecha: ${fecha}</h2>
-            <div class = "datosFactura">
-              <div class="datosEmpresa">
-                <h2 class>GLOWING STORE</h2>
-              </div>
-            </div>
-              <table>
-                <thead>
-                  <tr>
-                    <th>Código de producto</th>
-                    <th>Precio unitario</th>
-                    <th>Cantidad</th>
-                    <th>Precio en línea</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  ${registrosParaImprimir
-                    .map(
-                      (registro) => `
-                    <tr>
-                      <td>${productosMap[registro.productoid]}</td>
-                      <td>${registro.preciounit}</td>
-                      <td>${registro.cantidad}</td>
-                      <td>${registro.precioxcant}</td>
-                    </tr>
-                  `
-                    )
-                    .join("")}
-                </tbody>
-                <tfoot>
-                  <tr>
-                    <td colSpan="3">Total:</td>
-                    <td>${total}</td>
-                  </tr>
-                </tfoot>
-              </table>
-          </body>
-        </div>  
-      </html>
-      `;
+      const datosPrecioFinal = [[`PRECIO FINAL`, `${totalIVA}`]];
+
+      const primeraTablaPosicionFinal = pdf.autoTable.previous.finalY;
+
+      pdf.autoTable({
+        startY: primeraTablaPosicionFinal,
+        body: datosPrecioFinal,
+        theme: "grid",
+        margin: { top: 10 },
+        styles: {
+          halign: "center",
+          textColor: [0, 0, 0],
+          columnWidth: 91,
+        },
+      });
+
+      const imageUrl = "/glowing_store_logo_circular.png";
+
+      const imageWidth = 30;
+      const imageHeight = 30;
+      const imageX = pdf.internal.pageSize.getWidth() - imageWidth - 45;
+      const imageY = 10;
+
+      pdf.addImage(imageUrl, "JPEG", imageX, imageY, imageWidth, imageHeight);
+
+      const empresaX = pdf.internal.pageSize.getWidth() - imageWidth - 50; // Posición X alineada con la imagen
+      const empresaY = imageY + imageHeight + 10; // Ajustar la posición Y según tu preferencia
+
+      pdf.setFontSize(14);
+      pdf.setFont("helvetica", "bold");
+      pdf.text(`GLOWING STORE`, empresaX, empresaY);
+
+      pdf.setFontSize(14);
+      pdf.setFont("helvetica", "bold");
+      pdf.text(`RUC: $$$$$$-$`, empresaX, empresaY + 10);
+
+      pdf.setFontSize(14);
+      pdf.setFont("helvetica", "bold");
+      pdf.text(`CDE, PARAGUAY`, empresaX, empresaY + 20);
+
+      pdf.save(`RECIBO_${codventa}.pdf`);
     } else {
-      contenidoHTML = `
-      <html>
-        <head>
-          <link rel="icon" href="http://localhost:3000/static/media/glowing_store_logo.98249adc124717087a5f.jpg" />
-          <title>Factura</title>
-          <style>
-            @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@700;800&display=swap");
+      pdf.setFontSize(14);
+      pdf.setFont("helvetica", "bold");
+      pdf.text(`Fecha: ${fecha}`, 20, 30);
 
-            .bodyEstiloFactura {
-              font-family: "Nunito", sans-serif !important;
-              padding: 20px;
-              box-sizing: border-box; 
-              max-width: 100%; 
-              margin: 0 auto; 
-            }
+      pdf.setFontSize(14);
+      pdf.setFont("helvetica", "bold");
+      pdf.text(`Factura N° .........`, 20, 20);
 
-            .cabeceraFactura{
-              display: flex;
-              justify-content: space-between; 
-            }
-      
-            .datosFactura {
-              display: flex;
-              justify-content: space-between; /* Distribuir el espacio entre datosCliente y datosEmpresa */
-              flex-wrap: wrap; /* Permite que los elementos se envuelvan si no hay suficiente espacio */
-            }
-      
-            .datosCliente,
-            .datosEmpresa {
-              border: 1px solid black;
-              margin-bottom: 10px;
-              padding: 10px;
-              flex: 1; /* Hace que ambos elementos ocupen la misma cantidad de espacio inicialmente */
-            }
-      
-            .datosCliente h2,
-            .datosEmpresa h2 {
-              margin: 0;
-              margin-bottom: 8px;
-              border-bottom: 1px solid black;
-              padding-bottom: 4px;
-              width: 100%;
-            }
-      
-            .datosCliente h2:last-child,
-            .datosEmpresa h2:last-child {
-              border-bottom: none;
-              margin-bottom: -10px;
-            }
-      
-            .datosEmpresa h2 {
-              border-bottom: none; /* Elimina el subrayado */
-              display: flex;
-              align-items: center;
-              justify-content: center;
-            }
-      
-            h2 {
-              margin: 0;
-            }
-      
-            table {
-              width: 100%;
-              border-collapse: collapse;
-              margin-bottom: 10px;
-            }
-      
-            th,
-            td {
-              border: 1px solid black;
-              padding: 8px;
-              text-align: center;
-            }
+      const dataClienteEmpresa = [
+        [`Cliente: ${nombreCliente}`, `GLOWING STORE`],
+        [`RUC: ${rucCliente}`, `RUC: $$$$$$-$`],
+        [`Direccion: ${dirCliente}`, `CDE, PARAGUAY`],
+      ];
 
-            .imagenLogo{
-              max-width: 100px; 
-              height: 100px;
-              border-radius: 50%;
-            }
+      pdf.autoTable({
+        startY: 40,
+        body: dataClienteEmpresa,
+        theme: "plain",
+        margin: { top: 10 },
+        styles: {
+          halign: "center",
+          textColor: [0, 0, 0],
+          fontSize: 14,
+          fontStyle: "bold",
+        },
+      });
 
-            .contenidoHTML{
-              padding: 20px;
-              border: 1px solid black;
-            }
+      const headers = ["PRODUCTO", "PRECIO", "CANTIDAD", "PRECIO EN LINEA"];
 
-      </style>
-        </head>
-        <div class = "contenidoHTML">
-          <body class = "bodyEstiloFactura">    
-            <div class = "cabeceraFactura">
-              <img class="imagenLogo" src="http://localhost:3000/static/media/glowing_store_logo.98249adc124717087a5f.jpg">
-              <h1>Factura № .........</h1>
-            </div>
-            <h2 class>Fecha: ${fecha}</h2>
-            <div class = "datosFactura">
-              <div class="datosCliente">
-                <h2>Cliente: ${nombreCliente}</h2>
-                <h2>RUC: ${rucCliente}</h2>
-                <h2>Dirección: CDE</h2>
-              </div>
-              <div class="datosEmpresa">
-                
-                <h2 class>GLOWING STORE</h2>
-                <h2>RUC: $$$$$$-$</h2>
-                <h2>CDE, PARAGUAY</h2>
-              </div>
-            </div>
-              <table>
-                <thead>
-                  <tr>
-                    <th>Código de producto</th>
-                    <th>Precio unitario</th>
-                    <th>Cantidad</th>
-                    <th>Precio en línea</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  ${registrosParaImprimir
-                    .map(
-                      (registro) => `
-                    <tr>
-                      <td>${productosMap[registro.productoid]}</td>
-                      <td>${registro.preciounit}</td>
-                      <td>${registro.cantidad}</td>
-                      <td>${registro.precioxcant}</td>
-                    </tr>
-                  `
-                    )
-                    .join("")}
-                </tbody>
-                <tfoot>
-                  <tr>
-                    <td colSpan="3">Total:</td>
-                    <td>${total}</td>
-                  </tr>
-                  <tr>
-                    <td colSpan="3">IVA:</td>
-                    <td>${iva}</td>
-                  </tr>
-                  <tr>
-                    <td colSpan="3">Total con IVA incluido:</td>
-                    <td>${totalIVA}</td>
-                  </tr>
-                </tfoot>
-              </table>
-          </body>
-        </div>  
-      </html>
-    `;
+      const data = registrosParaImprimir.map((venta) => [
+        productosMap[venta.productoid],
+        venta.preciounit,
+        venta.cantidad,
+        venta.precioxcant,
+      ]);
+
+      const primeraTablaPosicionFinal = pdf.autoTable.previous.finalY;
+
+      pdf.autoTable({
+        startY: primeraTablaPosicionFinal,
+        head: [headers],
+        body: data,
+        margin: { top: 10 },
+        theme: "striped",
+        styles: {
+          halign: "center",
+          fillColor: [239, 236, 243],
+          textColor: [0, 0, 0],
+        },
+      });
+
+      const datosPrecioFinal = [
+        [`TOTAL`, `${totalINT}`],
+        [`IVA (10%)`, `${iva}`],
+        [`PRECIO FINAL`, `${totalIVA}`],
+      ];
+
+      const segundaTablaPosicionFinal = pdf.autoTable.previous.finalY;
+
+      pdf.autoTable({
+        startY: segundaTablaPosicionFinal,
+        body: datosPrecioFinal,
+        theme: "grid",
+        margin: { top: 10 },
+        styles: {
+          halign: "center",
+          textColor: [0, 0, 0],
+          columnWidth: 91,
+        },
+      });
+
+      const imageUrl = "/glowing_store_logo_circular.png";
+
+      const imageWidth = 30;
+      const imageHeight = 30;
+      const imageX = pdf.internal.pageSize.getWidth() - imageWidth - 45;
+      const imageY = 10;
+
+      pdf.addImage(imageUrl, "JPEG", imageX, imageY, imageWidth, imageHeight);
+
+      pdf.save(`FACTURA_${codventa}.pdf`);
     }
-
-    const ventanaImpresion = window.open("", "_blank");
-    ventanaImpresion.document.open();
-    ventanaImpresion.document.write(contenidoHTML);
-    ventanaImpresion.document.close();
-
-    ventanaImpresion.print();
   };
 
   render() {
