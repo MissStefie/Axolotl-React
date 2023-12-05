@@ -9,22 +9,6 @@ import ApiC from "../services/clientes";
 import PropTypes from "prop-types";
 import { Redirect } from "react-router-dom";
 
-/*
--Si es recibo, entonces: 
-Se ingresa los datos del cliente solamente, y ese dato se guarda en la base de datos solo en la tabla de ventas, no en el registro de clientes ya que no se proporciono el ruc.
-
-
--Si es factura, entonces: 
-Debe de salir la opcion de consultar si el cliente es nuevo o ya existe.
-
-Si cliente no existe:
-Se debe pasar al componente de registrar cliente con los datos de la tabla compra guardados, probablemente se usara un switch para comprobar si es que estamos accediendo a la funcion de crear cliente en medio de una compra o desde el menu principal, tambien en todo momento existira un prop en donde se guardara la tabla de compras.
-Despues de registrar al cliente pasamos a la interfaz para crear una factura donde se cargara la tabla de compra que se paso como prop, y tendremos la opcion de buscar al cliente que recien ingresamos.
-
-Si cliente existe:
-Pasamos directamente al interfaz de la factura donde se cargara la tabla de compra que se paso como prop, y tendremos la opcion de buscar al cliente que recien ingresamos.
-*/
-
 export default class ConfirmarVenta extends React.Component {
   constructor(props) {
     super(props);
@@ -325,7 +309,9 @@ export default class ConfirmarVenta extends React.Component {
           {this.state.mostrarSeEligeFactura && (
             <div className="seEligeFactura">
               <div className="elegitrIDCliente">
-                <InputLabel className="inputLabelConfVnta">Elige el ruc del cliente</InputLabel>
+                <InputLabel className="inputLabelConfVnta">
+                  Elige el ruc del cliente
+                </InputLabel>
                 <Select
                   value={this.state.selectedRuc}
                   onChange={(event) =>
@@ -333,12 +319,15 @@ export default class ConfirmarVenta extends React.Component {
                   }
                   className="selectConfVta"
                 >
-                  {this.state.rucs.map((ruc) => (
-                    <MenuItem key={ruc.ruc} value={ruc.ruc}>
-                      {ruc.ruc}
-                    </MenuItem>
-                  ))}
+                  {this.state.rucs
+                    .filter((ruc) => ruc.ruc !== "0000000-0") // Filtra el RUC no deseado
+                    .map((ruc) => (
+                      <MenuItem key={ruc.ruc} value={ruc.ruc}>
+                        {ruc.ruc}
+                      </MenuItem>
+                    ))}
                 </Select>
+
                 <Link
                   to={{
                     pathname: "/registrar_cliente",
