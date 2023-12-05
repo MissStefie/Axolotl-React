@@ -524,8 +524,3 @@ ConfirmarVenta.propTypes = {
   }),
 };
 
-/*
-Lo que vamos a hacer es: que despues de elegir si queremos una opcion, ya sea recibo o factura, si es recibo enviamos el ID 1 de cliete ya que es el por defecto, si es factura vamos a pedirle que busque al cliente, en el peor de los casos debemos hacer que ingrese al cliente si es que el mismo no esta registrado.
-Vamos a crear un select que se va a activar cuando elijamos la opcion de "factura" y vamos a elegir desde ahi el ruc del cliente.
-Abajo un botoncito para agregar cliente nuevo.
-*/

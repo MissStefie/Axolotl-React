@@ -7,7 +7,8 @@ import Api from "../services/api";
 import "../css/agregarProducto.css";
 import PropTypes from "prop-types";
 import { Redirect } from "react-router-dom";
-
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import ApiPS from "../services/prendasSuperior";
 import ApiIn from "../services/prendasInferiores";
 import ApiAcc from "../services/accesorios";
@@ -57,6 +58,15 @@ export default class CrearProducto extends React.Component {
       selectDataTalles: [],
       selectedValueTalles: "",
       selectedIdTalles: "",
+
+      seleccionSuperior: false,
+      seleccionInferior: false,
+      seleccionAccesorio: false,
+
+      seleccionTam: false,
+      seleccionTalle: false,
+
+      seleccionColor: false,
       errores: [],
     };
   }
@@ -130,9 +140,20 @@ export default class CrearProducto extends React.Component {
   }
 
   cambioValor = (e) => {
-    const state = this.state;
-    state[e.target.name] = e.target.value;
-    this.setState({ state, errores: [] });
+    const { name, value } = e.target;
+    let newValue = value;
+
+    // Validación para asegurarse de que descuento esté entre 0 y 100
+    if (name === "descuento") {
+      newValue = Math.max(0, Math.min(100, parseInt(value, 10))) || "";
+    }
+
+    // Actualizar el estado
+    this.setState((prevState) => ({
+      ...prevState,
+      [name]: newValue,
+      errores: [],
+    }));
   };
 
   handleChangeSuperiores = (event) => {
@@ -145,6 +166,15 @@ export default class CrearProducto extends React.Component {
       this.setState({
         selectedValueSuperiores: value,
         selectedIdSuperiores: selectedItem.id,
+        seleccionSuperior: true,
+        seleccionInferior: false,
+        seleccionAccesorio: false,
+      });
+    } else {
+      this.setState({
+        selectedValueSuperiores: "Prenda Superior:",
+        selectedIdSuperiores: "",
+        seleccionSuperior: false,
       });
     }
   };
@@ -159,6 +189,15 @@ export default class CrearProducto extends React.Component {
       this.setState({
         selectedValueInferiores: value,
         selectedIdInferiores: selectedItem.id,
+        seleccionSuperior: false,
+        seleccionInferior: true,
+        seleccionAccesorio: false,
+      });
+    } else {
+      this.setState({
+        selectedValueInferiores: "Prenda Inferior:",
+        selectedIdInferiores: "",
+        seleccionInferior: false,
       });
     }
   };
@@ -173,6 +212,15 @@ export default class CrearProducto extends React.Component {
       this.setState({
         selectedValueAccesorios: value,
         selectedIdAccesorios: selectedItem.id,
+        seleccionSuperior: false,
+        seleccionInferior: false,
+        seleccionAccesorio: true,
+      });
+    } else {
+      this.setState({
+        selectedValueAccesorios: "Accesorio:",
+        selectedIdAccesorios: "",
+        seleccionAccesorio: false,
       });
     }
   };
@@ -187,6 +235,13 @@ export default class CrearProducto extends React.Component {
       this.setState({
         selectedValueColores: value,
         selectedIdColores: selectedItem.id,
+        seleccionColor: true,
+      });
+    } else {
+      this.setState({
+        selectedValueColores: "Color:",
+        selectedIdColores: "",
+        seleccionColor: false,
       });
     }
   };
@@ -201,8 +256,22 @@ export default class CrearProducto extends React.Component {
       this.setState({
         selectedValueTamanos: value,
         selectedIdTamanos: selectedItem.id,
+        seleccionTam: true,
+        seleccionTalle: false,
+      });
+    } else {
+      this.setState({
+        selectedValueTamanos: "Tamaño:",
+        selectedIdTamanos: "",
+        seleccionTam: false,
       });
     }
+
+    // Deshabilitar opciones en el menú "Talles"
+    const disableTalles = !!selectedItem;
+    this.setState({
+      disableTalles: disableTalles,
+    });
   };
 
   handleChangeTalles = (event) => {
@@ -215,8 +284,22 @@ export default class CrearProducto extends React.Component {
       this.setState({
         selectedValueTalles: value,
         selectedIdTalles: selectedItem.id,
+        seleccionTam: false,
+        seleccionTalle: true,
+      });
+    } else {
+      this.setState({
+        selectedValueTalles: "Talle:",
+        selectedIdTalles: "",
+        seleccionTalle: false,
       });
     }
+
+    // Deshabilitar opciones en el menú "Tamaños"
+    const disableTamanos = !!selectedItem;
+    this.setState({
+      disableTamanos: disableTamanos,
+    });
   };
 
   verificarError(elemento) {
@@ -241,6 +324,49 @@ export default class CrearProducto extends React.Component {
       selectedIdTamanos,
       selectedIdTalles,
     } = this.state;
+
+    if (
+      !selectedIdSuperiores &&
+      !selectedIdInferiores &&
+      !selectedIdAccesorios
+    ) {
+      this.setState({
+        errores: ["error_tipo_producto"],
+      });
+
+      // Mostrar mensaje emergente con Toast
+      toast.error("Debe especificar el tipo del producto.", {
+        position: toast.POSITION.TOP_CENTER,
+      });
+
+      return false;
+    }
+
+    if (!selectedIdTamanos && !selectedIdTalles) {
+      this.setState({
+        errores: ["error_tamano_talle"],
+      });
+
+      // Mostrar mensaje emergente con Toast
+      toast.error("Debe especificar el tamaño o talle del producto.", {
+        position: toast.POSITION.TOP_CENTER,
+      });
+
+      return false;
+    }
+
+    if (!this.state.seleccionColor) {
+      this.setState({
+        errores: ["error_color"],
+      });
+
+      // Mostrar mensaje emergente con Toast
+      toast.error("Debe seleccionar un color.", {
+        position: toast.POSITION.TOP_CENTER,
+      });
+
+      return false;
+    }
 
     const selectedIdSuperioresToSend = selectedIdSuperiores || 1;
     const selectedIdInferioresToSend = selectedIdInferiores || 1;
@@ -287,7 +413,7 @@ export default class CrearProducto extends React.Component {
       .then((datosRespuesta) => {
         console.log(datosRespuesta);
 
-        this.props.history.push("/consultar");
+        this.props.history.push("/menu_principal");
       })
       .catch(console.log());
   };
@@ -354,11 +480,24 @@ export default class CrearProducto extends React.Component {
                     value={selectedValueSuperiores || "Prenda Superior:"}
                     onChange={this.handleChangeSuperiores}
                   >
-                    <MenuItem value="Prenda Superior:" disabled>
+                    <MenuItem
+                      value="Prenda Superior:"
+                      disabled={
+                        this.state.seleccionInferior ||
+                        this.state.seleccionAccesorio
+                      }
+                    >
                       Prenda Superior
                     </MenuItem>
                     {selectDataSuperiores.map((select) => (
-                      <MenuItem key={select.id} value={select.descripcion}>
+                      <MenuItem
+                        key={select.id}
+                        value={select.descripcion}
+                        disabled={
+                          this.state.seleccionInferior ||
+                          this.state.seleccionAccesorio
+                        }
+                      >
                         {select.descripcion}
                       </MenuItem>
                     ))}
@@ -370,11 +509,24 @@ export default class CrearProducto extends React.Component {
                     value={selectedValueInferiores || "Prenda Inferior:"}
                     onChange={this.handleChangeInferiores}
                   >
-                    <MenuItem value="Prenda Inferior:" disabled>
+                    <MenuItem
+                      value="Prenda Inferior:"
+                      disabled={
+                        this.state.seleccionSuperior ||
+                        this.state.seleccionAccesorio
+                      }
+                    >
                       Prenda Inferior
                     </MenuItem>
                     {selectDataInferiores.map((select) => (
-                      <MenuItem key={select.id} value={select.descripcion}>
+                      <MenuItem
+                        key={select.id}
+                        value={select.descripcion}
+                        disabled={
+                          this.state.seleccionSuperior ||
+                          this.state.seleccionAccesorio
+                        }
+                      >
                         {select.descripcion}
                       </MenuItem>
                     ))}
@@ -386,11 +538,24 @@ export default class CrearProducto extends React.Component {
                     value={selectedValueAccesorios || "Accesorio:"}
                     onChange={this.handleChangeAccesorios}
                   >
-                    <MenuItem value="Accesorio:" disabled>
+                    <MenuItem
+                      value="Accesorio:"
+                      disabled={
+                        this.state.seleccionSuperior ||
+                        this.state.seleccionInferior
+                      }
+                    >
                       Accesorio
                     </MenuItem>
                     {selectDataAccesorios.map((select) => (
-                      <MenuItem key={select.id} value={select.descripcion}>
+                      <MenuItem
+                        key={select.id}
+                        value={select.descripcion}
+                        disabled={
+                          this.state.seleccionSuperior ||
+                          this.state.seleccionInferior
+                        }
+                      >
                         {select.descripcion}
                       </MenuItem>
                     ))}
@@ -402,9 +567,7 @@ export default class CrearProducto extends React.Component {
                     value={selectedValueColores || "Color:"}
                     onChange={this.handleChangeColores}
                   >
-                    <MenuItem value="Color:" disabled>
-                      Color
-                    </MenuItem>
+                    <MenuItem value="Color:">Color</MenuItem>
                     {selectDataColores.map((select) => (
                       <MenuItem key={select.id} value={select.descripcion}>
                         {select.descripcion}
@@ -418,11 +581,22 @@ export default class CrearProducto extends React.Component {
                     value={selectedValueTamanos || "Tamaño:"}
                     onChange={this.handleChangeTamanos}
                   >
-                    <MenuItem value="Tamaño:" disabled>
+                    <MenuItem
+                      value="Tamaño:"
+                      disabled={
+                        this.state.disableTamanos || this.state.seleccionTalle
+                      }
+                    >
                       Tamaño
                     </MenuItem>
                     {selectDataTamanos.map((select) => (
-                      <MenuItem key={select.id} value={select.descripcion}>
+                      <MenuItem
+                        key={select.id}
+                        value={select.descripcion}
+                        disabled={
+                          this.state.disableTamanos || this.state.seleccionTalle
+                        }
+                      >
                         {select.descripcion}
                       </MenuItem>
                     ))}
@@ -434,11 +608,22 @@ export default class CrearProducto extends React.Component {
                     value={selectedValueTalles || "Talle:"}
                     onChange={this.handleChangeTalles}
                   >
-                    <MenuItem value="Talle:" disabled>
+                    <MenuItem
+                      value="Talle:"
+                      disabled={
+                        this.state.disableTalles || this.state.seleccionTam
+                      }
+                    >
                       Talle
                     </MenuItem>
                     {selectDataTalles.map((select) => (
-                      <MenuItem key={select.id} value={select.descripcion}>
+                      <MenuItem
+                        key={select.id}
+                        value={select.descripcion}
+                        disabled={
+                          this.state.disableTalles || this.state.seleccionTam
+                        }
+                      >
                         {select.descripcion}
                       </MenuItem>
                     ))}
@@ -574,6 +759,7 @@ export default class CrearProducto extends React.Component {
             </form>
           </div>
         </div>
+        <ToastContainer />
       </Container>
     );
   }
