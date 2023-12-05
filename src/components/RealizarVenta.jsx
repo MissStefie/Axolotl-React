@@ -67,16 +67,22 @@ export default class RealizarVenta extends React.Component {
   componentDidMount() {
     this.cargarDatos();
 
-    // Crear y almacenar las referencias a los inputs
     const refs = {};
-    const inputValues = {}; // Cambia esto a un objeto vacío
+    const inputValues = {};
 
     this.state.productos.forEach((producto) => {
       refs[producto.id] = React.createRef();
-      inputValues[producto.id] = ""; // Establece el valor inicial en blanco
+      inputValues[producto.id] = "";
     });
 
-    this.setState({ refs, inputValues }); // Establece los valores iniciales en el estado
+    this.setState({ refs, inputValues });
+
+    const updatedCheckboxes = {};
+    this.state.filasSeleccionadas.forEach((producto) => {
+      updatedCheckboxes[producto.id] = true;
+    });
+
+    this.setState({ checkboxes: updatedCheckboxes });
   }
 
   handleChangeFiltro = (event) => {
@@ -284,7 +290,6 @@ export default class RealizarVenta extends React.Component {
       const codigo = producto.codigo.toLowerCase();
       const colorid = producto.colorid.toLowerCase();
 
-      // Agrega la condición de cantidad disponible > 0 aquí
       const cantidadDisponible = parseFloat(producto.cantidad);
 
       if (categoriaFiltro === "inferior") {
@@ -532,8 +537,9 @@ export default class RealizarVenta extends React.Component {
                           value=""
                           id={`checkbox-${producto.id}`}
                           onChange={() => {
-                            this.handleCheckboxChange(producto); // Llama a handleCheckboxChange cuando se cambia el checkbox
+                            this.handleCheckboxChange(producto);
                           }}
+                          checked={this.state.checkboxes[producto.id]}
                         />
                       </td>
                       <td>
@@ -542,14 +548,13 @@ export default class RealizarVenta extends React.Component {
                           min="1"
                           step="1"
                           max={producto.cantidad}
-                          value={this.state.inputValues[producto.id] || ""} // Usar el ID del producto
-                          onChange={
-                            (e) =>
-                              this.handleInputChange(
-                                e,
-                                producto.cantidad,
-                                producto.id
-                              ) // Pasa el ID del producto
+                          value={this.state.inputValues[producto.id] || ""}
+                          onChange={(e) =>
+                            this.handleInputChange(
+                              e,
+                              producto.cantidad,
+                              producto.id
+                            )
                           }
                           disabled={!this.state.checkboxes[producto.id]}
                         />
