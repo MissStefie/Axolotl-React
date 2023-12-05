@@ -136,11 +136,13 @@ export default class Informes extends Component {
   }
 
   handleChangeFiltroCodVenta = (event) => {
-    this.setState({ filtroCodventa: event.target.value });
+    const input = event.target.value.toLowerCase();
+    this.setState({ filtroCodventa: input });
   };
 
   handleChangeFiltroCodProducto = (event) => {
-    this.setState({ filtroCodproducto: event.target.value });
+    const input = event.target.value.toLowerCase();
+    this.setState({ filtroCodproducto: input });
   };
 
   handleChangeFiltroCliente = (event) => {
