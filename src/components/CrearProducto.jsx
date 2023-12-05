@@ -148,6 +148,11 @@ export default class CrearProducto extends React.Component {
       newValue = Math.max(0, Math.min(100, parseInt(value, 10))) || "";
     }
 
+    // Validación para asegurarse de que preciocpa y preciovta no sean negativos
+    if (name === "preciocpa" || name === "preciovta" || name === "cantidad") {
+      newValue = Math.max(0, parseFloat(value)) || "";
+    }
+
     // Actualizar el estado
     this.setState((prevState) => ({
       ...prevState,

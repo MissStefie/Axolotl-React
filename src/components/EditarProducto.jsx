@@ -50,16 +50,17 @@ export default class EditarProducto extends React.Component {
 
   cambioValor = (e) => {
     const { name, value } = e.target;
-    let descuentoValue = value;
+    let newValue = value;
 
-    if (name === "descuento") {
-      descuentoValue = Math.max(0, Math.min(100, parseInt(value, 10))) || "";
+    // Validar que no se ingresen valores negativos en los campos de precio y cantidad
+    if (name === "preciocpa" || name === "preciovta" || name === "cantidad") {
+      newValue = Math.max(0, parseFloat(value)) || "";
     }
 
     this.setState((prevState) => ({
       producto: {
         ...prevState.producto,
-        [name]: descuentoValue,
+        [name]: newValue,
         errores: [],
       },
     }));

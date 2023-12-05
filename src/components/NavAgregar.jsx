@@ -37,7 +37,7 @@ export default class NavAgregar extends Component {
             <div className="salir-container-agregar">
               <li>
                 <a title="Tambien regresa al menu pero ya estaba en el diseño xdxd">
-                  <Link to={"/consultar"}>
+                  <Link to={"/menu_principal"}>
                     <FontAwesomeIcon
                       icon={faCircleXmark}
                       style={{ color: "#e5beec" }}
