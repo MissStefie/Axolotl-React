@@ -43,15 +43,26 @@ export default class EditarProducto extends React.Component {
       idtalle: "",
       valorSeleccionadoTalle: "",
       datosTalle: [],
+
+      errores: [],
     };
-    //console.log(this.state.datosCargados)
   }
 
   cambioValor = (e) => {
-    const state = this.state.producto;
-    state[e.target.name] = e.target.value;
-    this.setState({ producto: state });
-    console.log(this.state);
+    const { name, value } = e.target;
+    let descuentoValue = value;
+
+    if (name === "descuento") {
+      descuentoValue = Math.max(0, Math.min(100, parseInt(value, 10))) || "";
+    }
+
+    this.setState((prevState) => ({
+      producto: {
+        ...prevState.producto,
+        [name]: descuentoValue,
+        errores: [],
+      },
+    }));
   };
 
   enviarDatos = (e) => {
@@ -68,6 +79,17 @@ export default class EditarProducto extends React.Component {
         descuento,
       },
     } = this.state;
+
+    var errores = [];
+    if (!nombre) errores.push("error_nombre");
+    if (!descripcion) errores.push("error_descripcion");
+    if (!preciocpa) errores.push("error_preciocpa");
+    if (!preciovta) errores.push("error_preciovta");
+    if (!cantidad) errores.push("error_cantidad");
+    if (!descuento) errores.push("error_descuento");
+
+    this.setState({ errores: errores });
+    if (errores.length > 0) return false;
 
     var datosEnviar = {
       id: id,
@@ -221,6 +243,10 @@ export default class EditarProducto extends React.Component {
       });
   }
 
+  verificarError(elemento) {
+    return this.state.errores.indexOf(elemento) !== -1;
+  }
+
   render() {
     const { user } = this.props;
     console.log(user);
@@ -371,7 +397,11 @@ export default class EditarProducto extends React.Component {
                       onChange={this.cambioValor}
                       value={producto.nombre}
                       id="nombre"
-                      className="form-control"
+                      className={
+                        (this.verificarError("error_nombre")
+                          ? "is-invalid"
+                          : "") + " form-control"
+                      }
                       placeholder="Ingrese un nombre"
                       aria-describedby="helpId"
                     />
@@ -386,7 +416,11 @@ export default class EditarProducto extends React.Component {
                       onChange={this.cambioValor}
                       value={producto.descripcion}
                       id="descripcion"
-                      className="form-control"
+                      className={
+                        (this.verificarError("error_descripcion")
+                          ? "is-invalid"
+                          : "") + " form-control"
+                      }
                       placeholder="Ingrese una descripcion"
                       aria-describedby="helpId"
                     />
@@ -401,7 +435,11 @@ export default class EditarProducto extends React.Component {
                       onChange={this.cambioValor}
                       value={producto.preciocpa}
                       id="preciocpa"
-                      className="form-preciocpa"
+                      className={
+                        (this.verificarError("error_preciocpa")
+                          ? "is-invalid"
+                          : "") + " form-control"
+                      }
                       placeholder="Ingrese el precio de compra"
                       aria-describedby="helpId"
                     />
@@ -416,7 +454,11 @@ export default class EditarProducto extends React.Component {
                       onChange={this.cambioValor}
                       value={producto.preciovta}
                       id="preciovta"
-                      className="form-preciovta"
+                      className={
+                        (this.verificarError("error_preciovta")
+                          ? "is-invalid"
+                          : "") + " form-control"
+                      }
                       placeholder="Ingrese el precio de venta"
                       aria-describedby="helpId"
                     />
@@ -431,7 +473,11 @@ export default class EditarProducto extends React.Component {
                       onChange={this.cambioValor}
                       value={producto.cantidad}
                       id="cantidad"
-                      className="form-cantidad"
+                      className={
+                        (this.verificarError("error_cantidad")
+                          ? "is-invalid"
+                          : "") + " form-control"
+                      }
                       placeholder="Ingrese la cantidad"
                       aria-describedby="helpId"
                     />
@@ -446,7 +492,11 @@ export default class EditarProducto extends React.Component {
                       onChange={this.cambioValor}
                       value={producto.descuento}
                       id="descuento"
-                      className="form-descuento"
+                      className={
+                        (this.verificarError("error_descuento")
+                          ? "is-invalid"
+                          : "") + " form-control"
+                      }
                       placeholder="Ingrese el descuento"
                       aria-describedby="helpId"
                     />
