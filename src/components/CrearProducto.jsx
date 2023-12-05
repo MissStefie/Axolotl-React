@@ -480,159 +480,168 @@ export default class CrearProducto extends React.Component {
               </div>
 
               <div className="contenedorSelectsCrear">
-                <div className="elemento-cardCrear">
-                  <Select
-                    value={selectedValueSuperiores || "Prenda Superior:"}
-                    onChange={this.handleChangeSuperiores}
-                  >
-                    <MenuItem
-                      value="Prenda Superior:"
-                      disabled={
-                        this.state.seleccionInferior ||
-                        this.state.seleccionAccesorio
-                      }
+                <div className="crearProductoTipos">
+                  <label className="crearProductoTiposLabel">Elija el tipo de producto:</label>
+                  <div className="elemento-cardCrear">
+                    <Select
+                      value={selectedValueSuperiores || "Prenda Superior:"}
+                      onChange={this.handleChangeSuperiores}
                     >
-                      Prenda Superior
-                    </MenuItem>
-                    {selectDataSuperiores.map((select) => (
                       <MenuItem
-                        key={select.id}
-                        value={select.descripcion}
+                        value="Prenda Superior:"
                         disabled={
                           this.state.seleccionInferior ||
                           this.state.seleccionAccesorio
                         }
                       >
-                        {select.descripcion}
+                        Prenda Superior
                       </MenuItem>
-                    ))}
-                  </Select>
-                </div>
+                      {selectDataSuperiores.map((select) => (
+                        <MenuItem
+                          key={select.id}
+                          value={select.descripcion}
+                          disabled={
+                            this.state.seleccionInferior ||
+                            this.state.seleccionAccesorio
+                          }
+                        >
+                          {select.descripcion}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </div>
 
-                <div className="elemento-cardCrear">
-                  <Select
-                    value={selectedValueInferiores || "Prenda Inferior:"}
-                    onChange={this.handleChangeInferiores}
-                  >
-                    <MenuItem
-                      value="Prenda Inferior:"
-                      disabled={
-                        this.state.seleccionSuperior ||
-                        this.state.seleccionAccesorio
-                      }
+                  <div className="elemento-cardCrear">
+                    <Select
+                      value={selectedValueInferiores || "Prenda Inferior:"}
+                      onChange={this.handleChangeInferiores}
                     >
-                      Prenda Inferior
-                    </MenuItem>
-                    {selectDataInferiores.map((select) => (
                       <MenuItem
-                        key={select.id}
-                        value={select.descripcion}
+                        value="Prenda Inferior:"
                         disabled={
                           this.state.seleccionSuperior ||
                           this.state.seleccionAccesorio
                         }
                       >
-                        {select.descripcion}
+                        Prenda Inferior
                       </MenuItem>
-                    ))}
-                  </Select>
-                </div>
+                      {selectDataInferiores.map((select) => (
+                        <MenuItem
+                          key={select.id}
+                          value={select.descripcion}
+                          disabled={
+                            this.state.seleccionSuperior ||
+                            this.state.seleccionAccesorio
+                          }
+                        >
+                          {select.descripcion}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </div>
 
-                <div className="elemento-cardCrear">
-                  <Select
-                    value={selectedValueAccesorios || "Accesorio:"}
-                    onChange={this.handleChangeAccesorios}
-                  >
-                    <MenuItem
-                      value="Accesorio:"
-                      disabled={
-                        this.state.seleccionSuperior ||
-                        this.state.seleccionInferior
-                      }
+                  <div className="elemento-cardCrear">
+                    <Select
+                      value={selectedValueAccesorios || "Accesorio:"}
+                      onChange={this.handleChangeAccesorios}
                     >
-                      Accesorio
-                    </MenuItem>
-                    {selectDataAccesorios.map((select) => (
                       <MenuItem
-                        key={select.id}
-                        value={select.descripcion}
+                        value="Accesorio:"
                         disabled={
                           this.state.seleccionSuperior ||
                           this.state.seleccionInferior
                         }
                       >
-                        {select.descripcion}
+                        Accesorio
                       </MenuItem>
-                    ))}
-                  </Select>
+                      {selectDataAccesorios.map((select) => (
+                        <MenuItem
+                          key={select.id}
+                          value={select.descripcion}
+                          disabled={
+                            this.state.seleccionSuperior ||
+                            this.state.seleccionInferior
+                          }
+                        >
+                          {select.descripcion}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </div>
                 </div>
-
-                <div className="elemento-cardCrear">
-                  <Select
-                    value={selectedValueColores || "Color:"}
-                    onChange={this.handleChangeColores}
-                  >
-                    <MenuItem value="Color:">Color</MenuItem>
-                    {selectDataColores.map((select) => (
-                      <MenuItem key={select.id} value={select.descripcion}>
-                        {select.descripcion}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                </div>
-
-                <div className="elemento-cardCrear">
-                  <Select
-                    value={selectedValueTamanos || "Tamaño:"}
-                    onChange={this.handleChangeTamanos}
-                  >
-                    <MenuItem
-                      value="Tamaño:"
-                      disabled={
-                        this.state.disableTamanos || this.state.seleccionTalle
-                      }
+                <div className="crearProductoColor">
+                  <label className="crearProductoColorLabel">Elija el color:</label>
+                  <div className="elemento-cardCrear">
+                    <Select
+                      value={selectedValueColores || "Color:"}
+                      onChange={this.handleChangeColores}
                     >
-                      Tamaño
-                    </MenuItem>
-                    {selectDataTamanos.map((select) => (
+                      <MenuItem value="Color:">Color</MenuItem>
+                      {selectDataColores.map((select) => (
+                        <MenuItem key={select.id} value={select.descripcion}>
+                          {select.descripcion}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </div>
+                </div>
+
+                <div className="crearProductoTamTalle">
+                  <label className="crearProductoTamTalleLabel">Elija el tamaño o talle:</label>
+                  <div className="elemento-cardCrear">
+                    <Select
+                      value={selectedValueTamanos || "Tamaño:"}
+                      onChange={this.handleChangeTamanos}
+                    >
                       <MenuItem
-                        key={select.id}
-                        value={select.descripcion}
+                        value="Tamaño:"
                         disabled={
                           this.state.disableTamanos || this.state.seleccionTalle
                         }
                       >
-                        {select.descripcion}
+                        Tamaño
                       </MenuItem>
-                    ))}
-                  </Select>
-                </div>
+                      {selectDataTamanos.map((select) => (
+                        <MenuItem
+                          key={select.id}
+                          value={select.descripcion}
+                          disabled={
+                            this.state.disableTamanos ||
+                            this.state.seleccionTalle
+                          }
+                        >
+                          {select.descripcion}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </div>
 
-                <div className="elemento-cardCrear">
-                  <Select
-                    value={selectedValueTalles || "Talle:"}
-                    onChange={this.handleChangeTalles}
-                  >
-                    <MenuItem
-                      value="Talle:"
-                      disabled={
-                        this.state.disableTalles || this.state.seleccionTam
-                      }
+                  <div className="elemento-cardCrear">
+                    <Select
+                      value={selectedValueTalles || "Talle:"}
+                      onChange={this.handleChangeTalles}
                     >
-                      Talle
-                    </MenuItem>
-                    {selectDataTalles.map((select) => (
                       <MenuItem
-                        key={select.id}
-                        value={select.descripcion}
+                        value="Talle:"
                         disabled={
                           this.state.disableTalles || this.state.seleccionTam
                         }
                       >
-                        {select.descripcion}
+                        Talle
                       </MenuItem>
-                    ))}
-                  </Select>
+                      {selectDataTalles.map((select) => (
+                        <MenuItem
+                          key={select.id}
+                          value={select.descripcion}
+                          disabled={
+                            this.state.disableTalles || this.state.seleccionTam
+                          }
+                        >
+                          {select.descripcion}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </div>
                 </div>
               </div>
 
@@ -747,7 +756,7 @@ export default class CrearProducto extends React.Component {
               </div>
 
               <div
-                className="btn-group grupoBotones"
+                className="btn-group grupoBotonesCrear"
                 role="group"
                 aria-label=""
               >

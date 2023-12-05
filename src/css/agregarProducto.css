@@ -21,22 +21,28 @@ select {
 
 .inputClaveCrear {
   width: 200px;
-  background-color: #FDE2F3; /* Color de fondo */
+  background-color: #fde2f3; /* Color de fondo */
   color: #2a2f4f;
 }
 
 .contenedorSelectsCrear {
-  margin: 0px 15px 0px 15px;
-  display: grid;
-  grid-column-gap: 200px;
-  grid-template-columns: 1fr 1fr;
-  justify-content: center;
-  background-color: #FDE2F3 !important; /* Color de fondo */
+  margin: 0 auto; /* Agregado para centrar horizontalmente */
+  display: flex;
+  justify-content: space-between;
+  background-color: #fde2f3 !important;
   border-radius: 10px;
+  padding: 20px; /* Agregado para márgenes internos */
+  width: 70%; /* Ajusta el ancho según tus necesidades */
 }
 
-.contenedorSelectsCrear .elemento-cardCrear{
-  margin-left: 200px;
+.contenedorSelectsCrear .elemento-cardCrear {
+  margin: 15px;
+}
+
+/* Agregado para márgenes internos en los elementos */
+.contenedorSelectsCrear .elemento-cardCrear Select,
+.contenedorSelectsCrear .elemento-cardCrear label {
+  margin-bottom: 10px;
 }
 
 .contenedorInputsCrear {
@@ -109,5 +115,5 @@ select {
 .grupoBotonesCrear {
   display: flex;
   grid-column-gap: 200px;
-  margin: 50px 70px 0px 70px !important;
+  margin: 20px 70px 0px 70px !important;
 }
