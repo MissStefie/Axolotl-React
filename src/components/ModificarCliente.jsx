@@ -288,7 +288,7 @@ export default class ModificarCliente extends Component {
                     placeholder="Ingrese un apellido"
                     onChange={this.handleChange}
                     className={
-                      (this.verificarError("error_nombre")
+                      (this.verificarError("error_apellido")
                         ? "is-invalid"
                         : "") + " form-control inputModificarCliente"
                     }
@@ -306,7 +306,7 @@ export default class ModificarCliente extends Component {
                     placeholder="Ingrese la direccion"
                     onChange={this.handleChange}
                     className={
-                      (this.verificarError("error_nombre")
+                      (this.verificarError("error_direccion")
                         ? "is-invalid"
                         : "") + " form-control inputModificarCliente"
                     }
