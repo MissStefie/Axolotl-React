@@ -5,10 +5,7 @@ import { Link } from "react-router-dom";
 import { Dropdown, Form } from "react-bootstrap";
 import { Container } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faEraser,
-  faPenToSquare,
-} from "@fortawesome/free-solid-svg-icons";
+import { faEraser, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import "../css/tablaProductos.css";
 import "bootstrap/dist/css/bootstrap.css";
 import swal from "sweetalert2";
@@ -131,6 +128,8 @@ export default class ListarProducto extends React.Component {
       tamanoFiltro,
       talleFiltro,
     } = this.state;
+
+    const tieneAcceso = user.rol === "1";
 
     const productosFiltrados = productos.filter((producto) => {
       const codigo = producto.codigo.toLowerCase();
@@ -301,7 +300,7 @@ export default class ListarProducto extends React.Component {
                     <th>Cantidad Disponible</th>
                     <th>Descuento</th>
                     <th>Precio con Descuento</th>
-                    <th>Acciones</th>
+                    {tieneAcceso && <th>Acciones</th>}
                   </tr>
                 </thead>
                 <tbody className="tabla-container">
@@ -367,34 +366,35 @@ export default class ListarProducto extends React.Component {
                       <td>{producto.cantidad}</td>
                       <td>{producto.descuento}</td>
                       <td>{producto.preciodct}</td>
-
-                      <th>
-                        <div className="btn-group" role="group" aria-label="">
-                          <Link
-                            to={"/editar/" + producto.id}
-                            className="btn boton-editar"
-                          >
-                            Editar{" "}
-                            <FontAwesomeIcon
-                              icon={faPenToSquare}
-                              style={{ color: "#E5BEEC" }}
-                              className="editarListarProducto"
-                            />
-                          </Link>
-                          <button
-                            type="button"
-                            className="btn boton-borrar"
-                            onClick={() => this.mostrarAlerta(producto.id)}
-                          >
-                            Borrar{" "}
-                            <FontAwesomeIcon
-                              icon={faEraser}
-                              style={{ color: "#E5BEEC" }}
-                              className="borrarListarProducto"
-                            />
-                          </button>
-                        </div>
-                      </th>
+                      {tieneAcceso && (
+                        <th>
+                          <div className="btn-group" role="group" aria-label="">
+                            <Link
+                              to={"/editar/" + producto.id}
+                              className="btn boton-editar"
+                            >
+                              Editar{" "}
+                              <FontAwesomeIcon
+                                icon={faPenToSquare}
+                                style={{ color: "#E5BEEC" }}
+                                className="editarListarProducto"
+                              />
+                            </Link>
+                            <button
+                              type="button"
+                              className="btn boton-borrar"
+                              onClick={() => this.mostrarAlerta(producto.id)}
+                            >
+                              Borrar{" "}
+                              <FontAwesomeIcon
+                                icon={faEraser}
+                                style={{ color: "#E5BEEC" }}
+                                className="borrarListarProducto"
+                              />
+                            </button>
+                          </div>
+                        </th>
+                      )}
                     </tr>
                   ))}
                 </tbody>

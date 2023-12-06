@@ -20,6 +20,9 @@ export default class MenuPrincipal extends Component {
     if (!user) {
       return <Redirect to="/" />;
     }
+
+    const tieneAcceso = user.rol === "1";
+
     return (
       <Container>
         <NavMenuPrincipal user={user}></NavMenuPrincipal>
@@ -32,14 +35,17 @@ export default class MenuPrincipal extends Component {
               className="iconoMenuPrincipal"
             />
           </Link>
-          <Link to="/crear" className="btn link_menu_principal">
-            Cargar Stock{" "}
-            <FontAwesomeIcon
-              icon={faBoxesStacked}
-              style={{ color: "#e5beec" }}
-              className="iconoMenuPrincipal"
-            />
-          </Link>
+
+          {tieneAcceso && (
+            <Link to="/crear" className="btn link_menu_principal">
+              Cargar Stock{" "}
+              <FontAwesomeIcon
+                icon={faBoxesStacked}
+                style={{ color: "#e5beec" }}
+                className="iconoMenuPrincipal"
+              />
+            </Link>
+          )}
           <Link to="/consultar" className="btn link_menu_principal">
             Consultar{" "}
             <FontAwesomeIcon
