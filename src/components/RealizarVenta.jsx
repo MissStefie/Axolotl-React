@@ -557,6 +557,7 @@ export default class RealizarVenta extends React.Component {
                             )
                           }
                           disabled={!this.state.checkboxes[producto.id]}
+                          style={{ width: "80px", padding: "5px" }}
                         />
                       </td>
                     </tr>
