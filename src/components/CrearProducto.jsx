@@ -390,7 +390,8 @@ export default class CrearProducto extends React.Component {
     if (!preciocpa) errores.push("error_preciocpa");
     if (!preciovta) errores.push("error_preciovta");
     if (!cantidad) errores.push("error_cantidad");
-    if (!descuento) errores.push("error_descuento");
+    if (descuento === undefined || descuento === null)
+      errores.push("error_descuento");
 
     this.setState({ errores: errores });
     if (errores.length > 0) return false;
