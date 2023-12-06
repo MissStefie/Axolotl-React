@@ -145,7 +145,10 @@ export default class CrearProducto extends React.Component {
 
     // Validación para asegurarse de que descuento esté entre 0 y 100
     if (name === "descuento") {
-      newValue = Math.max(0, Math.min(100, parseInt(value, 10))) || "";
+      const parsedValue = parseInt(value, 10);
+      newValue = isNaN(parsedValue)
+        ? ""
+        : Math.max(0, Math.min(100, parsedValue));
     }
 
     // Validación para asegurarse de que preciocpa y preciovta no sean negativos
@@ -481,7 +484,9 @@ export default class CrearProducto extends React.Component {
 
               <div className="contenedorSelectsCrear">
                 <div className="crearProductoTipos">
-                  <label className="crearProductoTiposLabel">Elija el tipo de producto:</label>
+                  <label className="crearProductoTiposLabel">
+                    Elija el tipo de producto:
+                  </label>
                   <div className="elemento-cardCrear">
                     <Select
                       value={selectedValueSuperiores || "Prenda Superior:"}
@@ -570,7 +575,9 @@ export default class CrearProducto extends React.Component {
                   </div>
                 </div>
                 <div className="crearProductoColor">
-                  <label className="crearProductoColorLabel">Elija el color:</label>
+                  <label className="crearProductoColorLabel">
+                    Elija el color:
+                  </label>
                   <div className="elemento-cardCrear">
                     <Select
                       value={selectedValueColores || "Color:"}
@@ -587,7 +594,9 @@ export default class CrearProducto extends React.Component {
                 </div>
 
                 <div className="crearProductoTamTalle">
-                  <label className="crearProductoTamTalleLabel">Elija el tamaño o talle:</label>
+                  <label className="crearProductoTamTalleLabel">
+                    Elija el tamaño o talle:
+                  </label>
                   <div className="elemento-cardCrear">
                     <Select
                       value={selectedValueTamanos || "Tamaño:"}
@@ -739,7 +748,7 @@ export default class CrearProducto extends React.Component {
                 <div className="form-group elemento-cardCrear">
                   <label htmlFor="">Descuento:</label>
                   <input
-                    type="text"
+                    type="number"
                     name="descuento"
                     onChange={this.cambioValor}
                     value={descuento}
@@ -751,6 +760,8 @@ export default class CrearProducto extends React.Component {
                     }
                     placeholder="Ingrese el descuento"
                     aria-describedby="helpId"
+                    min="0"
+                    max="100"
                   />
                 </div>
               </div>

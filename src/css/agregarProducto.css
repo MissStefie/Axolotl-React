@@ -1,10 +1,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@700;800&display=swap");
 
 .card {
-  font-family: "Nunito", sans-serif !important; /* Aplica la fuente personalizada */
+  font-family: "Nunito", sans-serif !important; 
   margin: 100px 0px 0px -120px;
-  width: 1400px; /* Establece el ancho de la tarjeta */
-  height: 720px; /* Establece la altura de la tarjeta */
+  width: 1400px; 
+  height: 700px; 
   border-radius: 10px;
   border-width: 2px;
   border-color: #2a2f4f;
@@ -46,7 +46,7 @@ select {
 }
 
 .contenedorInputsCrear {
-  margin: 50px 30px 0px 30px;
+  margin: 20px 30px 0px 30px;
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-column-gap: 200px;

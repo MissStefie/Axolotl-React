@@ -134,10 +134,9 @@ export default class EditarProducto extends React.Component {
           idtamano: datosRespuesta[0].tamanoid,
           idtalle: datosRespuesta[0].talleid,
         });
-        console.log(this.state.nombre);
       })
       .catch(console.log());
-    console.log(this.state);
+    //console.log(this.state);
 
     //asignando el id de psuperiorid al fecth de la tabla de prendas superiores para traer la prenda
     fetch(ApiPS)
@@ -277,100 +276,119 @@ export default class EditarProducto extends React.Component {
       return (
         <Container>
           <NavEditar></NavEditar>
-          <div className="card">
-            <div className="card-body">
+          <div className="card-editarProducto">
+            <div className="card-body-editarProducto">
               <form action="" onSubmit={this.enviarDatos}>
-                <div className="form-group elemento-card">
-                  <label htmlFor="">Clave:</label>
-                  <input
-                    type="text"
-                    readOnly
-                    className="form-control inputClave"
-                    onChange={this.cambioValor}
-                    value={producto.id}
-                    name="id"
-                    id="id"
-                    aria-describedby="helpId"
-                    placeholder=""
-                  />
-                </div>
-                <div className="contenedorSelects">
-                  {/*select de prenda superior*/}
-                  <div className="elemento-card">
-                    <select value={valorSeleccionadoPsuperior} disabled>
-                      <option value="">Seleccionar</option>
-                      {datosPsuperior.map((prendasuperior) => (
-                        <option
-                          key={prendasuperior.id}
-                          value={prendasuperior.id}
-                        >
-                          {prendasuperior.descripcion}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
+                <div className="contenedorSelects-editarProducto">
+                  <div className="editarProductotipos">
+                    <div className="elemento-card">
+                      <select
+                        value={valorSeleccionadoPsuperior}
+                        disabled
+                        style={{
+                          display:
+                            valorSeleccionadoPsuperior === "1"
+                              ? "none"
+                              : "block",
+                        }}
+                      >
+                        {datosPsuperior.map((prendasuperior) => (
+                          <option
+                            key={prendasuperior.id}
+                            value={prendasuperior.id}
+                          >
+                            {prendasuperior.descripcion}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
 
-                  {/*select de prenda inferior*/}
-                  <div className="elemento-card">
-                    <select value={valorSeleccionadoPinferior} disabled>
-                      <option value="">Seleccionar</option>
-                      {datosPinferior.map((prendainferior) => (
-                        <option
-                          key={prendainferior.id}
-                          value={prendainferior.id}
-                        >
-                          {prendainferior.descripcion}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
+                    <div className="elemento-card">
+                      <select
+                        value={valorSeleccionadoPinferior}
+                        disabled
+                        style={{
+                          display:
+                            valorSeleccionadoPinferior === "1"
+                              ? "none"
+                              : "block",
+                        }}
+                      >
+                        {datosPinferior.map((prendainferior) => (
+                          <option
+                            key={prendainferior.id}
+                            value={prendainferior.id}
+                          >
+                            {prendainferior.descripcion}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
 
-                  {/*select de accesorio*/}
-                  <div className="elemento-card">
-                    <select value={valorSeleccionadoAccesorio} disabled>
-                      <option value="">Seleccionar</option>
-                      {datosAccesorio.map((accesorio) => (
-                        <option key={accesorio.id} value={accesorio.id}>
-                          {accesorio.descripcion}
-                        </option>
-                      ))}
-                    </select>
+                    <div className="elemento-card">
+                      <select
+                        value={valorSeleccionadoAccesorio}
+                        disabled
+                        style={{
+                          display:
+                            valorSeleccionadoAccesorio === "1"
+                              ? "none"
+                              : "block",
+                        }}
+                      >
+                        {datosAccesorio.map((accesorio) => (
+                          <option key={accesorio.id} value={accesorio.id}>
+                            {accesorio.descripcion}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
                   </div>
-
-                  {/*select de color*/}
-                  <div className="elemento-card">
-                    <select value={valorSeleccionadoColor} disabled>
-                      <option value="">Seleccionar</option>
-                      {datosColor.map((color) => (
-                        <option key={color.id} value={color.id}>
-                          {color.descripcion}
-                        </option>
-                      ))}
-                    </select>
+                  <div className="editarProductoColor">
+                    <div className="elemento-card">
+                      <select value={valorSeleccionadoColor} disabled>
+                        {datosColor.map((color) => (
+                          <option key={color.id} value={color.id}>
+                            {color.descripcion}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
                   </div>
+                  <div className="editarProductoTamTalle">
+                    <div className="elemento-card">
+                      <select
+                        value={valorSeleccionadoTamano}
+                        disabled
+                        style={{
+                          display:
+                            valorSeleccionadoTamano === "1" ? "none" : "block",
+                        }}
+                      >
+                        {datosTamano.map((tamano) => (
+                          <option key={tamano.id} value={tamano.id}>
+                            {tamano.descripcion}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
 
-                  {/*select de tamano*/}
-                  <div className="elemento-card">
-                    <select value={valorSeleccionadoTamano} disabled>
-                      <option value="">Seleccionar</option>
-                      {datosTamano.map((tamano) => (
-                        <option key={tamano.id} value={tamano.id}>
-                          {tamano.descripcion}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-
-                  {/*select de talle*/}
-                  <div className="elemento-card">
-                    <select value={valorSeleccionadoTalle} disabled>
-                      <option value="">Seleccionar</option>
-                      {datosTalle.map((talle) => (
-                        <option key={talle.id} value={talle.id}>
-                          {talle.descripcion}
-                        </option>
-                      ))}
-                    </select>
+                    <div className="elemento-card">
+                      <select
+                        value={valorSeleccionadoTalle}
+                        disabled
+                        style={{
+                          display:
+                            valorSeleccionadoTalle === "1" ? "none" : "block",
+                        }}
+                      >
+                        {datosTalle.map((talle) => (
+                          <option key={talle.id} value={talle.id}>
+                            {talle.descripcion}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
                   </div>
                 </div>
 
