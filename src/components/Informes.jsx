@@ -6,10 +6,7 @@ import { Link } from "react-router-dom";
 import { Redirect } from "react-router-dom";
 import "../css/informes.css";
 import NavInformes from "./NavInformes";
-import ApiPV from "../services/procesoVenta";
-import ApiC from "../services/clientes";
-import ApiV from "../services/vendedores";
-import Api from "../services/api";
+import { Api, ApiPV, ApiClientes, ApiV } from "../services/api";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -77,7 +74,7 @@ export default class Informes extends Component {
   }
 
   cargarDatosClientes() {
-    fetch(ApiC)
+    fetch(ApiClientes)
       .then((respuesta) => respuesta.json())
       .then((datosRespuesta) => {
         console.log(datosRespuesta);

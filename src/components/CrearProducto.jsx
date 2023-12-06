@@ -3,18 +3,20 @@ import NavAgregar from "./NavAgregar";
 import { Link } from "react-router-dom";
 import { Container } from "@mui/material";
 import { Select, MenuItem } from "@mui/material";
-import Api from "../services/api";
 import "../css/agregarProducto.css";
 import PropTypes from "prop-types";
 import { Redirect } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import ApiPS from "../services/prendasSuperior";
-import ApiIn from "../services/prendasInferiores";
-import ApiAcc from "../services/accesorios";
-import ApiCol from "../services/colores";
-import ApiTam from "../services/tamanos";
-import ApiTal from "../services/talles";
+import {
+  Api,
+  ApiPS,
+  ApiPI,
+  ApiAcc,
+  ApiColores,
+  ApiTam,
+  ApiTal,
+} from "../services/api";
 
 export default class CrearProducto extends React.Component {
   constructor(props) {
@@ -84,7 +86,7 @@ export default class CrearProducto extends React.Component {
       .catch((error) => console.log(error));
 
     // Realiza una solicitud a la API para obtener los datos de prendas inferiores
-    fetch(ApiIn)
+    fetch(ApiPI)
       .then((response) => response.json())
       .then((data) => {
         const filteredData = data.filter(
@@ -106,7 +108,7 @@ export default class CrearProducto extends React.Component {
       .catch((error) => console.log(error));
 
     // Realiza una solicitud a la API para obtener los datos de colores
-    fetch(ApiCol)
+    fetch(ApiColores)
       .then((response) => response.json())
       .then((data) => {
         const filteredData = data.filter(

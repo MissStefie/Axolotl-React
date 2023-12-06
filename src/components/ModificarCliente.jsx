@@ -3,7 +3,7 @@ import { Container } from "@mui/material";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserPen } from "@fortawesome/free-solid-svg-icons";
-import ApiC from "../services/clientes";
+import { ApiClientes } from "../services/api";
 import "../css/modificarClientes.css";
 import swal from "sweetalert2";
 import NavModificarCliente from "./NavModificarCliente";
@@ -76,7 +76,7 @@ export default class ModificarCliente extends Component {
       return;
     }
 
-    fetch(ApiC + "?consultar=" + ruc)
+    fetch(ApiClientes + "?consultar=" + ruc)
       .then((response) => {
         if (!response.ok) {
           throw new Error("Network response was not ok");
@@ -130,7 +130,7 @@ export default class ModificarCliente extends Component {
       id: id,
     };
 
-    fetch(ApiC + "?actualizar=1", {
+    fetch(ApiClientes + "?actualizar=1", {
       method: "POST",
       body: JSON.stringify(datosEnviar),
     })
@@ -144,7 +144,7 @@ export default class ModificarCliente extends Component {
   };
 
   borrarCliente = (id) => {
-    fetch(ApiC + "?borrar=1", {
+    fetch(ApiClientes + "?borrar=1", {
       method: "POST",
       body: JSON.stringify(id),
     })

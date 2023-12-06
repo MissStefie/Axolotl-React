@@ -1,5 +1,5 @@
 import React from "react";
-import Api from "../services/api";
+import { Api } from "../services/api";
 import NavAgregarAlCarrito from "./NavAgregarAlCarrito";
 import { Dropdown, Form } from "react-bootstrap";
 import { Container } from "@mui/material";

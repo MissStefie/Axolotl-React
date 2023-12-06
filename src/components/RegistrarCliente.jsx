@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserPlus } from "@fortawesome/free-solid-svg-icons";
 import NavCrearCliente from "./NavCrearCliente";
-import ApiRC from "../services/registrarClientes";
+import { ApiRC } from "../services/api";
 import "../css/registrarClientes.css";
 import PropTypes from "prop-types";
 import { Redirect } from "react-router-dom";

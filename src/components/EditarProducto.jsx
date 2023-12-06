@@ -1,12 +1,14 @@
 import React from "react";
-import Api from "../services/api";
 import NavEditar from "./NavEditar";
-import ApiPS from "../services/prendasSuperior";
-import ApiIn from "../services/prendasInferiores";
-import ApiAcc from "../services/accesorios";
-import ApiCol from "../services/colores";
-import ApiTam from "../services/tamanos";
-import ApiTal from "../services/talles";
+import {
+  Api,
+  ApiPS,
+  ApiPI,
+  ApiAcc,
+  ApiColores,
+  ApiTam,
+  ApiTal,
+} from "../services/api";
 import { Link } from "react-router-dom";
 import { Container } from "@mui/material";
 import "../css/editarProducto.css";
@@ -158,7 +160,7 @@ export default class EditarProducto extends React.Component {
       });
 
     //asignando el id de pinferiorid al fecth de la tabla de prendas inferiores para traer la prenda
-    fetch(ApiIn)
+    fetch(ApiPI)
       .then((response) => response.json())
       .then((data) => {
         this.setState({
@@ -195,7 +197,7 @@ export default class EditarProducto extends React.Component {
       });
 
     //asignando el id de colorid al fecth de la tabla de colores para traer el color
-    fetch(ApiCol)
+    fetch(ApiColores)
       .then((response) => response.json())
       .then((data) => {
         this.setState({

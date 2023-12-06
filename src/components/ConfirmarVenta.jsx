@@ -4,8 +4,7 @@ import { Link } from "react-router-dom";
 import "../css/confirmarVenta.css";
 import swal from "sweetalert2";
 import NavConfirmarVenta from "./NavConfirmarVenta";
-import ApiPV from "../services/procesoVenta";
-import ApiC from "../services/clientes";
+import { ApiPV, ApiClientes } from "../services/api";
 import PropTypes from "prop-types";
 import { Redirect } from "react-router-dom";
 
@@ -34,7 +33,7 @@ export default class ConfirmarVenta extends React.Component {
   }
 
   cargarRucs = () => {
-    fetch(ApiC + "?consultarRucs=1")
+    fetch(ApiClientes + "?consultarRucs=1")
       .then((response) => response.json())
       .then((data) => {
         this.setState({ rucs: data });
