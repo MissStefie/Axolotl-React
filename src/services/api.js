@@ -1,23 +1,12 @@
-export const Api = "http://localhost/axolotl-react/src/backend/productos/";
-
-export const ApiAcc = "http://localhost/axolotl-react/src/backend/accesorios/";
-
-export const ApiClientes = "http://localhost/axolotl-react/src/backend/clientes/";
-
-export const ApiColores = "http://localhost/axolotl-react/src/backend/colores/";
-
-export const ApiLogin = "http://localhost/axolotl-react/src/backend/login/";
-
-export const ApiPI = "http://localhost/axolotl-react/src/backend/prendasInferiores/";
-
-export const ApiPS = "http://localhost/axolotl-react/src/backend/prendasSuperiores/";
-
-export const ApiPV = "http://localhost/axolotl-react/src/backend/procesoVenta/";
-
-export const ApiRC = "http://localhost/axolotl-react/src/backend/registrarClientes/";
-
-export const ApiTal = "http://localhost/axolotl-react/src/backend/talles/";
-
-export const ApiTam = "http://localhost/axolotl-react/src/backend/tamanos/";
-
-export const ApiV = "http://localhost/axolotl-react/src/backend/vendedores/";
+export const Api = process.env.REACT_APP_API;
+export const ApiAcc = process.env.REACT_APP_ACC;
+export const ApiClientes = process.env.REACT_APP_CLIENTES;
+export const ApiColores = process.env.REACT_APP_COLORES;
+export const ApiLogin = process.env.REACT_APP_LOGIN;
+export const ApiPI = process.env.REACT_APP_PI;
+export const ApiPS = process.env.REACT_APP_PS;
+export const ApiPV = process.env.REACT_APP_PV;
+export const ApiRC = process.env.REACT_APP_RC;
+export const ApiTal = process.env.REACT_APP_TAL;
+export const ApiTam = process.env.REACT_APP_TAM;
+export const ApiV = process.env.REACT_APP_V;
