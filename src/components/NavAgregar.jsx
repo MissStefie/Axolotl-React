@@ -3,7 +3,6 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import "../css/navAgregar.css";
 import GSLOGO from "../img/glowing_store_logo.jpg";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBoxOpen, faCircleXmark } from "@fortawesome/free-solid-svg-icons";
 
@@ -15,14 +14,14 @@ export default class NavAgregar extends Component {
           <ul className="nav nav-pills nav-bg-agregar">
             <div className="logo-container-agregar">
               <li>
-                <a className="menu-agregar" title="Regresa al menu">
+                <Link to="#" className="menu" title="Regresa al menú">
                   <img
                     src={GSLOGO}
                     alt="Glowing Store Logo"
-                    className="logo-image-agregar"
-                  ></img>
+                    className="logo-image"
+                  />
                   Glowing Store
-                </a>
+                </Link>
               </li>
             </div>
 
@@ -36,15 +35,13 @@ export default class NavAgregar extends Component {
             </div>
             <div className="salir-container-agregar">
               <li>
-                <a title="Tambien regresa al menu pero ya estaba en el diseño xdxd">
-                  <Link to={"/menu_principal"}>
-                    <FontAwesomeIcon
-                      icon={faCircleXmark}
-                      style={{ color: "#e5beec" }}
-                      className="iconoSalir-agregar"
-                    />
-                  </Link>
-                </a>
+                <Link to={"/menu_principal"} title="También regresa al menú">
+                  <FontAwesomeIcon
+                    icon={faCircleXmark}
+                    style={{ color: "#e5beec" }}
+                    className="iconoSalir-agregar"
+                  />
+                </Link>
               </li>
             </div>
           </ul>

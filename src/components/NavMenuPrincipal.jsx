@@ -35,7 +35,7 @@ export default class NavMenuPrincipal extends Component {
     const { mostrarDropdown } = this.state;
     const { user } = this.props;
 
-    console.log(user);
+    //console.log(user);
 
     if (!user) {
       return <Redirect to="/" />;

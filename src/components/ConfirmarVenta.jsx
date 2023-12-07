@@ -28,7 +28,7 @@ export default class ConfirmarVenta extends React.Component {
     const día = fechaActual.getDate();
     const fechaFormateada = `${año}-${mes}-${día}`;
     this.setState({ fechaActual: fechaFormateada });
-    console.log(fechaFormateada);
+    //console.log(fechaFormateada);
     this.cargarRucs();
   }
 
@@ -242,7 +242,7 @@ export default class ConfirmarVenta extends React.Component {
   };
 
   procesarVentaFactura = () => {
-    console.log("Dentro de funcion procesar venta...");
+    //console.log("Dentro de funcion procesar venta...");
     const { user } = this.props;
 
     const datosEnviar = {
@@ -253,7 +253,7 @@ export default class ConfirmarVenta extends React.Component {
       vendedorId: user.id,
     };
 
-    console.log("Datos a enviar:", datosEnviar);
+    //console.log("Datos a enviar:", datosEnviar);
 
     fetch(ApiPV + "?procesar=1", {
       method: "POST",
@@ -261,14 +261,14 @@ export default class ConfirmarVenta extends React.Component {
     })
       .then((respuesta) => respuesta.json())
       .then((datosRespuesta) => {
-        console.log("Respuesta de la API:", datosRespuesta);
+        //console.log("Respuesta de la API:", datosRespuesta);
         this.props.history.push("/menu_principal");
       })
       .catch(console.error);
   };
 
   procesarVentaRecibo = () => {
-    console.log("Dentro de funcion procesar venta...");
+    //console.log("Dentro de funcion procesar venta...");
     const { user } = this.props;
 
     const datosEnviar = {
@@ -279,7 +279,7 @@ export default class ConfirmarVenta extends React.Component {
       vendedorId: user.id,
     };
 
-    console.log("Datos a enviar:", datosEnviar);
+    //console.log("Datos a enviar:", datosEnviar);
 
     fetch(ApiPV + "?procesar=1", {
       method: "POST",
@@ -287,7 +287,7 @@ export default class ConfirmarVenta extends React.Component {
     })
       .then((respuesta) => respuesta.json())
       .then((datosRespuesta) => {
-        console.log("Respuesta de la API:", datosRespuesta);
+        //console.log("Respuesta de la API:", datosRespuesta);
         this.props.history.push("/menu_principal");
       })
       .catch(console.error);
@@ -295,7 +295,7 @@ export default class ConfirmarVenta extends React.Component {
 
   render() {
     const { user } = this.props;
-    console.log(user);
+    //console.log(user);
     if (!user) {
       return <Redirect to="/" />;
     }

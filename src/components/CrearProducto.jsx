@@ -318,7 +318,7 @@ export default class CrearProducto extends React.Component {
 
   enviarDatos = (e) => {
     e.preventDefault();
-    console.log(e);
+    //console.log(e);
     const {
       codigo,
       nombre,
@@ -422,7 +422,7 @@ export default class CrearProducto extends React.Component {
     })
       .then((respuesta) => respuesta.json())
       .then((datosRespuesta) => {
-        console.log(datosRespuesta);
+        //console.log(datosRespuesta);
 
         this.props.history.push("/menu_principal");
       })
@@ -431,7 +431,7 @@ export default class CrearProducto extends React.Component {
 
   render() {
     const { user } = this.props;
-    console.log(user);
+    //console.log(user);
     if (!user) {
       return <Redirect to="/" />;
     }

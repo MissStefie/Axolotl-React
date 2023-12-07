@@ -3,12 +3,8 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import "../css/navInformes.css";
 import GSLOGO from "../img/glowing_store_logo.jpg";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faCircleXmark,
-  faFile
-} from "@fortawesome/free-solid-svg-icons";
+import { faCircleXmark, faFile } from "@fortawesome/free-solid-svg-icons";
 
 export default class NavInformes extends Component {
   render() {
@@ -17,14 +13,14 @@ export default class NavInformes extends Component {
         <ul className="nav nav-pills nav_informes_bg">
           <div className="logo-container">
             <li>
-              <a className="menu" title="Regresa al menu">
+              <Link to="#" className="menu" title="Regresa al menu">
                 <img
                   src={GSLOGO}
                   alt="Glowing Store Logo"
                   className="logo-image"
-                ></img>
+                />
                 Glowing Store
-              </a>
+              </Link>
             </li>
           </div>
 

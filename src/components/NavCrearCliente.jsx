@@ -3,7 +3,6 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import "../css/navCrearCliente.css";
 import GSLOGO from "../img/glowing_store_logo.jpg";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserPlus, faCircleXmark } from "@fortawesome/free-solid-svg-icons";
 
@@ -32,7 +31,7 @@ export default class NavCrearCliente extends Component {
             </div>
             <div className="salir-container-crearCliente">
               <li>
-                <Link to="/consultar" title="También regresa al menú">
+                <Link to="/menu_principal" title="También regresa al menú">
                   <FontAwesomeIcon
                     icon={faCircleXmark}
                     style={{ color: "#e5beec" }}

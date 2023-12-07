@@ -31,7 +31,7 @@ export default class Login extends Component {
       password: password,
     };
 
-    console.log(datosEnviar);
+    //console.log(datosEnviar);
 
     fetch(ApiLogin + "?login=1", {
       method: "POST",
@@ -39,10 +39,10 @@ export default class Login extends Component {
     })
       .then((respuesta) => respuesta.json())
       .then((datosRespuesta) => {
-        console.log(datosRespuesta);
+        //console.log(datosRespuesta);
 
         if (datosRespuesta.success === 1) {
-          console.log(datosRespuesta.data);
+          //console.log(datosRespuesta.data);
           this.props.setLoggedInUser(datosRespuesta.data);
           this.props.history.push("/menu_principal");
         } else {
@@ -68,10 +68,10 @@ export default class Login extends Component {
     const contraEsValido = this.validarContrasena(this.state.password);
 
     if (usuarioEsValido && contraEsValido) {
-      console.log("Los datos cumplen con los requisitos...");
+      //console.log("Los datos cumplen con los requisitos...");
       this.enviarDatos(); // Llamada a la función enviarDatos
     } else {
-      console.log("Inicio de sesión fallido");
+      //console.log("Inicio de sesión fallido");
       // Aquí puedes mostrar un mensaje de errorSesion o realizar una acción correspondiente
     }
   };

@@ -16,7 +16,7 @@ import { Redirect } from "react-router-dom";
 export default class MenuPrincipal extends Component {
   render() {
     const { user } = this.props;
-    console.log(user);
+    //console.log(user);
     if (!user) {
       return <Redirect to="/" />;
     }

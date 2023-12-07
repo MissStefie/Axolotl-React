@@ -3,12 +3,8 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import "../css/navAgregarAlCarrito.css";
 import GSLOGO from "../img/glowing_store_logo.jpg";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faCircleXmark,
-  faCartPlus,
-} from "@fortawesome/free-solid-svg-icons";
+import { faCircleXmark, faCartPlus } from "@fortawesome/free-solid-svg-icons";
 
 export default class NavAgregarAlCarrito extends Component {
   render() {
@@ -17,14 +13,14 @@ export default class NavAgregarAlCarrito extends Component {
         <ul className="nav nav-pills nav_agregarCarrito_bg">
           <div className="logo-container">
             <li>
-              <a className="menu" title="Regresa al menu">
+              <Link to="#" className="menu" title="Regresa al menú">
                 <img
                   src={GSLOGO}
                   alt="Glowing Store Logo"
                   className="logo-image"
-                ></img>
+                />
                 Glowing Store
-              </a>
+              </Link>
             </li>
           </div>
 
@@ -40,7 +36,7 @@ export default class NavAgregarAlCarrito extends Component {
             <li>
               <Link
                 to={"/menu_principal"}
-                title="Por el momento lleva de vuelta al inicio de sesion..."
+                title="Por el momento lleva de vuelta al inicio de sesión..."
               >
                 <FontAwesomeIcon
                   icon={faCircleXmark}

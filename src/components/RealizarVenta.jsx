@@ -37,7 +37,7 @@ export default class RealizarVenta extends React.Component {
     fetch(Api + "?borrar=" + id)
       .then((respuesta) => respuesta.json())
       .then((datosRespuesta) => {
-        console.log(datosRespuesta);
+        //console.log(datosRespuesta);
         this.cargarDatos();
       })
       .catch(console.log);
@@ -54,7 +54,7 @@ export default class RealizarVenta extends React.Component {
           maxValores[producto.id] = valorMaximo;
         });
 
-        console.log(datosRespuesta);
+        //console.log(datosRespuesta);
         this.setState({
           datosCargados: true,
           productos: datosRespuesta,
@@ -249,7 +249,7 @@ export default class RealizarVenta extends React.Component {
 
   render() {
     const { user } = this.props;
-    console.log(user);
+    //console.log(user);
     if (!user) {
       return <Redirect to="/" />;
     }
@@ -284,7 +284,7 @@ export default class RealizarVenta extends React.Component {
       );
     }
 
-    console.log("filasSeleccionadas:", this.state.filasSeleccionadas);
+    //console.log("filasSeleccionadas:", this.state.filasSeleccionadas);
 
     const productosFiltrados = productos.filter((producto) => {
       const codigo = producto.codigo.toLowerCase();

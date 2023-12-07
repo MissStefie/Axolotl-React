@@ -47,7 +47,7 @@ export default class Informes extends Component {
     fetch(ApiPV)
       .then((respuesta) => respuesta.json())
       .then((datosRespuesta) => {
-        console.log(datosRespuesta);
+        //console.log(datosRespuesta);
         this.setState({ datosCargados: true, ventas: datosRespuesta });
       })
       .catch(console.log);
@@ -57,7 +57,7 @@ export default class Informes extends Component {
     fetch(Api)
       .then((respuesta) => respuesta.json())
       .then((datosRespuesta) => {
-        console.log(datosRespuesta);
+        //console.log(datosRespuesta);
         const productosMap = {};
 
         datosRespuesta.forEach((producto) => {
@@ -77,7 +77,7 @@ export default class Informes extends Component {
     fetch(ApiClientes)
       .then((respuesta) => respuesta.json())
       .then((datosRespuesta) => {
-        console.log(datosRespuesta);
+        //console.log(datosRespuesta);
         const clienteNombreMap = {};
         const clienteApellidoMap = {};
         const clienteRucMap = {};
@@ -106,7 +106,7 @@ export default class Informes extends Component {
     fetch(ApiV)
       .then((respuesta) => respuesta.json())
       .then((datosRespuesta) => {
-        console.log(datosRespuesta);
+        //console.log(datosRespuesta);
         const vendedorNombreMap = {};
         const vendedorApellidoMap = {};
 
@@ -165,7 +165,7 @@ export default class Informes extends Component {
 
   handleImprimirRegistros = (registro) => {
     if (!registro) {
-      console.error("Registro no válido");
+      //console.error("Registro no válido");
       return;
     }
 

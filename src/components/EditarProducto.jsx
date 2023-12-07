@@ -105,7 +105,7 @@ export default class EditarProducto extends React.Component {
       descuento: descuento,
     };
 
-    console.log(datosEnviar);
+    //console.log(datosEnviar);
 
     fetch(Api + "?actualizar=1", {
       method: "POST",
@@ -113,7 +113,7 @@ export default class EditarProducto extends React.Component {
     })
       .then((respuesta) => respuesta.json())
       .then((datosRespuesta) => {
-        console.log(datosRespuesta);
+        //console.log(datosRespuesta);
 
         this.props.history.push("/consultar");
       })
@@ -125,7 +125,7 @@ export default class EditarProducto extends React.Component {
     fetch(Api + "?consultar=" + this.props.match.params.id)
       .then((respuesta) => respuesta.json())
       .then((datosRespuesta) => {
-        console.log(datosRespuesta);
+        //console.log(datosRespuesta);
         this.setState({
           datosCargados: true,
           producto: datosRespuesta[0],
@@ -251,7 +251,7 @@ export default class EditarProducto extends React.Component {
 
   render() {
     const { user } = this.props;
-    console.log(user);
+    //console.log(user);
     if (!user) {
       return <Redirect to="/" />;
     }

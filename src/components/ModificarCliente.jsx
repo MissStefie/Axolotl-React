@@ -28,18 +28,14 @@ export default class ModificarCliente extends Component {
   handleChange = (event) => {
     const { name, value } = event.target;
 
-    // Aplicar restricciones solo al campo RUC
     let updatedValue = value;
     if (name === "ruc") {
-      // Filtrar solo los dígitos numéricos y limitar a 8 caracteres (7 dígitos + 1 número)
       updatedValue = value.replace(/\D/g, "").substring(0, 8);
 
-      // Separar en dos partes: los primeros 7 dígitos y el último número
       if (updatedValue.length > 7) {
         const firstPart = updatedValue.slice(0, 7);
         const lastDigit = updatedValue.slice(7);
 
-        // Formar la cadena con el guión
         updatedValue = firstPart + "-" + lastDigit;
       }
     }
@@ -49,8 +45,7 @@ export default class ModificarCliente extends Component {
         [name]: updatedValue,
       },
       () => {
-        // Imprimir el valor actualizado en la consola
-        console.log(`Valor de ${name}: ${updatedValue}`);
+        //console.log(`Valor de ${name}: ${updatedValue}`);
       }
     );
   };
@@ -63,7 +58,7 @@ export default class ModificarCliente extends Component {
 
   buscarCliente = () => {
     const { ruc } = this.state;
-    console.log(ruc);
+    //console.log(ruc);
 
     if (ruc.trim() === "") {
       this.setState({
@@ -109,7 +104,7 @@ export default class ModificarCliente extends Component {
 
   enviarDatosCliente = (e) => {
     e.preventDefault();
-    console.log(e);
+    //console.log(e);
     const { nombre, apellido, ruc, direccion, id } = this.state;
 
     var errores = [];
@@ -136,7 +131,7 @@ export default class ModificarCliente extends Component {
     })
       .then((respuesta) => respuesta.json())
       .then((datosRespuesta) => {
-        console.log(datosRespuesta);
+        //console.log(datosRespuesta);
 
         this.props.history.push("/menu_principal");
       })
@@ -150,8 +145,8 @@ export default class ModificarCliente extends Component {
     })
       .then((respuesta) => respuesta.json())
       .then((datosRespuesta) => {
-        console.log(datosRespuesta);
-        console.log("Datos enviados.......");
+        //console.log(datosRespuesta);
+        //console.log("Datos enviados.......");
         this.props.history.push("/menu_principal");
       })
       .catch(console.log);
@@ -197,7 +192,7 @@ export default class ModificarCliente extends Component {
 
   render() {
     const { user } = this.props;
-    console.log(user);
+    //console.log(user);
     if (!user) {
       return <Redirect to="/" />;
     }

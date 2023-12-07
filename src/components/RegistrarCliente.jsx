@@ -31,7 +31,7 @@ export default class RegistrarCliente extends Component {
 
   enviarDatosCliente = (e) => {
     e.preventDefault();
-    console.log("Dentro de funcion enviardatos...");
+    //console.log("Dentro de funcion enviardatos...");
     const { nombre, apellido, ruc, direccion } = this.state;
     const { filasSeleccionadas } =
       this.props.location.state || this.filasSeleccionadas;
@@ -54,8 +54,8 @@ export default class RegistrarCliente extends Component {
       rucExiste: 0,
     };
 
-    console.log(datosEnviar);
-    console.log(filasSeleccionadas);
+    //console.log(datosEnviar);
+    //console.log(filasSeleccionadas);
 
     fetch(ApiRC + "?insertar=1", {
       method: "POST",
@@ -63,7 +63,7 @@ export default class RegistrarCliente extends Component {
     })
       .then((respuesta) => respuesta.json())
       .then((datosRespuesta) => {
-        console.log(datosRespuesta.data);
+        //console.log(datosRespuesta.data);
         if (datosRespuesta.data.rucExiste === 0) {
           if (filasSeleccionadas) {
             this.props.history.push({
@@ -75,7 +75,7 @@ export default class RegistrarCliente extends Component {
           }
           //this.props.history.push("/menu_principal");
         } else {
-          console.log("El RUC ya existe en la base de datos");
+          //console.log("El RUC ya existe en la base de datos");
           errores.push("ruc_existe");
           this.setState({ errores: errores, rucExiste: 1 });
         }
@@ -109,7 +109,7 @@ export default class RegistrarCliente extends Component {
 
   render() {
     const { user } = this.props;
-    console.log(user);
+    //console.log(user);
     if (!user) {
       return <Redirect to="/" />;
     }

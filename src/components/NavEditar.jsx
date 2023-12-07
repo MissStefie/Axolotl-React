@@ -16,14 +16,14 @@ export default class NavEditar extends Component {
         <ul className="nav nav-pills nav_editar_bg">
           <div className="logo-container">
             <li>
-              <a className="menu" title="Regresa al menu">
+              <Link to="#" className="menu" title="Regresa al menú">
                 <img
                   src={GSLOGO}
                   alt="Glowing Store Logo"
                   className="logo-image"
-                ></img>
+                />
                 Glowing Store
-              </a>
+              </Link>
             </li>
           </div>
 
@@ -37,15 +37,13 @@ export default class NavEditar extends Component {
           </div>
           <div className="salir-container">
             <li>
-              <a title="Tambien regresa al menu pero ya estaba en el diseño xdxd">
-                <Link to={"/consultar"}>
-                  <FontAwesomeIcon
-                    icon={faCircleXmark}
-                    style={{ color: "#e5beec" }}
-                    className="iconoSalir"
-                  />
-                </Link>
-              </a>
+              <Link to={"/consultar"} title="También regresa al menú">
+                <FontAwesomeIcon
+                  icon={faCircleXmark}
+                  style={{ color: "#e5beec" }}
+                  className="iconoSalir"
+                />
+              </Link>
             </li>
           </div>
         </ul>
