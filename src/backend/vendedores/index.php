@@ -5,11 +5,10 @@ header("Access-Control-Allow-Methods: GET,POST");
 header("Content-Type: application/json; charset=UTF-8");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
-// Conecta a la base de datos  con usuario, contraseña y nombre de la BD
-$servidor = "localhost";
-$usuario = "root";
-$contrasenia = "";
-$nombreBaseDatos = "axolotl";
+$servidor = getenv("DB_SERVER") ?: "localhost";
+$usuario = getenv("DB_USER") ?: "root";
+$contrasenia = getenv("DB_PASSWORD") ?: "";
+$nombreBaseDatos = getenv("DB_NAME") ?: "axolotl";
 $conexionBD = new mysqli($servidor, $usuario, $contrasenia, $nombreBaseDatos);
 
 // Consulta todos los registros de la tabla vendedor
