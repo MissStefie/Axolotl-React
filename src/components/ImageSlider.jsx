@@ -33,7 +33,7 @@ const ImageSlider = () => {
         <div key={index} style={{ width: "500px", height: "300px" }}>
           <img
             src={image}
-            alt={`Image ${index}`}
+            alt={`Slide ${index + 1}`}
             style={{ width: "100%", height: "100%", objectFit: "cover" }}
           />
         </div>
