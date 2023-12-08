@@ -5,10 +5,10 @@ header("Access-Control-Allow-Methods: GET,POST");
 header("Content-Type: application/json; charset=UTF-8");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
-$servidor = getenv("DB_SERVER") ?: "localhost";
-$usuario = getenv("DB_USER") ?: "root";
-$contrasenia = getenv("DB_PASSWORD") ?: "";
-$nombreBaseDatos = getenv("DB_NAME") ?: "axolotl";
+$servidor = 'b8efrmaprfgkjynzewxy-mysql.services.clever-cloud.com';
+$usuario = 'u3mcdxgytei10bbd';
+$contrasenia = 'HAjm5zFyIsaHSFzD1alf';
+$nombreBaseDatos = 'b8efrmaprfgkjynzewxy';
 $conexionBD = new mysqli($servidor, $usuario, $contrasenia, $nombreBaseDatos);
 
 if (isset($_GET["consultar"])) {
