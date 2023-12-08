@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import "../css/confirmarVenta.css";
 import swal from "sweetalert2";
 import NavConfirmarVenta from "./NavConfirmarVenta";
-import { ApiPV, ApiClientes } from "../services/api";
+import { ApiPV, ApiClientes } from "../api";
 import PropTypes from "prop-types";
 import { Redirect } from "react-router-dom";
 

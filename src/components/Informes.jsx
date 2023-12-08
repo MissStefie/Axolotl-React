@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import { Redirect } from "react-router-dom";
 import "../css/informes.css";
 import NavInformes from "./NavInformes";
-import { Api, ApiPV, ApiClientes, ApiV } from "../services/api";
+import { Api, ApiPV, ApiClientes, ApiV } from "../api";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

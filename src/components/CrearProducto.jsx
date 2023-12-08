@@ -16,7 +16,7 @@ import {
   ApiColores,
   ApiTam,
   ApiTal,
-} from "../services/api";
+} from "../api";
 
 export default class CrearProducto extends React.Component {
   constructor(props) {

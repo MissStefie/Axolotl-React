@@ -3,7 +3,7 @@ import { Container } from "@mui/material";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserPen } from "@fortawesome/free-solid-svg-icons";
-import { ApiClientes } from "../services/api";
+import { ApiClientes } from "../api";
 import "../css/modificarClientes.css";
 import swal from "sweetalert2";
 import NavModificarCliente from "./NavModificarCliente";

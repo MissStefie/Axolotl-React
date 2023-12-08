@@ -8,7 +8,7 @@ import {
   ApiColores,
   ApiTam,
   ApiTal,
-} from "../services/api";
+} from "../api";
 import { Link } from "react-router-dom";
 import { Container } from "@mui/material";
 import "../css/editarProducto.css";
