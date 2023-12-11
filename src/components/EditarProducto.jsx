@@ -1,14 +1,6 @@
 import React from "react";
 import NavEditar from "./NavEditar";
-import {
-  Api,
-  ApiPS,
-  ApiPI,
-  ApiAcc,
-  ApiColores,
-  ApiTam,
-  ApiTal,
-} from "../api";
+import { Api, ApiPS, ApiPI, ApiAcc, ApiColores, ApiTam, ApiTal } from "../api";
 import { Link } from "react-router-dom";
 import { Container } from "@mui/material";
 import "../css/editarProducto.css";
@@ -24,27 +16,36 @@ export default class EditarProducto extends React.Component {
 
       idpsuperior: "",
       valorSeleccionadoPsuperior: "",
+      descripcionSeleccionadoPsuperior: "",
       datosPsuperior: [],
 
       idpinferior: "",
       valorSeleccionadoPinferior: "",
+      descripcionSeleccionadoPinferior: "",
       datosPinferior: [],
 
       idaccesorio: "",
       valorSeleccionadoAccesorio: "",
+      descripcionSeleccionadoAccesorio: "",
       datosAccesorio: [],
 
       idcolor: "",
       valorSeleccionadoColor: "",
+      descripcionSeleccionadoColor: "",
       datosColor: [],
 
       idtamano: "",
       valorSeleccionadoTamano: "",
+      descripcionSeleccionadoTamano: "",
       datosTamano: [],
 
       idtalle: "",
       valorSeleccionadoTalle: "",
+      descripcionSeleccionadoTalle: "",
       datosTalle: [],
+
+      tipoProducto: "",
+      tipoDimension: "",
 
       errores: [],
     };
@@ -121,11 +122,9 @@ export default class EditarProducto extends React.Component {
   };
 
   componentDidMount() {
-    //agarrando los datos con el fetch usando el id del navegador y asignando los id de las otras tablas a las variables
     fetch(Api + "?consultar=" + this.props.match.params.id)
       .then((respuesta) => respuesta.json())
       .then((datosRespuesta) => {
-        //console.log(datosRespuesta);
         this.setState({
           datosCargados: true,
           producto: datosRespuesta[0],
@@ -138,9 +137,7 @@ export default class EditarProducto extends React.Component {
         });
       })
       .catch(console.log());
-    //console.log(this.state);
 
-    //asignando el id de psuperiorid al fecth de la tabla de prendas superiores para traer la prenda
     fetch(ApiPS)
       .then((response) => response.json())
       .then((data) => {
@@ -153,13 +150,19 @@ export default class EditarProducto extends React.Component {
                     prendasuperior.id === this.state.idpsuperior
                 )?.id
               : "",
+          descripcionSeleccionadoPsuperior:
+            data.length > 0
+              ? data.find(
+                  (prendasuperior) =>
+                    prendasuperior.id === this.state.idpsuperior
+                )?.descripcion
+              : "",
         });
       })
       .catch((error) => {
         console.error("Error al obtener prenda superior de la API:", error);
       });
 
-    //asignando el id de pinferiorid al fecth de la tabla de prendas inferiores para traer la prenda
     fetch(ApiPI)
       .then((response) => response.json())
       .then((data) => {
@@ -172,13 +175,19 @@ export default class EditarProducto extends React.Component {
                     prendainferior.id === this.state.idpinferior
                 )?.id
               : "",
+          descripcionSeleccionadoPinferior:
+            data.length > 0
+              ? data.find(
+                  (prendainferior) =>
+                    prendainferior.id === this.state.idpinferior
+                )?.descripcion
+              : "",
         });
       })
       .catch((error) => {
         console.error("Error al obtener prenda inferior de la API:", error);
       });
 
-    //asignando el id de accesorioid al fecth de la tabla de accesorio para traer el accesorio
     fetch(ApiAcc)
       .then((response) => response.json())
       .then((data) => {
@@ -190,13 +199,18 @@ export default class EditarProducto extends React.Component {
                   (accesorio) => accesorio.id === this.state.idaccesorio
                 )?.id
               : "",
+          descripcionSeleccionadoAccesorio:
+            data.length > 0
+              ? data.find(
+                  (accesorio) => accesorio.id === this.state.idaccesorio
+                )?.descripcion
+              : "",
         });
       })
       .catch((error) => {
         console.error("Error al obtener accesorio de la API:", error);
       });
 
-    //asignando el id de colorid al fecth de la tabla de colores para traer el color
     fetch(ApiColores)
       .then((response) => response.json())
       .then((data) => {
@@ -206,13 +220,17 @@ export default class EditarProducto extends React.Component {
             data.length > 0
               ? data.find((color) => color.id === this.state.idcolor)?.id
               : "",
+          descripcionSeleccionadoColor:
+            data.length > 0
+              ? data.find((color) => color.id === this.state.idcolor)
+                  ?.descripcion
+              : "",
         });
       })
       .catch((error) => {
         console.error("Error al obtener color de la API:", error);
       });
 
-    //asignando el id de colorid al fecth de la tabla de colores para traer el color
     fetch(ApiTam)
       .then((response) => response.json())
       .then((data) => {
@@ -222,13 +240,17 @@ export default class EditarProducto extends React.Component {
             data.length > 0
               ? data.find((tamano) => tamano.id === this.state.idtamano)?.id
               : "",
+          descripcionSeleccionadoTamano:
+            data.length > 0
+              ? data.find((tamano) => tamano.id === this.state.idtamano)
+                  ?.descripcion
+              : "",
         });
       })
       .catch((error) => {
         console.error("Error al obtener tamano de la API:", error);
       });
 
-    //asignando el id de talleid al fecth de la tabla de talles para traer el talle
     fetch(ApiTal)
       .then((response) => response.json())
       .then((data) => {
@@ -237,6 +259,11 @@ export default class EditarProducto extends React.Component {
           valorSeleccionadoTalle:
             data.length > 0
               ? data.find((talle) => talle.id === this.state.idtalle)?.id
+              : "",
+          descripcionSeleccionadoTalle:
+            data.length > 0
+              ? data.find((talle) => talle.id === this.state.idtalle)
+                  ?.descripcion
               : "",
         });
       })
@@ -258,19 +285,27 @@ export default class EditarProducto extends React.Component {
     const {
       datosCargados,
       producto,
-      datosPsuperior,
-      valorSeleccionadoPsuperior,
-      valorSeleccionadoPinferior,
-      datosPinferior,
-      valorSeleccionadoAccesorio,
-      datosAccesorio,
-      valorSeleccionadoColor,
-      datosColor,
-      valorSeleccionadoTamano,
-      datosTamano,
-      valorSeleccionadoTalle,
-      datosTalle,
+      //valorSeleccionadoPsuperior,
+      descripcionSeleccionadoPsuperior,
+      //datosPsuperior,
+      //valorSeleccionadoPinferior,
+      descripcionSeleccionadoPinferior,
+      //datosPinferior,
+      //valorSeleccionadoAccesorio,
+      descripcionSeleccionadoAccesorio,
+      //datosAccesorio,
+      //valorSeleccionadoColor,
+      descripcionSeleccionadoColor,
+      //datosColor,
+      //valorSeleccionadoTamano,
+      descripcionSeleccionadoTamano,
+      //datosTamano,
+      //valorSeleccionadoTalle,
+      descripcionSeleccionadoTalle,
+      //datosTalle,
     } = this.state;
+
+    //console.log(this.state);
 
     if (!datosCargados) {
       return <div>Cargando...</div>;
@@ -281,7 +316,7 @@ export default class EditarProducto extends React.Component {
           <div className="card-editarProducto">
             <div className="card-body-editarProducto">
               <form action="" onSubmit={this.enviarDatos}>
-                <div className="contenedorSelects-editarProducto">
+                {/*<div className="contenedorSelects-editarProducto">
                   <div className="editarProductotipos">
                     <div className="elemento-card">
                       <select
@@ -345,6 +380,19 @@ export default class EditarProducto extends React.Component {
                         ))}
                       </select>
                     </div>
+
+                    <label>
+                      Producto:{" "}
+                      {descripcionSeleccionadoPsuperior !== "NULL"
+                        ? `${descripcionSeleccionadoPsuperior} `
+                        : ""}
+                      {descripcionSeleccionadoPinferior !== "NULL"
+                        ? `${descripcionSeleccionadoPinferior} `
+                        : ""}
+                      {descripcionSeleccionadoAccesorio !== "NULL"
+                        ? descripcionSeleccionadoAccesorio
+                        : ""}
+                    </label>
                   </div>
                   <div className="editarProductoColor">
                     <div className="elemento-card">
@@ -356,6 +404,8 @@ export default class EditarProducto extends React.Component {
                         ))}
                       </select>
                     </div>
+
+                    <label>Color: {descripcionSeleccionadoColor}</label>
                   </div>
                   <div className="editarProductoTamTalle">
                     <div className="elemento-card">
@@ -391,8 +441,18 @@ export default class EditarProducto extends React.Component {
                         ))}
                       </select>
                     </div>
+
+                    <label>
+                      Tamaño/Talle:{" "}
+                      {descripcionSeleccionadoTamano !== "NULL"
+                        ? `${descripcionSeleccionadoTamano} `
+                        : ""}
+                      {descripcionSeleccionadoTalle !== "NULL"
+                        ? descripcionSeleccionadoTalle
+                        : ""}
+                    </label>
                   </div>
-                </div>
+                </div>*/}
 
                 <div className="contenedorInputs">
                   <div className="form-group elemento-card">
